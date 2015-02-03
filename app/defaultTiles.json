@@ -1,0 +1,436 @@
+[
+      [
+        [
+            {
+                "name": "Welcome Tile",
+                "description": "Helps you save time during your first steps",
+                "iswidget": true,
+                "extensionid": "welcomehey",
+                "fullscreen": "chrome-extension://lkgdlmlmcijgnglfcophfjhafiafhkae/system//instagram/html/instaWidget.html#/home",
+                "src": "chrome-extension://lkgdlmlmcijgnglfcophfjhafiafhkae/system/instagram/html/instaWidget.html",
+                "multiple": true,
+                "min_width": 2,
+                "min_height": 2,
+                "color": "#00899e"
+            }
+        ],
+        [
+            {
+                "name": "topSites",
+                "description": "access fast and easy your topSites",
+                "iswidget": true,
+                "extensionid": "topsites",
+                "fullscreen": "chrome-extension://lkgdlmlmcijgnglfcophfjhafiafhkae/system//topsites/html/fullscreen.html",
+                "src": "chrome-extension://lkgdlmlmcijgnglfcophfjhafiafhkae/system//topsites/html/widget.html",
+                "multiple": true,
+                "min_width": 1,
+                "min_height": 1,
+                "w": 2,
+                "h": 2,
+                "color": "#00899e"
+            }
+        ],
+        [
+            {
+                "w": 1,
+                "h": 1,
+                "link": "http://maps.google.com",
+                "icon": "googleplaces",
+                "label": "Maps",
+                "color": "#00899e"
+            }
+        ],
+        [
+            {
+                "name": "youtube search",
+                "description": "Search facebook directly from the tile",
+                "iswidget": true,
+                "issearch": true,
+                "config": {
+                    "tld": ["com"],
+                    "domain": "www.youtube",
+                    "url": "/results?search_query={{search}}",
+                    "defaultld": ["com"],
+                    "color": "orange",
+                    "label": "youtube",
+                    "icon": "youtube",
+                    "useredit": ["color"],
+                    "link": "http://www.youtube.com?tag="
+                },
+                "extensionid": "youtubesearch",
+                "src": false,
+                "multiple": false,
+                "min_width": 1,
+                "min_height": 1,
+                "w": 1,
+                "h": 1,
+                "color": "orange"
+            }
+        ],
+        [
+            {
+                "w": 1,
+                "h": 1,
+                "color": "#b81c46",
+                "icon": "mail",
+                "link": "http://mail.google.com",
+                "label": "G-Mail"
+            }
+        ],
+        [
+            {
+                "name": "ebay search",
+                "description": "Search ebay directly from the tile",
+                "iswidget": true,
+                "issearch": true,
+                "config": {
+                    "tld": ["com", "de", "ch"],
+                    "tag": {
+                        "com": "istarte-20",
+                        "de": "istart-21"
+                    },
+                    "partnerid": {
+                        "com": {
+                            "url": "/rover/1/711-53200-19255-0/1",
+                            "icep_vectorid": "229466"
+                        },
+                        "de": {
+                            "url": "/rover/1/5222-53480-19255-0/1",
+                            "icep_vectorid": "229536"
+                        },
+                        "ch": {
+                            "url": "/rover/1/707-53477-19255-0/1",
+                            "icep_vectorid": "229487"
+                        }
+                    },
+                    "domain": "rover.ebay.com/rover/1/711-53200-19255-0/1?icep_ff3=1&pub=5575038039&toolid=10001&campid=5337372289&customid=&ipn=psmain&icep_vectorid=229466&kwid=902099&mtid=824&kw=lg",
+                    "domainSearch": "rover.ebay.com",
+                    "url": "/s/?field-keywords={{search}}&tag={{tag}}",
+                    "icon": "ebay",
+                    "label": "ebay",
+                    "color": "rgb(218, 83, 44)",
+                    "useredit": ["tld", "color", "cat"],
+                    "defaultld": ["com"],
+                    "buildLink": [null],
+                    "link": "http://rover.ebay.com/rover/1/711-53200-19255-0/1?icep_ff3=1&pub=5575038039&toolid=10001&campid=5337372289&customid=&ipn=psmain&icep_vectorid=229466&kwid=902099&mtid=824&kw=lg.com?tag=istarte-20"
+                },
+                "extensionid": "ebaysearch",
+                "src": false,
+                "multiple": false,
+                "min_width": 1,
+                "min_height": 1,
+                "w": 2,
+                "h": 1,
+                "color": "rgb(218, 83, 44)"
+            }
+        ],
+        [
+            {
+                "name": "Amazon search",
+                "description": "Search Amazon directly from the tile",
+                "iswidget": true,
+                "issearch": true,
+                "config": {
+                    "tld": ["com", "de", "fr", "co.uk", "it", "cn", "ca", "es"],
+                    "tag": {
+                        "com": "istarte-20",
+                        "de": "istart-21",
+                        "co.uk": "istarte-21",
+                        "it": "istarta-21",
+                        "fr": "istartb-21",
+                        "es": "istartes-21"
+                    },
+                    "domain": "www.amazon",
+                    "url": "/s/?field-keywords={{search}}&tag={{tag}}",
+                    "icon": "amazon",
+                    "label": "amazon",
+                    "color": "#008641",
+                    "useredit": ["tld", "color"],
+                    "defaultld": "de",
+                    "link": "http://www.amazon.de?tag=istart-21"
+                },
+                "extensionid": "amazonsearch",
+                "src": false,
+                "multiple": false,
+                "min_width": 1,
+                "min_height": 1,
+                "w": 2,
+                "h": 2,
+                "color": "#008641"
+            }
+        ],
+        [
+            {
+                "w": 2,
+                "h": 1,
+                "color": "#ba1d48",
+                "link": "http://www.deviantart.com/",
+                "label": "deviantArt"
+            }
+        ],
+        [
+            {
+                "w": 1,
+                "h": 1,
+                "color": "#95009d",
+                "icon": "wikipedia",
+                "link": "http://Wikipedia.com",
+                "label": "Wikipedia"
+            }
+        ],
+        [
+            {
+                "w": 2,
+                "h": 1,
+                "color": "#662D91",
+                "icon": "imagegoogledocs",
+                "link": "https://plus.google.com/u/0/photos",
+                "label": "G-Photos"
+            }
+        ],
+        [
+            {
+                "name": "Google search",
+                "description": "Search on Google :)",
+                "iswidget": true,
+                "issearch": true,
+                "config": {
+                    "tld": ["com", "de", "it", "co.uk", "fr"],
+                    "domain": "www.google",
+                    "url": "/search?q={{search}}",
+                    "defaultld": ["com"],
+                    "color": "#95009d",
+                    "label": "Google",
+                    "icon": "google",
+                    "useredit": ["color"],
+                    "link": "http://www.google.com?tag="
+                },
+                "extensionid": "googlesearch",
+                "src": false,
+                "multiple": false,
+                "min_width": 1,
+                "min_height": 1,
+                "w": 2,
+                "h": 1,
+                "color": "#95009d"
+            }
+        ],
+        [
+            {
+                "w": 2,
+                "h": 1,
+                "color": "#008641",
+                "icon": "googleplay",
+                "link": "https://play.google.com/store",
+                "label": "G-Play"
+            }
+        ],
+        [
+            {
+                "w": 2,
+                "h": 1,
+                "color": "#0072BC",
+                "icon": "googlecalendar",
+                "link": "https://www.google.com/calendar",
+                "label": "calendar"
+            }
+        ],
+        [
+            {
+                "w": 2,
+                "h": 1,
+                "color": "#662D91",
+                "icon": "chromewebstore",
+                "link": "https://chrome.google.com/webstore",
+                "label": "chrome webstore"
+            }
+        ],
+        [
+            {
+                "name": "facebook search",
+                "description": "Search facebook directly from the tile",
+                "iswidget": true,
+                "issearch": true,
+                "config": {
+                    "tld": ["com"],
+                    "domain": "facebook",
+                    "url": "/search/results.php?q={{search}}",
+                    "defaultld": ["com"],
+                    "color": "rgb(64, 67, 204)",
+                    "label": "facebook",
+                    "useredit": ["color"],
+                    "link": "http://facebook.com?tag="
+                },
+                "extensionid": "facebooksearch",
+                "src": false,
+                "multiple": false,
+                "min_width": 1,
+                "min_height": 1,
+                "w": 2,
+                "h": 1,
+                "color": "rgb(64, 67, 204)"
+            }
+        ],
+        [
+            {
+                "name": "Pinterest search",
+                "description": "Search pins on Pinterest",
+                "iswidget": true,
+                "issearch": true,
+                "config": {
+                    "tld": ["com"],
+                    "domain": "www.pinterest",
+                    "url": "/search/pins/?q={{search}}",
+                    "defaultld": ["com"],
+                    "color": "#cb2027",
+                    "label": "Pinterest",
+                    "icon": "pinterest",
+                    "useredit": ["color"],
+                    "link": "http://www.pinterest.com?tag="
+                },
+                "extensionid": "pinterestsearch",
+                "src": false,
+                "multiple": false,
+                "min_width": 1,
+                "min_height": 1,
+                "w": 2,
+                "h": 1,
+                "color": "#cb2027"
+            }
+        ]
+    ]
+    ,
+    [
+        [
+            {
+                "w": 2,
+                "h": 2,
+                "color": "#00a100",
+                "icon": "googleplus",
+                "link": "http://plus.google.com",
+                "label": "G+"
+            }
+        ],
+        [
+            {
+                "w": 2,
+                "h": 1,
+                "color": "#1C1C1C",
+                "icon": "googledrive",
+                "link": "https://drive.google.com/",
+                "label": "Gdrive"
+            }
+        ],
+        [
+            {
+                "w": 2,
+                "h": 1,
+                "color": "#1C1C1C",
+                "icon": "chartgoogledocs",
+                "link": "http://translate.google.de/",
+                "label": "G-translate"
+            }
+        ],
+        [
+            {
+                "w": 2,
+                "h": 1,
+                "color": "#da532c",
+                "link": "http://myspace.com",
+                "label": "myspace"
+            }
+        ],
+        [
+            {
+                "w": 2,
+                "h": 1,
+                "color": "#da532c",
+                "link": "http://tumblr.com",
+                "label": "tumblr"
+            }
+        ],
+        [
+            {
+                "w": 2,
+                "h": 1,
+                "color": "#d64e2a",
+                "link": "http://www.bbc.com/",
+                "label": "BBC"
+            }
+        ],
+        [
+            {
+                "w": 2,
+                "h": 1,
+                "link": "http://www.underarmour.com",
+                "label": "underarmour"
+            }
+        ],
+        [
+            {
+                "w": 2,
+                "h": 1,
+                "color": "#009900",
+                "link": "http://www.urbanoutfitters.com",
+                "label": "urbanoutfitters"
+            }
+        ],
+        [
+            {
+                "w": 4,
+                "h": 2,
+                "color": "#481bc4",
+                "icon": "ebay",
+                "link": "http://ebay.com",
+                "label": "ebay"
+            }
+        ],
+        [
+            {
+                "w": 2,
+                "h": 1,
+                "color": "#9900a1",
+                "link": "http://www.stumbleupon.com/",
+                "label": "stumbleupon"
+            }
+        ]
+    ],
+    [
+        [
+            {
+                "w": 2,
+                "h": 1,
+                "color": "orange",
+                "link": "http://reddit.com",
+                "label": "reddit"
+            }
+        ],
+        [
+            {
+                "w": 2,
+                "h": 1,
+                "color": "#b31b42",
+                "link": "https://news.google.com/",
+                "label": "G-News"
+            }
+        ],
+        [
+            {
+                "w": 2,
+                "h": 1,
+                "color": "#d64e2a",
+                "link": "http://www.nytimes.com/",
+                "label": "New York times"
+            }
+        ],
+        [
+            {
+                "w": 2,
+                "h": 1,
+                "icon": "twitter",
+                "link": "http://www.twitter.com/",
+                "label": "twitter"
+            }
+        ]
+    ]
+]
