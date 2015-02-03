@@ -1,0 +1,15 @@
+/** use this file to create some style themes for the
+metro UI.
+The styles will be set with one class on the body tag!
+So that we dont have to select to much things inside here!
+**/
+.tile.editBorder::before {
+    border-top-color: #069;
+    border-right-color: transparent;
+    border-bottom-color: #069;
+    border-left-color: transparent;
+}
+
+.tile.editBorder {
+    outline-color:#069;
+}

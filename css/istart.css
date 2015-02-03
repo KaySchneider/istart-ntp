@@ -1,0 +1,37 @@
+ul {
+    margin-bottom: 200px;
+    width:100%;
+    display:block;
+    border: 2px solid black;
+}
+
+.metro .tile {
+    margin: 0px 5px 5px 5px !important;
+    margin-top:5px !important;
+    float:none !important;
+    display:inline-block;
+}
+
+.metro .tile.triple {
+    height: 250px;
+}
+
+
+.activeApp {
+    border: 1px solid #000000;
+}
+.appsListBox {
+  padding-top:100px;
+
+}
+
+.apppSearchTop {
+    position: fixed;
+    left:100px;
+    top:10px;
+}
+
+.appListItem {
+    padding-top:20px;
+}
+

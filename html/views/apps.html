@@ -1,0 +1,40 @@
+    <md-toolbar   md-scroll-shrink class="md-whiteframe-z2"  >
+        <div class="md-toolbar-tools" >
+            <span class="ng-binding">
+                <md-button class="md-hue-1" ng-click="go('/')" >
+                    <md-icon icon="/img/icons/ic_arrow_back_36px.svg" style="width: 24px; height: 24px;"></md-icon>
+                </md-button>
+             </span>
+            <md-content  md-theme="docs-dark" class="md-padding" layout="row" layout-sm="column">
+
+                <span class="md-flex">
+
+                </span>
+                <md-input-container>
+                    <label>Search App</label>
+                    <input ng-model="filterApps" >
+                </md-input-container>
+            </md-content>
+        </div>
+    </md-toolbar>
+<md-content istart-calc-screen-size style="height: 400px;overflow:scroll" class="md-padding">
+    <md-list >
+        <md-item id="anchor{{app.id}}"  ng-repeat="app in (filteredItems = ( appList|  filter:filterApps))" class="appListItem animate-repeat">
+            <md-item-content class="animate-repeat" ng-animate="'animate'">
+                <div class="md-tile-left ">
+                    <img app-starter app-icon-set-src="{{app.icons}}" style="width: 48px"/>
+                </div>
+                <div class="md-tile-content">
+                    <h3 ng-show="app.enabled==true" app-starter>{{app.shortName}}</h3>
+                        <md-button ng-show="app.enabled==false"  ng-click="enableApp(app.id)">{{app.shortName}} enable</md-button>
+                        <a ng-show="app.enabled==true"  ng-href="#" ng-click="disableApp(app.id)"> disable </a>
+                    <p>
+                        {{app.description}}
+                    </p>
+                </div>
+            </md-item-content>
+        </md-item>
+    </md-list>
+</md-content>
+
+

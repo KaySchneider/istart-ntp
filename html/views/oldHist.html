@@ -1,0 +1,25 @@
+<li class="tile " data-drag="true"  id="item_{{outerIndex}}_{{$index}}" ng-class="{double: tileInfo.w==2, double:tileInfo.h==2}" style="background: {{tileInfo.color}}">
+<span ng-if="tileInfo.iswidget">
+            <span ng-if="tileInfo.issearch">
+               <span class="" is-on-hover ng-show="hover==true">
+                   <form class="form">
+                       <div class="input-control text" data-role="input-control">
+                           <input type="text" search-widget >
+                           <button ng-href="#search" class="btn-search" ng-click="startSearch()"></button>
+                       </div>
+                   </form>
+               </span>
+            </span>
+            <span ng-if="!tileInfo.issearch">
+
+            </span>
+</span>
+<span ng-if="tileInfo.icon.test('png')" style="width:100px;height: 100px;display:block;background-size:100px;position:absolute;top:0px;left:0px;background:url('{{tileInfo.icon}}');"></span>
+<span class="tile-status">
+        <span ng-if="tileInfo.name">{{tileInfo.name}}</span>
+        <span ng-if="tileInfo.label">{{tileInfo.label}}</span>
+
+
+    </span>
+</li>
+

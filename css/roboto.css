@@ -1,0 +1,188 @@
+@font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 100;
+    src: url(/font/Roboto-Thin.ttf);
+}
+
+/* cyrillic-ext */
+@font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 300;
+    src:  url(/font/Roboto-Light.ttf) ;
+}
+
+
+@font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    src: url(/font/Roboto-Regular.ttf) ;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    src:  url(/font/Roboto-Medium.ttf) ;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    src: local('Roboto Bold'), local('Roboto-Bold'), url(/font/Roboto-Bold.ttf) format('ttf');
+}
+
+@font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 900;
+    src: local('Roboto Black'), local('Roboto-Black'), url(/font/Roboto-Black.ttf) format('ttf');
+}
+* {
+    font-family: RobotoDraft, Roboto, 'Helvetica Neue', sans-serif;
+}
+md-card * img {
+    -webkit-order: 0;
+    -ms-flex-order: 0;
+    order: 0;
+    width: 100%;
+}
+
+.pos-down-right {
+    position: absolute !important;
+    right: 50px;
+    bottom: 50px;
+    z-index:999;
+}
+
+body {
+    overflow: hidden;
+}
+
+/* Basic page transition */
+.page-transition.ng-enter, .page-transition.ng-leave {
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-transition: opacity ease-in-out 500ms;
+    transition: opacity ease-in-out 500ms;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+.page-transition.ng-enter, .page-transition.ng-leave.ng-leave-active {
+    opacity: 0;
+}
+.page-transition.ng-enter.ng-enter-active {
+    opacity: 1;
+}
+
+/* Screen transitions common parts */
+.page-transition.ng-enter .screen2 md-content  metro-item, .page-transition.ng-enter .screen3 p, .animate-repeat.ng-enter {
+    -webkit-transition: transform ease-in-out 300ms;
+    transition: transform ease-in-out 300ms;
+
+    opacity: 0;
+}
+.page-transition.ng-enter.ng-enter-active .screen2 p, .page-transition.ng-enter.ng-enter-active .screen3 p, .animate-repeat.ng-enter {
+    -webkit-transition-delay: 200ms;
+    transition-delay: 200ms;
+
+    -webkit-transform: none;
+    transform: none;
+
+    opacity: 1;
+}
+
+/* Screen1 transitions */
+
+/* Screen2 transitions */
+.page-transition.ng-enter .screen2 p {
+    -webkit-transform: scale(0.6);
+    transform: scale(0.6);
+}
+
+/* Screen3 transitions */
+.page-transition.ng-enter .screen3 p {
+    -webkit-transform: translate3d(0, -200px, 0);
+    transform: translate3d(0, -200px, 0);
+}
+
+/* Screen4 transitions */
+.animate-repeat.ng-enter {
+    -webkit-transform: translate3d(0, 100px, 0);
+    transform: translate3d(0, 100px, 0);
+}
+
+
+object.md-icon  ,object.md-icon * svg {
+    fill:red;
+}
+
+
+.animate-repeat.ng-move  ,
+.animate-repeat.ng-enter ,
+.animate-repeat.ng-leave   {
+    -webkit-transition:all linear 5.5s;
+    transition:all linear 5.5s;
+}
+
+.animate-repeat.ng-leave.ng-leave-active  ,
+.animate-repeat.ng-move  ,
+.animate-repeat.ng-enter  {
+    opacity:0;
+    max-height:0;
+}
+
+.animate-repeat.ng-leave ,
+.animate-repeat.ng-move.ng-move-active ,
+.animate-repeat.ng-enter.ng-enter-active  {
+    opacity:1;
+    min-height:240px;
+}
+.animate-enter  ,
+.animate-leave
+{
+    -webkit-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    -moz-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    -ms-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    -o-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    position: relative;
+    display: block;
+}
+
+.animate-enter.animate-enter-active ,
+.animate-leave {
+    opacity: 1;
+    top: 0;
+    height: 30px;
+}
+
+.animate-leave.animate-leave-active,
+.animate-enter {
+    opacity: 0;
+    top: -50px;
+    height: 0px;
+}
+
+.repeat-animation {
+    -webkit-transition:0.2s linear all;
+    transition:0.2s linear all;
+    position:relative;
+    /*left:50px;*/
+}
+.repeat-animation.ng-enter-stagger {
+    -webkit-transition-delay:0.01s;
+    transition-delay:0.01s;
+    -webkit-transition-duration:0;
+    transition-duration:0;
+}
+.repeat-animation.ng-enter { opacity:0; }
+.repeat-animation.left.ng-enter { left:0px; }
+.repeat-animation.right.ng-enter { left:100px; }
+.repeat-animation.ng-enter-active { opacity:1; left:50px; }

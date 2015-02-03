@@ -1,0 +1,35 @@
+.zoomhalf #document > html > body {
+    display:block;
+    zoom:50%;
+}
+iframe {
+    border:0px;
+    overflow:hidden;
+}
+iframe > * {
+    zoom:50%;
+}
+.ng-scope {
+    zoom:50%;
+}
+.zoomhalf {
+    zoom:50%;
+}
+.systemwidget {
+  /* background-color: rgba(0, 0, 0, 0.9); */
+  
+}
+@systemwidget>li>iframe  {
+    opacity: 1;
+}
+
+#wrap {
+
+}
+
+/**
+* settings for the widget iframe
+**/
+#wigetIframe {
+
+}

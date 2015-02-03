@@ -1,0 +1,39 @@
+<span ui-view  class="page-transition screen2">
+<md-toolbar   md-scroll-shrink class="md-whiteframe-z2 " >
+    <div class="md-toolbar-tools" >
+            <span class="ng-binding">
+                <md-button class="md-hue-1 " ng-click="go('/apps')">
+                    <md-icon icon="/img/icons/ic_apps_48px.svg" style="width: 24px; height: 24px;"></md-icon>
+                    <i18n>all_apps</i18n>
+                </md-button>
+                <md-button class="md-hue-1">
+                    <md-icon icon="/img/icons/ic_extension_48px.svg" style="width: 24px; height: 24px;"></md-icon>
+                    <i18n>extensions</i18n>
+                </md-button>
+
+                </span>
+        <md-content  md-theme="docs-dark" class="md-padding" layout="row" layout-sm="column">
+
+                <span class="md-flex">
+
+                </span>
+            <md-input-container>
+                <label><i18n>search</i18n></label>
+                <input ng-model="filterTiles" >
+            </md-input-container>
+        </md-content>
+    </div>
+</md-toolbar>
+<md-content istart-calc-screen-size style="height: 400px;overflow:scroll" class="md-padding">
+        <div my-repeat-directive class="itemholders" ng-repeat="item_desktop in items track by $index" layout-align="center center" >
+         <span layout="row" layout-wrap class="pagerTest" style="width:100%;position:relative;" calc-items items="item_desktop" id="tileholder{{$index}}"  ng-model="items[0]" >
+                <metro-item  flex="20" ng-repeat="item in  (filteredTiles = ( item_desktop|  filter:filterTiles)) track by item[0].uuid" my-repeat-directive tile-info="item[0]" class=" repeat-animation"></metro-item>
+          </span>
+        </div>
+</md-content>
+<md-button hide-top-scroll   ng-show="hide==true" class="md-fab md-primary pos-down-right" aria-label="scroll to top" >
+    <md-icon icon="/img/icons/ic_arrow_drop_up_48px.svg" style="width: 24px; height: 24px;"></md-icon>
+</md-button>
+
+
+</span>

@@ -1,0 +1,23 @@
+{
+  "name": "istart V2",
+  "main": "app.js",
+  "version": "0.0.1",
+  "authors": [
+    "ikayschneider <kayoliver82@gmail.com>"
+  ],
+  "description": "istart - awesome new tab page with natural material ui",
+  "license": "MIT",
+  "homepage": "http://istart.jspert.de",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-material": "~0.7.0",
+    "angular-hero": "~0.0.3"
+  }
+}

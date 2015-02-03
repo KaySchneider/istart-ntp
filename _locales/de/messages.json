@@ -1,0 +1,70 @@
+{
+  "appName": {
+    "message": "iStart V2 new tab page",
+    "description": "The title of the application, displayed in the web store."
+  },
+  "appDesc": {
+    "message": "Neue Tab Seite im Metro Style. Alle wichtigen links und Apps auf einem Blick!", 
+    "description":"The description of the application, displayed in the web store."
+  },
+  "launchUrl": {
+      "message": "http://amz.lokamat.de#!de"
+  },
+  "search": {
+        "message": "Suche"
+  },
+  "faq": {
+    "message": "FAQ"
+   },
+    "kickstart": {
+        "message": "erste Schritte"
+    },
+    "support": {
+        "message": "Support"
+    },
+    "faqmovetitle": {
+        "message":"Wie kann ich die Tiles Sortieren ?"
+    },
+    "faqmovebody": {
+        "message":"Mit drag und Drop kannst du die tiles bewegen und somit in eine neue Reihenfolge bringen"
+    },
+    "faqaddtitle": {
+        "message":"Wie füge ich ein Lesezeichen hinzu?"
+    },
+    "faqaddbody": {
+        "message": "klicke auf das 'Einstellungs icon' ( oben rechts auf der Seite ) und Wähle im Menü 'add new link/favorite'. Nun kannst Du ein Lesezeichen direkt per Drag and Drop hineinziehen oder es von Hand eingeben."
+    },
+    "faqrecentlytitle": {
+        "message": "Wo finde ich die kürzlich geschlossenen Tabs?"
+    },
+    "faqrecentlybody": {
+        "message": "Für iStart haben wir eine extension entwickelt welche diese Funktion erfüllt. Kürzlich geschlossene Tabs anzuzeigen. Um dieses Feature iStart hinzuzufügen installiere einfach die Extension aus dem chrome Webstore: <a target='_blank' href='https://chrome.google.com/webstore/detail/recently-closed-tabs-exte/fedfjpeakpdcbpgdpaldfjdfaocfalea'>recently closed plugin</a> und starte chrome neu und schon sind die Kürzlich geschlossenen Tabs wieder da wo sie sein sollen."
+    },
+    "kickstartrecently": {
+        "message": "Füge kürzlich geschlossene Tabs hinzu"
+    },
+    "kickstartaddBookmark": {
+        "message": "Füge ein paar bookmarks hinzu"
+    },
+    "kickstartlivetile": {
+        "message": "add an picture live tile to iStart like instagram: <a  target='_blank' href='https://chrome.google.com/webstore/detail/instagram-live-tile-for-i/dlblimgocfjjlehpaclefllmdiijjkfo/details'>add Instagram power</a>"
+    },
+    "supportBugFeatureTitle": {
+        "message": "Fehler melden oder Feature wünschen?"
+    },
+    "supportBugFeatureBody": {
+        "message": "Du kanns deinen Bug oder Feature request direkt <a  target='_blank' href='https://chrome.google.com/webstore/support/lkgdlmlmcijgnglfcophfjhafiafhkae'>hier eintragen</a> und dabei helfen iStart zu verbessern"
+    },
+    "supportShareMeTitle": {
+        "message": "Teile iStart mit deinen Freunden"
+    },
+    "supportShareMeBody": {
+        "message": "Wenn Dir iStart gefällt kannst Du helfen es bekannter zu machen indem du es mit deinen Freunden teilst und weitersagst oder Du <a  target='_blank' href='https://chrome.google.com/webstore/detail/istart-new-tab-page-in-me/lkgdlmlmcijgnglfcophfjhafiafhkae/reviews'>bewertest iStart mit 5 Sternen</a> Das gibt mir die Motivation iStart noch besser zu machen :)"
+    },
+    "all_apps": {
+        "message": "Alle Apps"
+    },
+    "extensions": {
+        "message": "Plugins"
+    }
+}

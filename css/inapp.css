@@ -1,0 +1,247 @@
+body {
+    padding-top: 10px;
+    padding-bottom: 40px;
+    background-color  : whiteSmoke;
+}
+
+.navbar-inner *  li {
+    line-height: 50px;
+}
+/* Custom container */
+.container-narrow {
+    margin: 0 auto;
+    max-width: 700px;
+    background-color: white;
+}
+#searchInput {
+    opacity: 0.8;
+}
+.container-narrow > hr {
+
+    margin: 30px 0;
+}
+
+/* Main marketing message and sign up button */
+.jumbotron {
+    margin: 60px 0;
+    text-align: center;
+}
+.jumbotron h1 {
+    font-size: 72px;
+    line-height: 1;
+}
+.jumbotron .btn {
+    font-size: 21px;
+    padding: 14px 24px;
+}
+
+/* Supporting marketing content */
+.marketing {
+    margin: 60px 0;
+}
+.marketing p + h4 {
+    margin-top: 28px;
+}
+
+
+
+/* Sticky footer styles
+-------------------------------------------------- */
+
+html,
+body {
+    height: 100%;
+
+    /* The html and body elements cannot have any padding or margin. */
+}
+
+/* Wrapper for page content to push down footer */
+#wrap {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    /* Negative indent footer by it's height */
+    margin: 0 auto 60px;
+}
+
+/* Set the fixed height of the footer here */
+#push,
+#footer {
+    height: 60px;
+}
+#footer {
+    background-color: #f5f5f5;
+}
+
+/* Lastly, apply responsive CSS fixes as necessary */
+@media (max-width: 767px) {
+    #footer {
+        margin-left: -20px;
+        margin-right: -20px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
+
+.form-signin {
+    max-width: 300px;
+    padding: 19px 29px 29px;
+    margin: 0 auto 20px;
+    background-color: white;
+    border: 1px solid #E5E5E5;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
+    -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
+}
+
+.navbar .nav .dropdown-toggle .caret {
+    margin-top: 30px;
+}
+
+.tag ul {
+    position:absolute;
+    width:200px;
+    left:50%;
+    top:50%;
+    margin:-60px 0 0 -120px;
+    list-style:none}
+.tag a {
+    float:left;
+    margin-right:8px;
+    padding:2px 7px 3px 19px;
+    font:700 .7em "lucida grande", helvetica, arial, sans-serif;
+    color:#3d5295;
+    text-decoration:none;
+    text-shadow:0 1px 0 rgba(255,255,255,.5);
+    border-radius:0 .4em .4em 0;
+    background:
+        -moz-linear-gradient(
+            -45deg,
+            transparent 50%,
+            #d0daf7 50%
+        ),
+        -moz-linear-gradient(
+            45deg,
+            transparent 50%,
+            #d0daf7 50%
+        ),
+        -moz-linear-gradient(
+            #d0daf7,
+            #d0daf7
+        );
+    background:
+        -webkit-gradient(
+            linear,
+            0 0, 100% 100%,
+            color-stop(.5,transparent),
+            color-stop(.5,#d0daf7)
+        ),
+        -webkit-gradient(
+            linear,
+            0 100%, 100% 0,
+            color-stop(.5,transparent),
+            color-stop(.5,#d0daf7)
+        ),
+        -webkit-gradient(
+            linear,
+            0 0, 100% 0,
+            from(#d0daf7),
+            to(#d0daf7)
+        );
+    background-repeat:no-repeat;
+    background-position:0 0, 0 100%, 10px 0;
+    background-size:10px 53%, 10px 50%, 100% 100%;
+    -moz-padding-start:14px;
+    -webkit-mask-image:-webkit-gradient(
+        radial,
+        11 50%, 2.9, 11 50%, 3,
+        from(transparent),
+        to(rgba(0,0,0,1))
+    )}
+.tag a:hover {
+    opacity:.8}
+
+
+.ribbon {
+    width: 744px;
+    position: absolute;
+    text-align: center;
+    font-size: 22px!important;
+    background: #F56C11;
+    background: -webkit-gradient(linear, left top, left bottom, from(#F56C11), to(#B34D0E));
+    background: -webkit-linear-gradient(top, #F56C11, #B34D0E);
+    background: -moz-linear-gradient(top, #F56C11, #B34D0E);
+    background: -ms-linear-gradient(top, #F56C11, #B34D0E);
+    background: -o-linear-gradient(top, #F56C11, #B34D0E);
+    background-image: -ms-linear-gradient(top, #F56C11 0%, #B34D0E 100%);
+    -webkit-box-shadow: rgba(000, 000, 000, 0.3) 0 1px 1px;
+    -moz-box-shadow: rgba(000,000,000,0.3) 0 1px 1px;
+    box-shadow: rgba(000, 000, 000, 0.3) 0 1px 1px;
+    font-family: 'Helvetica Neue',Helvetica, sans-serif;
+    margin-left: -22px;
+}
+.ribbon h1 {
+    font-size: 25px!important;
+    color: #faebeb;
+    text-shadow: #e65715 0 1px 0;
+    margin:0px;
+    padding: 15px 10px;
+}
+.ribbon:before, .ribbon:after {
+    content: '';
+    position: absolute;
+    display: block;
+    bottom: -1em;
+    border: 1.5em solid #a35c2f;
+    z-index: -1;
+}
+.ribbon:before {
+    left: -2em;
+    border-right-width: 1.5em;
+    border-left-color: transparent;
+    -webkit-box-shadow: rgba(000,000,000,0.4) 1px 1px 1px;
+    -moz-box-shadow: rgba(000,000,000,0.4) 1px 1px 1px;
+    box-shadow: rgba(000,000,000,0.4) 1px 1px 1px;
+}
+.ribbon:after {
+    right: -2em;
+    border-left-width: 1.5em;
+    border-right-color: transparent;
+    -webkit-box-shadow: rgba(000,000,000,0.4) -1px 1px 1px;
+    -moz-box-shadow: rgba(000,000,000,0.4) -1px 1px 1px;
+    box-shadow: rgba(000,000,000,0.4) -1px 1px 1px;
+}
+.ribbon .ribbon-content:before, .ribbon .ribbon-content:after {
+    border-color: #783409 transparent transparent transparent;
+    position: absolute;
+    display: block;
+    border-style: solid;
+    bottom: -1em;
+    content: '';
+}
+.ribbon .ribbon-content:before {
+    left: 0;
+    border-width: 1em 0 0 1em;
+}
+.ribbon .ribbon-content:after {
+    right: 0;
+    border-width: 1em 1em 0 0;
+}
+.ribbon-stitches-top {
+    margin-top:2px;
+    border-top: 1px dashed rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 0px 2px rgba(255, 255, 255, 0.5);
+}
+.ribbon-stitches-bottom {
+    margin-bottom:2px;
+    border-top: 1px dashed rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 0px 2px rgba(255, 255, 255, 0.3);
+}

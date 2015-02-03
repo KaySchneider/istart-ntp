@@ -1,0 +1,114 @@
+{
+  "appName": {
+      "message": "iStart V2 new tab page",
+    "description": "The title of the application, displayed in the web store."
+  },
+  "appDesc": {
+    "message": "The new tab page in Metro style. Awesome startpage for youre browser. All Apps, pages in one place. Customable and awesome", 
+    "description":"The description of the application, displayed in the web store."
+  },
+  "launchUrl": {
+      "message": "http://amz.lokamat.de#!co.uk",
+      "description":""
+  },
+  "permissions": {
+    "message": "This widget needs additional permissions to access  $perms$",
+      "placeholders": {
+            "perms": {
+                  "content": "$1",
+                  "example": "all_urls"
+         }
+      }
+  },
+    "search": {
+        "message": "Search"
+    },
+  "askmenowforpermissions": {
+      "message": "ask me now for permissions"
+  },
+   "close": {
+       "message": "close"
+   },
+   "welcometoistart": {
+    "message": "Welcome to iStart, and thanks for installing, kay"
+   },
+    "welcomeclickme": {
+        "message":"You can click on me to become more information"
+    },
+   "tip1": {
+       "message": "click on me to enlarge me and get some starting infos"
+   },
+   "tip2": {
+        "message": "click on the settings icon to open the settings menu :)"
+   },
+   "tip3": {
+        "message": "make an right click to an tile and change settings"
+   },
+    "tip4": {
+        "message": "scroll to the right and have a look at your installed apps"
+    },
+    "tip5": {
+        "message": "Drag and drop bookmarks direct into the new tile form ;)"
+    },
+    "tip6": {
+        "message": "Thanks for installing iStart :) I hope you have much fun with it"
+    },
+    "tip7": {
+        "message": "If you like you can share iStart with your friends. This would be awesome."
+    },
+    "tip8": {
+        "message": "If you find some misspellings in the app, send me please an email: kayolvier82@gmail.com :-) Thanks"
+    },
+    "faq": {
+        "message": "FAQ"
+    },
+    "kickstart": {
+        "message": "getting started"
+    },
+    "support": {
+        "message": "Support"
+    },
+    "faqmovetitle": {
+        "message":"How to resort the tiles?"
+    },
+    "faqmovebody": {
+        "message":"Drag and Drop tiles around. Simply click with the left mouse button on an tile, hold it, and move the tile around."
+    },
+    "faqaddtitle": {
+        "message":"How to add an bookmark?"
+    },
+    "faqaddbody": {
+        "message": "Click on the settings icon on the right top of iStart, and choose from the menu 'add new link/favorite' and drag and drop your bookmark into the form or typing it by hand. "
+    },
+    "faqrecentlytitle": {
+        "message": "Where find i the recently closed tabs?"
+    },
+    "faqrecentlybody": {
+        "message": "For iStart we have developed an extension which performs this function. View Recently Closed Tabs. To add this feature iStart simply install the extension from the Chrome Web Store:<a target='_blank' href='https://chrome.google.com/webstore/detail/recently-closed-tabs-exte/fedfjpeakpdcbpgdpaldfjdfaocfalea'>recently closed plugin</a> restart chrome and even the recently closed tabs are back where they should be."
+    },
+    "kickstartrecently": {
+        "message": "Add recently closed tabs extension"
+    },
+    "kickstartaddBookmark": {
+        "message": "Add some bookmarks to iStart"
+    },
+    "supportBugFeatureTitle": {
+        "message": "Bug report or feature request?"
+    },
+    "supportBugFeatureBody": {
+        "message": "No problem, you can use the form in the webstore to report an bug or request for an feature you like, <a target='_blank' href='https://chrome.google.com/webstore/support/lkgdlmlmcijgnglfcophfjhafiafhkae?hl=en&gl=DE#bug'>go to the feedback form in the chrome Webstore</a> Your Bugreport or feature request helps me a lot to make iStart much better for you"
+    },
+    "supportShareMeTitle": {
+        "message": "Share iStart with your friends"
+    },
+    "supportShareMeBody": {
+        "message": "If you like iStart, share iStart with your friends, <a target='_blank' href='https://chrome.google.com/webstore/detail/istart-new-tab-page-in-me/lkgdlmlmcijgnglfcophfjhafiafhkae/reviews'>or rate iStart in the store with 5 Stars </a>, this gives me a lot of motivation to build better features and new cool stuff for you. Thanks a lot."
+    },
+    "all_apps": {
+        "message": "All Apps"
+    },
+    "extensions": {
+        "message": "Extensions"
+    }
+
+}

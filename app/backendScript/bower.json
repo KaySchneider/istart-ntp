@@ -1,0 +1,21 @@
+{
+  "name": "backendScript",
+  "version": "0.0.1",
+  "authors": [
+    "ikayschneider <kayoliver82@gmail.com>"
+  ],
+  "description": "eventPage for istart v2",
+  "main": "eventPageFirst.js",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "q": "1.0.1"
+  }
+}
