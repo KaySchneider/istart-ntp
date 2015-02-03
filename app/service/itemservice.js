@@ -1,7 +1,7 @@
 'use strict';
 var app  = angular.module('istart');
 
-app.factory('matrix', ['$q', 'backgroundMessage',  '$window',function ($q, backgroundMessage, $window) {
+app.factory('matrix', ['$q', 'backgroundMessage',  '$window', '$http', function ($q, backgroundMessage, $window, $http) {
     var useTinfoilShielding = false;
     var matrixCopy = null;
     var matrixService = function () {
@@ -60,8 +60,23 @@ app.factory('matrix', ['$q', 'backgroundMessage',  '$window',function ($q, backg
 
         };
 
+        this.loadDefaultMatrix = function() {
+            var deferred = $q.defer();
+            $http.get('../app/defaultTiles.json')
+                .success(function(data, status, headers, config) {
+                    console.log(data, status, headers, config);
+                    deferred.resolve(data);
+                })
+                .error(function(data, status, headers, config) {
+                    console.error(data, status, headers, config, 'ERROR');
+                    deferred.reject('error');
+                });
+            return deferred.promise;
+        };
+
         this.getLocalData = function() {
             var defer = $q.defer();
+            var that = this;
             /**
              * TODO: fix this code segments to be tested
              */
@@ -73,8 +88,21 @@ app.factory('matrix', ['$q', 'backgroundMessage',  '$window',function ($q, backg
                 backgroundMessage.message.connect(
                     backgroundMessage.message.getMessageSkeleton('getMatrix')
                 ).then(function(data) {
-                        matrixCopy = data.matrix;
-                        defer.resolve(data.matrix);
+
+                        if(data.matrix===false) {
+                            //first load
+                            that.loadDefaultMatrix()
+                                .then(function(data) {
+                                    console.log(data, 'WORKS');
+                                    defer.resolve(data);
+                                }, function(err) {
+                                    console.log(err, 'ERROR');
+                                    alert('critical error: defaultTiles.json not found, maybe this installation is broken. Please reinstall this software');
+                                });
+                        } else {
+                            matrixCopy = data.matrix;
+                            defer.resolve(data.matrix);
+                        }
                     });
             }
             return defer.promise;
