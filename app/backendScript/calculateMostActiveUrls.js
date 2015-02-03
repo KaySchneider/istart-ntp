@@ -1,4 +1,6 @@
 /**
+ * Created by ikay on 06.01.15.
+ *
  * Copyright 2012-2015 Kay Schneider <kayoliver82@gmail.com>
  *
  * This file is part of istart-new-tab-page-V2.
@@ -16,14 +18,14 @@
  * You should have received a copy of the GNU General Public License
  * along with istart-new-tab-page-V2.  If not, see <http://www.gnu.org/licenses/>.
  *
- * Diese Datei ist Teil von Fubar.
+ * Diese Datei ist Teil von istart-new-tab-page-V2.
  *
- * Fubar ist Freie Software: Sie können es unter den Bedingungen
+ * istart-new-tab-page-V2 ist Freie Software: Sie können es unter den Bedingungen
  * der GNU General Public License, wie von der Free Software Foundation,
  * Version 3 der Lizenz oder (nach Ihrer Wahl) jeder späteren
  * veröffentlichten Version, weiterverbreiten und/oder modifizieren.
  *
- * Fubar wird in der Hoffnung, dass es nützlich sein wird, aber
+ * istart-new-tab-page-V2 wird in der Hoffnung, dass es nützlich sein wird, aber
  * OHNE JEDE GEWÄHRLEISTUNG, bereitgestellt; sogar ohne die implizite
  * Gewährleistung der MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.
  * Siehe die GNU General Public License für weitere Details.

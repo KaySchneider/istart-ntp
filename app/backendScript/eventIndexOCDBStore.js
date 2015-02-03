@@ -21,10 +21,6 @@ istartPageVisitItem.getItemById=function(id) {
     db.visited.where('id')
         .equals(id)
         .each(function(item) {
-            /**
-             * problem if we never hit this fucking point of code! because DEXIE doenst call each when we point to nothing.
-             * solution hack: pointer with timeout, if we hit the timeout we resolve it with an error
-             */
             deferred.resolve(item);
         });
     return deferred.promise;
@@ -39,11 +35,6 @@ istartPageVisitItem.getItemById=function(id) {
  * @param tabid
  */
 istartPageVisitItem.createVisitEntry = function(timestampStart, url, tabid) {
-    /**
-     * parse the hostname from this page and we store only
-     * the time on an hostname on an page
-     * @type {istartPageVisitItem}
-     */
     var a = document.createElement('a');
     a.href = url;
     console.log(a.hostname);
@@ -60,15 +51,9 @@ istartPageVisitItem.createVisitEntry = function(timestampStart, url, tabid) {
             start:visitEntry.getStart(),
             completeUrl:visitEntry.getcompleteUrl()
         });
-   /* db.activeTab({
-        vId: null,//the tabId from the insert request above
-        tabId: null
-    })*/
 };
 
 istartPageVisitItem.stopVisitiEntry = function(timestampStop, url, tabid) {
-    //console.log(db, tabid);
-    console.log("############################################STOP VISIT ENTRY################################################");
     var a = document.createElement('a');
     a.href = url;
     console.log(a.hostname);
@@ -83,8 +68,6 @@ istartPageVisitItem.stopVisitiEntry = function(timestampStop, url, tabid) {
 
         })
         .each(function(visited){
-            console.log(visited);
-            console.log("######################################START CYCLE######################################################");
             if (visited.duration) {
             } else {
                 if(visited.url != a.hostname) {
@@ -112,7 +95,6 @@ istartPageVisitItem.stopVisitiEntry = function(timestampStop, url, tabid) {
                      */
                 }
             }
-            console.log("######################################END CYCLE######################################################");
         }
 
     );

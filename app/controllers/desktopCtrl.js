@@ -24,18 +24,14 @@ app.controller('desktopCtrl', ['$scope','matrix', '$window', '$location' , funct
     angular.element($window).on('resort', function () {
         $scope.maTemp = [];
         $('.itemholders').each(function(index, elementDom) {
-            //console.log('sort items' + index);
             $('md-card', elementDom).each(function(innerIndex, items) {
                 var innerOuterIndexOld = items.id.replace('item_','').split('_');
-            //    console.log(innerOuterIndexOld);
                 if(!$scope.maTemp[parseInt(index)]) {
                     $scope.maTemp[parseInt(index)] = [];
                 }
                 $scope.maTemp[parseInt(index)][parseInt(innerIndex)] = $scope.hiddenMatrix[parseInt(innerOuterIndexOld[0])][parseInt(innerOuterIndexOld[1])];
-              //  console.log($scope.maTemp);
             })
         }).promise().done(function() {
-
             $scope.items= $scope.hiddenMatrix;
             $scope.$apply(function( ){
                 $scope.items;
@@ -78,21 +74,13 @@ app.controller('desktopCtrl', ['$scope','matrix', '$window', '$location' , funct
             console.log("start");
         },
         update: function(e, ui) {
-            console.log("update");
-
             var logEntry = tmpList.map(function(i){
                 return i.value;
             }).join(', ');
             $scope.sortingLog.push('Update: ' + logEntry);
         },
         stop: function(e, ui) {
-            console.log("stop");
 
-            // this callback has the changed model
-          /*  var logEntry = tmpList.map(function(i){
-                return i.value;
-            }).join(', ');
-            $scope.sortingLog.push('Stop: ' + logEntry);*/
         }
     };
 
@@ -128,24 +116,16 @@ function addDnD() {
     });
     var that = this;
     $('.pagerTest').bind('dragstart', function() {
-        //dragstart
-        console.log('dragstart');
-        // return true;
+        return true;
     });
     $('.pagerTest').bind('dragend', function() {
-
-        //$('.pagerTest').children().each(function() {
-        //  this.classList.remove('draginuse');
-        //});
-        //return true;
+        return true;
     });
     $('.pagerTest').sortable().bind('sortupdate', function(ev, ui, master) {
-       console.log("sortupdate");
         /**
          * TODO: implement here the sort update matrix from dom update!
          */
         var event = new Event('resort');
-        console.log($('ul'));
         window.dispatchEvent(event);
     });
     $('.metrohelper').sortable({
