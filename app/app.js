@@ -56,7 +56,7 @@ angular.module('istart', [
             .state('desktop', {
                 url: '/desktop',
                 controller: 'desktopCtrl',
-                templateUrl: 'views/hist.html',
+                templateUrl: 'views/hist.html'
 
             })
             .state('apps', {

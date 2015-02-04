@@ -1,37 +1,81 @@
-ul {
-    margin-bottom: 200px;
-    width:100%;
+
+
+.submen  {
+    width: 300px;
+    background: white;
+    color: rgba(0, 0, 0, 0.87);
+    -webkit-clip-path: circle(24px at 30px 24px);
+    clip-path: circle(24px at 32px 24px);
+    -webkit-transition: -webkit-clip-path 0.5625s, clip-path 0.375s;
+    transition: -webkit-clip-path 0.5625s, clip-path 0.375s;
+}
+
+.submen:hover {
+    -webkit-transition-timing-function: ease-out;
+    transition-timing-function: ease-out;
+    -webkit-transition-duration: 0.75s;
+    transition-duration: 0.75s;
+    -webkit-clip-path: circle(390px at 225px 24px);
+    clip-path: circle(390px at 150px 24px);
+}
+
+.submen  > a {
+    display: block;
+    line-height: 50px;
+    padding: 0 20px;
+    color: inherit;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.submen  > a:hover { background: #ffe082; }
+
+.submen  >a:active { background: #ffca28; }
+
+.submen  > .navicon {
+    padding: 23px 20px;
+    cursor: pointer;
+    -webkit-transform-origin: 32px 24px;
+    -ms-transform-origin: 32px 24px;
+    transform-origin: 32px 24px;
+}
+
+.submen  > .navicon div {
+    position: relative;
+    width: 20px;
+    height: 2px;
+    background: rgba(0, 0, 0, 0.87);
+}
+
+.submen  >.navicon div:before,
+.submen  > .navicon div:after {
+    display: block;
+    content: "";
+    width: 20px;
+    height: 2px;
+    background: rgba(0, 0, 0, 0.87);
+    position: absolute;
+}
+
+.submen  > .navicon div:before { top: -7px; }
+
+.submen  > .navicon div:after { top: 7px; }
+
+
+
+.menutrigger{
+    position:relative;
+    background-color: white;
+}
+
+.drmenuItem {
     display:block;
-    border: 2px solid black;
-}
+    position:relative;
 
-.metro .tile {
-    margin: 0px 5px 5px 5px !important;
-    margin-top:5px !important;
-    float:none !important;
-    display:inline-block;
-}
-
-.metro .tile.triple {
-    height: 250px;
-}
-
-
-.activeApp {
-    border: 1px solid #000000;
-}
-.appsListBox {
-  padding-top:100px;
-
-}
-
-.apppSearchTop {
-    position: fixed;
-    left:100px;
-    top:10px;
-}
-
-.appListItem {
-    padding-top:20px;
+    background-color:white;
+    padding:10px;
 }
 

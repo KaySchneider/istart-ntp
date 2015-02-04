@@ -1,4 +1,4 @@
-    <md-toolbar   md-scroll-shrink class="md-whiteframe-z2"  >
+    <md-toolbar   class="md-whiteframe-z2"  >
         <div class="md-toolbar-tools" >
             <span class="ng-binding">
                 <md-button class="md-hue-1" ng-click="go('/')" >
@@ -12,14 +12,14 @@
                 </span>
                 <md-input-container>
                     <label>Search App</label>
-                    <input ng-model="filterApps.name"  /> <!--TODO: Add a cooldown to speedup the filter method by angular! -->
+                    <input ng-model="filterApps.name"    /> <!--TODO: Add a cooldown to speedup the filter method by angular! -->
                 </md-input-container>
             </md-content>
         </div>
     </md-toolbar>
 <md-content istart-calc-screen-size style="height: 400px;overflow:scroll" class="md-padding">
     <md-list >
-        <md-item id="anchor{{app.id}}"  ng-repeat="app in (filteredItems = ( appList |  filter:filterApps))" class="appListItem animate-repeat">
+        <md-item id="anchor{{app.id}}"  ng-repeat="app in (filteredItems = ( appList |  filter:filterApps) ) track by app.id"  class="appListItem animate-repeat">
             <md-item-content class="animate-repeat" ng-animate="'animate'">
                 <div class="md-tile-left ">
                     <img app-starter app-icon-set-src="{{app.icons}}" style="width: 48px"/>
@@ -28,7 +28,6 @@
                         <md-switch ng-model="app.enabled" aria-label="Switch 2" ng-change="checkClick(app.id, app.enabled)" class="md-warn">
                             <h3 ng-show="app.enabled==true" app-starter>{{app.shortName}}</h3>
                             <span ng-show="app.enabled==false">{{app.shortName}} <i18n>disabled</i18n></span>
-                            <!--<md-button ng-show="app.enabled==false"  ng-click="enableApp(app.id)">{{app.shortName}} enable</md-button>-->
                         </md-switch>
                     <p>
                         {{app.description}}

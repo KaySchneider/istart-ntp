@@ -7,6 +7,7 @@ app.controller('desktopCtrl', ['$scope','matrix', '$window', '$location' ,'inter
     $scope.ma = matrix;
     $scope.maTemp = [];
     $scope.hiddenMatrix = $scope.items;
+    $scope.editMode= false;
     $scope.$watch('items', function() {
         $scope.hiddenMatrix = $scope.items;
         /**
@@ -21,6 +22,7 @@ app.controller('desktopCtrl', ['$scope','matrix', '$window', '$location' ,'inter
     $scope.go = function(path) {
         $location.path(path);
     };
+
     /**
      * resort the matrix
      */
@@ -104,7 +106,6 @@ app.controller('desktopCtrl', ['$scope','matrix', '$window', '$location' ,'inter
             addDnD();
             if(!$scope.$$phase) {
                 //$digest or $apply
-                console.debug('appl');
                 $scope.$apply();
             }
           //  $scope.$apply();

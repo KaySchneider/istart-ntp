@@ -30,6 +30,8 @@ function($scope,chromeApp,bindKeys, $rootScope, $location, $anchorScroll) {
     };
 
 
+
+
     $scope.removeOldIndex = function() {
         try {
             angular.element('#anchor'+ $scope.filteredItems[$scope.indexActive].id).removeClass($scope.activeAppClass);
@@ -40,9 +42,9 @@ function($scope,chromeApp,bindKeys, $rootScope, $location, $anchorScroll) {
 
     $scope.scrollElementToView = function() {
         try {
-        angular.element('#anchor'+ $scope.filteredItems[$scope.indexActive].id).addClass($scope.activeAppClass);
+     /*   angular.element('#anchor'+ $scope.filteredItems[$scope.indexActive].id).addClass($scope.activeAppClass);
         $location.hash('anchor'+ $scope.filteredItems[$scope.indexActive].id);
-        $anchorScroll();
+        $anchorScroll();*/
         } catch(e) {
 
         }

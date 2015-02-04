@@ -13,7 +13,8 @@ app.directive('metroItem', function() {
         restrict: 'E',
         replace: false,
         scope: {
-            tileInfo: '='
+            tileInfo: '=',
+            editMode: '='
         },
         link: function(scope, element, attrs) {
             /**
@@ -53,6 +54,19 @@ app.directive('metroItem', function() {
 
             $scope.$index = $scope.$parent.$index;
             $scope.outerIndex = $scope.$parent.$parent.$index;
+
+            $scope.showColorChooserTile = function(data) {
+                console.log(data);
+            };
+
+            $scope.dropDownOptions = [
+                {
+                    'label': 'color',
+                    'action':$scope.showColorChooserTile,
+                    'data':$scope.config,
+                    'editMode':$scope.editMode
+                }
+            ]
         }]
 
     }
