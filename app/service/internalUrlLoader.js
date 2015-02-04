@@ -1,5 +1,4 @@
 'use strict';
-'use strict';
 /**
  *  Chrome Apps auslesen
  *  mit aktueller matrix abgleichen ob die App schon darin enthalten ist
@@ -8,7 +7,6 @@
  * wie wir die Messages von der Background Page in die Frontend Page bekommen.
  * So können wir auch die Ladezeiten beschleunigen!!
  **/
-'use strict';
 var app  = angular.module('istart');
 app.factory('internalUrlLoader', ['$window',function ($window) {
     var loadExtensionPage = function() {
