@@ -109,6 +109,9 @@
     },
     "extensions": {
         "message": "Extensions"
+    },
+    "disabled": {
+        "message": "disabled"
     }
 
 }

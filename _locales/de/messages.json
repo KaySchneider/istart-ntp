@@ -66,5 +66,8 @@
     },
     "extensions": {
         "message": "Plugins"
+    },
+    "disabled": {
+       "message": "disabled"
     }
 }

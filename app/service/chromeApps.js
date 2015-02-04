@@ -16,6 +16,11 @@ app.factory('chromeApp', ['$q',function ($q) {
          */
         var defer = $q.defer();
         chrome.management.getAll(function(apps) {
+            apps.sort(function(a,b) {
+                if(a.name < b.name) return -1;
+                if(a.name > b.name) return 1;
+                return 0;
+            });
             defer.resolve(apps);
         });
         return defer.promise;

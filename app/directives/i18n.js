@@ -21,7 +21,6 @@ app.directive('i18n', ['$compile' ,function($compile) {
         link: function(scope, element, attrs) {
             var s = angular.element(element).html();
             var e = scope.translate(s);
-            console.log(e, s);
             element.replaceWith(e);
         }
 

@@ -25,9 +25,11 @@
                     <img app-starter app-icon-set-src="{{app.icons}}" style="width: 48px"/>
                 </div>
                 <div class="md-tile-content">
-                    <h3 ng-show="app.enabled==true" app-starter>{{app.shortName}}</h3>
-                        <md-button ng-show="app.enabled==false"  ng-click="enableApp(app.id)">{{app.shortName}} enable</md-button>
-                        <a ng-show="app.enabled==true"  ng-href="#" ng-click="disableApp(app.id)"> disable </a>
+                        <md-switch ng-model="app.enabled" aria-label="Switch 2" ng-change="checkClick(app.id, app.enabled)" class="md-warn">
+                            <h3 ng-show="app.enabled==true" app-starter>{{app.shortName}}</h3>
+                            <span ng-show="app.enabled==false">{{app.shortName}} <i18n>disabled</i18n></span>
+                            <!--<md-button ng-show="app.enabled==false"  ng-click="enableApp(app.id)">{{app.shortName}} enable</md-button>-->
+                        </md-switch>
                     <p>
                         {{app.description}}
                     </p>

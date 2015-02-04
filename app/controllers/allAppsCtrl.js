@@ -13,6 +13,13 @@ function($scope,chromeApp,bindKeys, $rootScope, $location, $anchorScroll) {
 
     bindKeys.addcontroller();
 
+    $scope.checkClick = function(id, status) {
+        if(status===true) {
+            $scope.enableApp(id);
+        } else {
+            $scope.disableApp(id);
+        }
+    };
     $scope.$on('$destroy', function() {
         $scope.bindKeyss.removecontroller();
         $scope.removeListenerRootScope();
@@ -78,8 +85,8 @@ function($scope,chromeApp,bindKeys, $rootScope, $location, $anchorScroll) {
     };
 
     $scope.switchEnabledDisabled = function(mode, appId) {
-        chrome.management.setEnabled(appId, mode, function() {
-            $scope.refreshList();
+        chrome.management.setEnabled(appId, mode, function(test) {
+                //            $scope.refreshList();
         });
     };
 

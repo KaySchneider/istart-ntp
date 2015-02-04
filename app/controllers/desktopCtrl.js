@@ -1,7 +1,7 @@
 'use strict';
 
 var app = angular.module('istart');
-app.controller('desktopCtrl', ['$scope','matrix', '$window', '$location' , function($scope, matrix, $window, $location) {
+app.controller('desktopCtrl', ['$scope','matrix', '$window', '$location' ,'internalUrlLoader', function($scope, matrix, $window, $location, internalUrlLoader) {
     $scope.items  = [];//add an empty array as default items during laod process!! Only for print the matrix the first time
     console.log('start app desktop');
     $scope.ma = matrix;
@@ -14,7 +14,10 @@ app.controller('desktopCtrl', ['$scope','matrix', '$window', '$location' , funct
          * store the new matrix to chrome local storage
          */
     });
-
+    $scope.loadExtensions = function() {
+        //service wich loads interal pages service/interalUrlLoader
+        internalUrlLoader.extensions();
+    };
     $scope.go = function(path) {
         $location.path(path);
     };
