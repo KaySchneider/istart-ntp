@@ -74,7 +74,27 @@ app.factory('matrix', ['$q', 'backgroundMessage',  '$window', '$http', function 
             return deferred.promise;
         };
 
+        /**
+         * this is much better for the performance to call the items direct here from the localStorage
+         * @returns {defer.promise|*}
+         */
         this.getLocalData = function() {
+            var defer = $q.defer();
+            chrome.storage.local.get('istart',function( datas ) {
+                try {
+                    console.log(datas);
+                    var matrix = JSON.parse(datas.istart);
+
+                } catch(e) {
+                    console.log(e);
+                    var matrix = false;
+                }
+                defer.resolve(matrix);
+            });
+            return defer.promise;
+        };
+
+        this.getLocalData2 = function() {
             var defer = $q.defer();
             var that = this;
             /**

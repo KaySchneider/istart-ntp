@@ -2,6 +2,7 @@
 
 var app = angular.module('istart');
 app.controller('desktopCtrl', ['$scope','matrix', '$window', '$location' ,'internalUrlLoader', function($scope, matrix, $window, $location, internalUrlLoader) {
+    $window.appControllerStart = Date.now();
     $scope.items  = [];//add an empty array as default items during laod process!! Only for print the matrix the first time
     console.log('start app desktop');
     $scope.ma = matrix;
@@ -111,6 +112,8 @@ app.controller('desktopCtrl', ['$scope','matrix', '$window', '$location' ,'inter
           //  $scope.$apply();
         }
     });
+    $window.appControllerEndFile = Date.now();
+    console.debug('TIME TO THIS DESKTOPCONTROLLER:' , ($window.appControllerEndFile - $window.startTime)/1000);
 }]);
 
 

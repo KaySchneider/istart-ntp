@@ -84,4 +84,4 @@ app.directive('myRepeatDirective', function() {
             addDnD();
         }
     };
-})
+});

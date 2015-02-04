@@ -50,7 +50,7 @@ angular.module('istart', [
         $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension|chrome):/);
         $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|chrome|chrome-extension):/);
             // Angular before v1.2 uses $compileProvider.urlSanitizationWhitelist(...)
-
+            console.debug('TIME TO THE APP START in seconds:' , (Date.now() - window.startTime)/1000);
         $urlRouterProvider.otherwise('/desktop');
         $stateProvider
             .state('desktop', {
@@ -65,3 +65,4 @@ angular.module('istart', [
                 templateUrl: 'views/apps.html'
             });
     }]);
+window.startTime = Date.now();
