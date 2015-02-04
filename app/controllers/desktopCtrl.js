@@ -1,7 +1,7 @@
 'use strict';
 
 var app = angular.module('istart');
-app.controller('desktopCtrl', ['$scope','matrix', '$window', '$location' ,'internalUrlLoader', function($scope, matrix, $window, $location, internalUrlLoader) {
+app.controller('desktopCtrl', ['$scope','matrix', '$window', '$location' ,'internalUrlLoader','$mdSidenav', function($scope, matrix, $window, $location, internalUrlLoader, $mdSidenav) {
     $window.appControllerStart = Date.now();
     $scope.items  = [];//add an empty array as default items during laod process!! Only for print the matrix the first time
     console.log('start app desktop');
@@ -88,6 +88,20 @@ app.controller('desktopCtrl', ['$scope','matrix', '$window', '$location' ,'inter
         stop: function(e, ui) {
 
         }
+    };
+
+    $scope.toggleMenu = function() {
+        $mdSidenav('right').toggle()
+            .then(function(){
+                $log.debug("toggle RIGHT is done");
+            });
+    };
+
+    $scope.closeMenu = function() {
+        $mdSidenav('right').close()
+            .then(function(){
+                $log.debug("close RIGHT is done");
+            });
     };
 
     $scope.ma.getLocalData().then(function(data) {
