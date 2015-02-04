@@ -1,6 +1,9 @@
 <div class="menutrigger">
     <div class="menu" ng-mouseenter="menuOpen()"  ng-mouseleave="menuOpen()" ng-show="editMode==true">
         <span>item[0].label</span>
-        <div class="drmenuItem" ng-show="openmenu==true" class="item" ng-repeat="item in items" ng-click='item.action(item.data)'>{{item.label}}</div>
+        <div class="drmenuItem" ng-show="openmenu==true" class="item"
+             ng-repeat="item in items"
+             ng-click='item.action(item.data)'>{{item.label}}
+        </div>
     </div>
 </div>
