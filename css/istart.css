@@ -67,8 +67,10 @@
 
 
 .menutrigger{
-    position:relative;
+    position: absolute;
     background-color: white;
+    padding:20px;
+    right:0px;
 }
 
 .drmenuItem {
@@ -77,5 +79,9 @@
 
     background-color:white;
     padding:10px;
+}
+
+drop-down {
+    position:relative;
 }
 

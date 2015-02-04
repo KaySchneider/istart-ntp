@@ -112,6 +112,12 @@
     },
     "disabled": {
         "message": "disabled"
+    },
+    "addNewTile": {
+        "message": "Add new tile"
+    },
+    "addNewSearchTile": {
+        "message": "Add new Search tile"
     }
 
 }

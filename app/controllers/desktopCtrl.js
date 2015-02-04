@@ -93,14 +93,12 @@ app.controller('desktopCtrl', ['$scope','matrix', '$window', '$location' ,'inter
     $scope.toggleMenu = function() {
         $mdSidenav('right').toggle()
             .then(function(){
-                $log.debug("toggle RIGHT is done");
             });
     };
 
     $scope.closeMenu = function() {
         $mdSidenav('right').close()
             .then(function(){
-                $log.debug("close RIGHT is done");
             });
     };
 

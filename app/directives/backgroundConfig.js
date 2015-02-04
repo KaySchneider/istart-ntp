@@ -23,7 +23,9 @@ app.directive('backgroundConfig', function() {
         function($scope, $rootScope, appLauncher, loadpage) {
             $scope.addBackDropIstartBackdropTesterApp = function() {
                 $scope.removeHandlerIstartBackdropTester = angular.element($scope.element[0]).on('click', function() {
+                  if($scope.editMode !== true) {
                     $scope.launchApp();
+                  }
                 });
                 $scope.$on('$destroy', function() {
                     angular.element($scope.element[0]).off('click');//remove the handler

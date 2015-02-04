@@ -69,5 +69,12 @@
     },
     "disabled": {
        "message": "disabled"
+    },
+    "addNewTile": {
+        "message": "Neues Element hinzufügen"
+    },
+    "addNewSearchTile": {
+        "message": "Neues Such Element hinzufügen"
     }
+
 }
