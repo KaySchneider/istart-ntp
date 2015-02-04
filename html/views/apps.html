@@ -12,14 +12,14 @@
                 </span>
                 <md-input-container>
                     <label>Search App</label>
-                    <input ng-model="filterApps" >
+                    <input ng-model="filterApps.name"  /> <!--TODO: Add a cooldown to speedup the filter method by angular! -->
                 </md-input-container>
             </md-content>
         </div>
     </md-toolbar>
 <md-content istart-calc-screen-size style="height: 400px;overflow:scroll" class="md-padding">
     <md-list >
-        <md-item id="anchor{{app.id}}"  ng-repeat="app in (filteredItems = ( appList|  filter:filterApps))" class="appListItem animate-repeat">
+        <md-item id="anchor{{app.id}}"  ng-repeat="app in (filteredItems = ( appList |  filter:filterApps))" class="appListItem animate-repeat">
             <md-item-content class="animate-repeat" ng-animate="'animate'">
                 <div class="md-tile-left ">
                     <img app-starter app-icon-set-src="{{app.icons}}" style="width: 48px"/>

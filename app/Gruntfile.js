@@ -17,7 +17,7 @@ module.exports = function(grunt) {
                         '!package.json',
                         '!Gruntfile.js',
                         '!eventPage.js',
-                        '!eventObjectTwo.js'
+                        '!backendScript/*'
                 ],
                 dest: '../build/app/<%= pkg.name %>-<%= pkg.version %>.js'
             },
@@ -28,7 +28,8 @@ module.exports = function(grunt) {
                     sourceMap: false
                 },
                 src: ['backendScript/bower_components/q/q.js',
-                       'backendScript/*.js'
+                    'backendScript/*.js',
+                    'node_modules/blueimp-md5/js/md5.js'
                 ],
                 dest: '../build/eventPage.js'
             },
@@ -56,18 +57,14 @@ module.exports = function(grunt) {
             backend: {
                 src: '../build/eventPage.js',
                 dest: '../build/eventPage.min.js'
-            },
-            eventPage: {
-
             }
-
         },
         clean: {
             build: {
                     js: ["../build/*.js", "!../build/*.min.js", "!../build/*.js.map"]
             },
             pre: {
-                src: ['../build/']
+                src: ['../build/*']
             }
         }
     });
@@ -83,5 +80,5 @@ module.exports = function(grunt) {
     /**
      * create a concat
      */
-    grunt.registerTask('default', ['clean:pre',['concat:eventPage'], 'concat:build', 'concat:backend','uglify', 'clean:build']);
+    grunt.registerTask('default', ['clean:pre', 'concat:build', 'concat:backend','uglify', 'clean:build']);
 };
