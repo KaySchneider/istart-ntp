@@ -9,6 +9,13 @@
  **/
 var app  = angular.module('istart');
 app.factory('internalUrlLoader', ['$window',function ($window) {
+
+    var loadDownloadPage = function() {
+        chrome.tabs.create({
+            url:'chrome://downloads'
+        });
+    };
+
     var loadExtensionPage = function() {
         /**
          * TODO: read the config and check if the user want to load this page
@@ -22,7 +29,8 @@ app.factory('internalUrlLoader', ['$window',function ($window) {
      * returns the current apps list!
      */
     return {
-        'extensions':loadExtensionPage
+        'extensions':loadExtensionPage,
+        'downloads':loadDownloadPage
     };
 }]);
 

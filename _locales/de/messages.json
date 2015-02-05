@@ -75,6 +75,9 @@
     },
     "addNewSearchTile": {
         "message": "Neues Such Element hinzufügen"
+    },
+    "downloads": {
+        "message": "downloads"
     }
 
 }

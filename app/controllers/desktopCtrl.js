@@ -18,6 +18,9 @@ app.controller('desktopCtrl',
          * store the new matrix to chrome local storage
          */
     });
+    $scope.loadDownloads = function() {
+        internalUrlLoader.downloads();
+    };
     $scope.loadExtensions = function() {
         //service wich loads interal pages service/interalUrlLoader
         internalUrlLoader.extensions();

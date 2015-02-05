@@ -124,5 +124,8 @@
     },
     "addNewSearchTile": {
         "message": "Add new Search tile"
+    },
+    "downloads": {
+        "message": "downloads"
     }
 }
