@@ -17,8 +17,11 @@
                     <md-icon icon="/img/icons/ic_file_download_48px.svg" style="width: 24px; height: 24px;"></md-icon>
                     <i18n>downloads</i18n>
                 </md-button>
-
-                </span>
+                <md-button class="md-hue-1" ng-click="loadBookmarks()">
+                    <md-icon icon="/img/icons/ic_bookmark_24px.svg" style="width: 24px; height: 24px;"></md-icon>
+                    <i18n>bookmarks</i18n>
+                </md-button>
+            </span>
         <md-content  md-theme="docs-dark" class="md-padding" layout="row" layout-sm="column">
 
                 <span class="md-flex">
@@ -47,7 +50,6 @@
      </md-content>
  </md-sidenav>
 <md-content flex istart-calc-screen-size style="height: 400px;overflow:scroll" class="md-padding">
-
         <div my-repeat-directive class="itemholders" ng-repeat="item_desktop in items track by $index" layout-align="center center" >
          <span layout="row" layout-wrap class="pagerTest" style="width:100%;position:relative;" calc-items items="item_desktop" id="tileholder{{$index}}"  ng-model="items[0]" >
                 <metro-item  flex="20" ng-repeat="item in  (filteredTiles = ( item_desktop|  filter:filterTiles)) track by item[0].uuid"

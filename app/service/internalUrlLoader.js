@@ -16,6 +16,12 @@ app.factory('internalUrlLoader', ['$window',function ($window) {
         });
     };
 
+    var loadBookmarks = function() {
+        chrome.tabs.create({
+            url:'chrome://bookmarks'
+        });
+    };
+
     var loadExtensionPage = function() {
         /**
          * TODO: read the config and check if the user want to load this page
@@ -30,7 +36,8 @@ app.factory('internalUrlLoader', ['$window',function ($window) {
      */
     return {
         'extensions':loadExtensionPage,
-        'downloads':loadDownloadPage
+        'downloads':loadDownloadPage,
+        'bookmarks': loadBookmarks
     };
 }]);
 

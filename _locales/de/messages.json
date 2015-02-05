@@ -78,6 +78,10 @@
     },
     "downloads": {
         "message": "downloads"
+    },
+    "bookmarks": {
+        "message": "bookmarks"
     }
+
 
 }

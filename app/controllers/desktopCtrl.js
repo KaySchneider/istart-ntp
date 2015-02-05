@@ -18,6 +18,9 @@ app.controller('desktopCtrl',
          * store the new matrix to chrome local storage
          */
     });
+    $scope.loadBookmarks = function() {
+        internalUrlLoader.bookmarks();
+    };
     $scope.loadDownloads = function() {
         internalUrlLoader.downloads();
     };
