@@ -59,6 +59,38 @@ module.exports = function(grunt) {
                 dest: '../build/eventPage.min.js'
             }
         },
+        copy: {
+          build: {
+              files: [
+                  { nonull:true,
+                      src: '../html/**',
+                      dest: '../build/html/',
+                      filter:'isFile'
+                  },
+                  {   nonull:true,
+                      src: '../css/**',
+                      dest: '../build/css/',
+                      filter:'isFile'
+                  },
+                  {   nonull:true,
+                      src: '../font/**',
+                      dest: '../build/font/',
+                      filter:'isFile'
+                  },
+                  {   nonull:true,
+                      src: '../fonts/**',
+                      dest: '../build/fonts/',
+                      filter:'isFile'
+                  },
+                  {   nonull:true,
+                      src: '../img/**',
+                      dest: '../build/img/',
+                      filter:'isFile'
+                  }
+
+                ]
+          }
+        },
         clean: {
             build: {
                     js: ["../build/*.js", "!../build/*.min.js", "!../build/*.js.map"]
@@ -74,11 +106,12 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-processhtml');
+    grunt.loadNpmTasks('grunt-contrib-copy');
     // Default task(s).
-    grunt.registerTask('default', ['clean:pre','concat:build', 'concat:backend','uglify', 'clean:build']);
+    ///grunt.registerTask('default', ['clean:pre','concat:build', 'concat:backend','uglify', 'clean:build']);
     grunt.registerTask('eventpage', ['concat:eventPage']);
     /**
      * create a concat
      */
-    grunt.registerTask('default', ['clean:pre', 'concat:build', 'concat:backend','uglify', 'clean:build']);
+    grunt.registerTask('default', ['clean:pre', 'concat:build', 'concat:backend','uglify', 'copy:build' ,'clean:build']);
 };
