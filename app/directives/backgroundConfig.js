@@ -7,11 +7,21 @@ var app = angular.module('istartMetroDirective');
 app.directive('backgroundConfig', function() {
     return {
         restrict: 'A',
-        link: function(scope, element, attrs) {
-//            console.log(scope.tileInfo);
-            if(scope.tileInfo.color) {
-                angular.element(element).css('background', scope.tileInfo.color);
+        controller: function($scope) {
+
+            $scope.addBackgroundConfig = function(element) {
+                if($scope.tileInfo.color) {
+                    $scope.element = element;
+                    angular.element(element).css('background', $scope.tileInfo.color);
+                    //add watcher for live edit mode
+                    $scope.$watch('tileInfo.color', function() {
+                        angular.element($scope.element).css('background', $scope.tileInfo.color);
+                    });
+                }
             }
+        },
+        link: function(scope, element) {
+              scope.addBackgroundConfig(element);
         }
 
     };
@@ -35,7 +45,9 @@ app.directive('backgroundConfig', function() {
 
             $scope.addBackDropIstartBackdropTesterLink = function() {
                 $scope.removeHandlerIstartBackdropTester = angular.element($scope.element[0]).on('click', function() {
-                    $scope.launchLink();
+                    if($scope.editMode !== true) {
+                        $scope.launchApp();
+                    }
                 });
                 $scope.$on('$destroy', function() {
                     angular.element($scope.element[0]).off('click');//remove the handler

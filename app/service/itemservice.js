@@ -30,7 +30,7 @@ app.factory('matrix', ['$q', 'backgroundMessage',  '$window', '$http', function 
         this.portMatrixUUID = function(matrix) {
             for(var item in matrix) {
                 for(var entry in matrix[item]) {
-                    console.log(matrix[item][entry][0]);
+                    //console.log(matrix[item][entry][0]);
                     matrix[item][entry][0].uuid = $window.guid();
                 }
             }
@@ -82,7 +82,7 @@ app.factory('matrix', ['$q', 'backgroundMessage',  '$window', '$http', function 
             var defer = $q.defer();
             chrome.storage.local.get('istart',function( datas ) {
                 try {
-                    console.log(datas);
+                    //console.log(datas);
                     var matrix = JSON.parse(datas.istart);
 
                 } catch(e) {

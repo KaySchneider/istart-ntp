@@ -1,7 +1,8 @@
 'use strict';
 
 var app = angular.module('istart');
-app.controller('desktopCtrl', ['$scope','matrix', '$window', '$location' ,'internalUrlLoader','$mdSidenav', function($scope, matrix, $window, $location, internalUrlLoader, $mdSidenav) {
+app.controller('desktopCtrl', ['$scope','matrix', '$window', '$location' ,'internalUrlLoader','$mdSidenav', '$rootScope',
+    function($scope, matrix, $window, $location, internalUrlLoader, $mdSidenav, $rootScope) {
     $window.appControllerStart = Date.now();
     $scope.items  = [];//add an empty array as default items during laod process!! Only for print the matrix the first time
     console.log('start app desktop');
@@ -80,6 +81,7 @@ app.controller('desktopCtrl', ['$scope','matrix', '$window', '$location' ,'inter
             console.log("start");
         },
         update: function(e, ui) {
+
             var logEntry = tmpList.map(function(i){
                 return i.value;
             }).join(', ');
@@ -102,20 +104,21 @@ app.controller('desktopCtrl', ['$scope','matrix', '$window', '$location' ,'inter
             });
     };
 
+    $rootScope.$on('addNewTile', function(event, tileConfig) {
+        console.log($scope.items[0].unshift([tileConfig]));
+        addDnD();
+    });
+
     $scope.ma.getLocalData().then(function(data) {
         if(!data[0][0][0].uuid) {
             console.debug('NO UUID -  CREATE ONE AND REFRESH THE LIST');
             $scope.ma.portMatrixUUID(data);
         }
-        console.log("data", data);
         if(data == false) {
             console.log('inside first run setting up the default tiles');
             $scope.ma.saveFirstRun();
         } else {
             $scope.items = data;
-            console.debug('before');
-            console.debug($scope.$$phase);
-            console.debug(data);
             addDnD();
             if(!$scope.$$phase) {
                 //$digest or $apply

@@ -9,14 +9,15 @@ app.directive('dropDown', function() {
         scope: {
             items:'=item',
             id:'=dropid',
-            editMode:'=editMode'
+            editMode:'=editMode',
+            tile:'=tile'
         },
         templateUrl: '../html/views/dropDown.html',
         controller: ['$scope', function( $scope ) {
             $scope.openmenu=false;
             //we need for every menu item an call to action service!
             $scope.menuOpen = function() {
-                console.log('OIPEN');
+
                 switch($scope.openmenu) {
                     case true:
                         $scope.openmenu=false;
