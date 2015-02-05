@@ -56,8 +56,14 @@ app.factory('matrix', ['$q', 'backgroundMessage',  '$window', '$http', function 
             }
         };
 
-        this.saveMatrix = function() {
-
+        this.saveMatrix = function(matrix) {
+            var deferred = $q.defer();
+            backgroundMessage.message.connect(
+                backgroundMessage.message.getMessageSkeleton('saveMatrix', {matrix:matrix})
+            ).then(function(data) {
+                deferred.resolve(data);
+            });
+            return deferred.promise;
         };
 
         this.loadDefaultMatrix = function() {
@@ -80,16 +86,27 @@ app.factory('matrix', ['$q', 'backgroundMessage',  '$window', '$http', function 
          */
         this.getLocalData = function() {
             var defer = $q.defer();
+            var that = this;
             chrome.storage.local.get('istart',function( datas ) {
                 try {
-                    //console.log(datas);
                     var matrix = JSON.parse(datas.istart);
-
                 } catch(e) {
-                    console.log(e);
                     var matrix = false;
                 }
-                defer.resolve(matrix);
+                if(matrix===false) {
+                    //first load
+                    that.loadDefaultMatrix()
+                        .then(function(data) {
+                            matrixCopy = data.matrix;
+                            defer.resolve(data);
+                        }, function(err) {
+                            console.log(err, 'ERROR');
+                            alert('critical error: defaultTiles.json not found, maybe this installation is broken. Please reinstall this software');
+                        });
+                } else {
+                    matrixCopy = matrix;
+                    defer.resolve(matrix);
+                }
             });
             return defer.promise;
         };

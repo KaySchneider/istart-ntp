@@ -7,16 +7,21 @@
                     <label>color</label>
                     <input ng-model="tile.color"  type="color">
                 </md-input-container>
+                <md-input-container ng-if="tldconf != false">
+                    <label>Domain</label>
+                    <select ng-options="item for item in  tile.config.tld track by $index" ng-model="tile.config.defaultld">
+                    </select>
+                </md-input-container>
             </md-content>
         </div>
         <div flex>
             <md-content>
                 <md-subheader class="md-sticky-no-effect">tile info</md-subheader>
-                    <md-input-container>
+                    <md-input-container ng-if="tile.iswidget!=true||tile.issearch!=true">
                         <label>Label</label>
                         <input ng-model="tile.label" required="">
                     </md-input-container>
-                    <md-input-container>
+                    <md-input-container ng-if="tile.iswidget!=true||tile.issearch!=true">
                         <label>URL</label>
                         <input ng-model="tile.link" type="url">
                     </md-input-container>

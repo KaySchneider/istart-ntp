@@ -6,13 +6,14 @@ app.directive('addNewTile', function() {
         scope: {
             tile:'=tile'
         }, //use own scope
-        controller: ['$scope', '$mdDialog', '$rootScope', function ($scope, $mdDialog, $rootScope) {
+        controller: ['$scope', '$mdDialog', '$rootScope', '$window', function ($scope, $mdDialog, $rootScope, $window) {
             var ps = $scope;
             $scope.edit=false;
             $scope.DialogController = ['$scope', '$mdDialog', '$window',
                 function($scope, $mdDialog, $window) {
                     console.log($scope);
                 $scope.edit = ps.edit;
+                $scope.tldconf=false;
                 $scope.defaultProtocol = 'http://';
                     if($scope.edit==false) {
                         $scope.tile={
@@ -24,6 +25,14 @@ app.directive('addNewTile', function() {
                             uuid: $window.guid()
                         };
                     } else {
+
+                        if(ps.tile.config) {
+                            if(ps.tile.config.useredit) {
+                                $scope.tldconf = (ps.tile.config.useredit.indexOf('tld') ? false: true);
+                                console.log($scope.tldconf, ('tld' in ps.tile.config.useredit), ps.tile.config.useredit);
+                                console.log(ps.tile.config.tld);
+                            }
+                        }
                         $scope.tile = ps.tile;
                     }
                 $scope.hide = function() {
@@ -56,12 +65,17 @@ app.directive('addNewTile', function() {
                  * check the current tiles configuration
                  */
                 $scope.checkconfig = function() {
-                    $scope.checkProtocol();
-                    if(typeof $scope.tile.label != 'undefined') {
-                        var trimmed = $scope.tile.label.trim();
-                        if(trimmed.length >=1) {
-                            $scope.tile.label =  trimmed;
-                            $mdDialog.hide($scope.tile);
+                    if($scope.tile.iswidget==true||$scope.tile.issearch==true){
+                        $mdDialog.hide($scope.tile);
+
+                    }else {
+                        $scope.checkProtocol();
+                        if(typeof $scope.tile.label != 'undefined') {
+                            var trimmed = $scope.tile.label.trim();
+                            if(trimmed.length >=1) {
+                                $scope.tile.label =  trimmed;
+                                $mdDialog.hide($scope.tile);
+                            }
                         }
                     }
                 };
@@ -75,7 +89,8 @@ app.directive('addNewTile', function() {
                 })
                     .then(function (tileConfig) {
                         if($scope.edit==true) {
-
+                            var event = new Event('resort');
+                            window.dispatchEvent(event);
                         } else {
                             $rootScope.$broadcast('addNewTile', tileConfig);
                         }

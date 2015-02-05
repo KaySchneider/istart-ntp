@@ -1,7 +1,8 @@
 'use strict';
 
 var app = angular.module('istart');
-app.controller('desktopCtrl', ['$scope','matrix', '$window', '$location' ,'internalUrlLoader','$mdSidenav', '$rootScope',
+app.controller('desktopCtrl',
+    ['$scope','matrix', '$window', '$location' ,'internalUrlLoader','$mdSidenav', '$rootScope',
     function($scope, matrix, $window, $location, internalUrlLoader, $mdSidenav, $rootScope) {
     $window.appControllerStart = Date.now();
     $scope.items  = [];//add an empty array as default items during laod process!! Only for print the matrix the first time
@@ -39,12 +40,17 @@ app.controller('desktopCtrl', ['$scope','matrix', '$window', '$location' ,'inter
                 $scope.maTemp[parseInt(index)][parseInt(innerIndex)] = $scope.hiddenMatrix[parseInt(innerOuterIndexOld[0])][parseInt(innerOuterIndexOld[1])];
             })
         }).promise().done(function() {
-            $scope.items= $scope.hiddenMatrix;
-            $scope.$apply(function( ){
-                $scope.items;
-            });
+            //console.log( $scope.maTemp );
+            //$scope.items= $scope.maTemp;
+            if(!$scope.$$phase) {
+                //$digest or $apply
+                $scope.$apply();
+            }
+            console.log('SAVE SAVE');
+            $scope.ma.saveMatrix($scope.maTemp);
         });
     });
+
 
     $scope.sortableOptions = {
         activate: function() {
@@ -110,14 +116,15 @@ app.controller('desktopCtrl', ['$scope','matrix', '$window', '$location' ,'inter
     });
 
     $scope.ma.getLocalData().then(function(data) {
-        if(!data[0][0][0].uuid) {
-            console.debug('NO UUID -  CREATE ONE AND REFRESH THE LIST');
-            $scope.ma.portMatrixUUID(data);
-        }
+
         if(data == false) {
             console.log('inside first run setting up the default tiles');
             $scope.ma.saveFirstRun();
         } else {
+            if(!data[0][0][0].uuid) {
+                console.debug('NO UUID -  CREATE ONE AND REFRESH THE LIST');
+                $scope.ma.portMatrixUUID(data);
+            }
             $scope.items = data;
             addDnD();
             if(!$scope.$$phase) {
