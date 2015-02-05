@@ -46,7 +46,7 @@ app.directive('backgroundConfig', function() {
             $scope.addBackDropIstartBackdropTesterLink = function() {
                 $scope.removeHandlerIstartBackdropTester = angular.element($scope.element[0]).on('click', function() {
                     if($scope.editMode !== true) {
-                        $scope.launchApp();
+                        $scope.launchLink();
                     }
                 });
                 $scope.$on('$destroy', function() {

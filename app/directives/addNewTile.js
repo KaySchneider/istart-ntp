@@ -67,7 +67,6 @@ app.directive('addNewTile', function() {
                 $scope.checkconfig = function() {
                     if($scope.tile.iswidget==true||$scope.tile.issearch==true){
                         $mdDialog.hide($scope.tile);
-
                     }else {
                         $scope.checkProtocol();
                         if(typeof $scope.tile.label != 'undefined') {
