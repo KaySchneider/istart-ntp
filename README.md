@@ -21,10 +21,31 @@ More Information in  file LICENSE
      
 * We need --force because the Gruntfile should be moved to the root dir of istartV2 ;)
 * now you can load the extension in chrome    
-   If you dont know how to load a local extension or app into chrome take a look at this help page:   
+   If you dont know how to load a local extension or app into chrome take a look at this help page: 
+* load the build directory as extension into chrome     
     
-    https://developer.chrome.com/extensions/getstarted#unpacked
+    https://developer.chrome.com/extensions/getstarted#unpacked    
+    
+```  
+├── am    
+├── app    
+├── bower_components   
+├── build    
+├── css    
+├── font     
+├── fonts    
+├── html    
+├── icon.png     
+├── img      
+├── istartIcon16.png     
+├── istartIcon.png     
+├── LICENSE    
+├── _locales    
+├── manifest.json    
+├── node_modules    
+└── README.md    
 
+``` 
 
 # Internal API Information
 
