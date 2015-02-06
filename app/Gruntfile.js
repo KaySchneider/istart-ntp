@@ -11,13 +11,24 @@ module.exports = function(grunt) {
 
             },
             build: {
-                src: ['*.js', 'controllers/*.js',
+                src: ['*.js',
+                        'controllers/*.js',
                         'directives/*.js',
                         'libs/*.js',
                         '!package.json',
                         '!Gruntfile.js',
                         '!eventPage.js',
-                        '!backendScript/*'
+                        '!backendScript/*',
+                        '../bower_components/jquery/dist/jquery.js',
+                        '../bower_components/jquery-ui/jquery-ui.js',
+                        '../bower_components/angular/angular.js',
+                        'bower_components/angular-aria/angular-aria.js',
+                        'bower_components/angular-animate/angular-animate.js',
+                        'bower_components/hammerjs/hammer.js',
+                        'bower_components/angular-material/angular-material.js',
+                        '../bower_components/angular-route/angular-route.js',
+                        '../bower_components/angular-ui-router/release/angular-ui-router.js',
+                        '../bower_components/angular-dragdrop/src/angular-dragdrop.js'
                 ],
                 dest: '../build/app/<%= pkg.name %>-<%= pkg.version %>.js'
             },
@@ -86,6 +97,21 @@ module.exports = function(grunt) {
                       src: '../img/**',
                       dest: '../build/img/',
                       filter:'isFile'
+                  },
+                  {   nonull:true,
+                      src: '../am/**',
+                      dest: '../build/am/',
+                      filter:'isFile'
+                  },
+                  {   nonull:true,
+                      src: '../_locales/**',
+                      dest: '../build/locales/',
+                      filter:'isFile'
+                  },
+                  {
+                      expand: true,
+                      src :['../manifest.json', '../icon.png', '../istartIcon.png', 'istartIcon16.png'],
+                      dest :'../build/'
                   }
 
                 ]
