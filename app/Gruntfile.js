@@ -128,6 +128,16 @@ module.exports = function(grunt) {
             }
         },
         usemin: {
+            options: {
+                blockReplacements: {
+                    css: function (block) {
+                        return '<link rel="stylesheet" href="' + block.dest.replace('/build', '') + '"/>';
+                    },
+                    js: function(block) {
+                        return '<script src="'+ block.dest.replace('/build', '') +'"></script>';
+                    }
+                }
+            },
             js: ['../build/html/metro.html'],
             css: ['../build/html/metro.html']
         }
