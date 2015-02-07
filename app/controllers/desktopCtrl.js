@@ -2,7 +2,7 @@
 
 var app = angular.module('istart');
 app.controller('desktopCtrl',
-    ['$scope','matrix', '$window', '$location' ,'internalUrlLoader','$mdSidenav', '$rootScope',
+           ['$scope','matrix','$window','$location','internalUrlLoader','$mdSidenav', '$rootScope',
     function($scope, matrix, $window, $location, internalUrlLoader, $mdSidenav, $rootScope) {
     $window.appControllerStart = Date.now();
     $scope.items  = [];//add an empty array as default items during laod process!! Only for print the matrix the first time
@@ -122,7 +122,7 @@ app.controller('desktopCtrl',
     });
 
     $scope.ma.getLocalData().then(function(data) {
-
+        console.debug('DATA', data);
         if(data == false) {
             console.log('inside first run setting up the default tiles');
             $scope.ma.saveFirstRun();
@@ -132,7 +132,7 @@ app.controller('desktopCtrl',
                 $scope.ma.portMatrixUUID(data);
             }
             $scope.items = data;
-            addDnD();
+            //addDnD();
             if(!$scope.$$phase) {
                 //$digest or $apply
                 $scope.$apply();
@@ -166,4 +166,4 @@ function addDnD() {
     $('.metrohelper').sortable({
         connectWith: '.pagerTest'
     });
-}
+};

@@ -10,28 +10,6 @@ module.exports = function(grunt) {
                 sourceMap: true
 
             },
-            build: {
-                src: ['*.js',
-                        'controllers/*.js',
-                        'directives/*.js',
-                        'libs/*.js',
-                        '!package.json',
-                        '!Gruntfile.js',
-                        '!eventPage.js',
-                        '!backendScript/*',
-                        '../bower_components/jquery/dist/jquery.js',
-                        '../bower_components/jquery-ui/jquery-ui.js',
-                        '../bower_components/angular/angular.js',
-                        'bower_components/angular-aria/angular-aria.js',
-                        'bower_components/angular-animate/angular-animate.js',
-                        'bower_components/hammerjs/hammer.js',
-                        'bower_components/angular-material/angular-material.js',
-                        '../bower_components/angular-route/angular-route.js',
-                        '../bower_components/angular-ui-router/release/angular-ui-router.js',
-                        '../bower_components/angular-dragdrop/src/angular-dragdrop.js'
-                ],
-                dest: '../build/app/<%= pkg.name %>-<%= pkg.version %>.js'
-            },
             backend: {
                 options: {
                     separator: ';',
@@ -42,7 +20,7 @@ module.exports = function(grunt) {
                     'backendScript/*.js',
                     'node_modules/blueimp-md5/js/md5.js'
                 ],
-                dest: '../build/eventPage.js'
+                dest: '../build/app/eventPage.js'
             },
             eventPage: {
                 options: {
@@ -61,13 +39,10 @@ module.exports = function(grunt) {
             options: {
                 banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %>  */\n'
             },
-            build: {
-                src: ['../build/*.js', '!eventPage.js'],
-                dest: '../build/app/<%= pkg.name %>-<%= pkg.version %>.min.js'
-            },
+
             backend: {
-                src: '../build/eventPage.js',
-                dest: '../build/eventPage.min.js'
+                src: '../build/app/eventPage.js',
+                dest: '../build/app/eventPage.min.js'
             }
         },
         copy: {
@@ -108,10 +83,20 @@ module.exports = function(grunt) {
                       dest: '../build/locales/',
                       filter:'isFile'
                   },
+                  {   nonull:true,
+                      src: '../app/libs/jquery.sortable.js',
+                      dest: '../build/app/libs/jquery.sortable.js',
+                      filter:'isFile'
+                  },
+                  {   nonull:true,
+                      src: '../app/defaultTiles.json',
+                      dest: '../build/app/defaultTiles.json',
+                      filter:'isFile'
+                  },
                   {
                       expand: true,
-                      src :['../manifest.json', '../icon.png', '../istartIcon.png', 'istartIcon16.png'],
-                      dest :'../build/'
+                      src:  ['../manifest.json', '../icon.png', '../istartIcon.png', '../istartIcon16.png'],
+                      dest: '../build/*'
                   }
 
                 ]
@@ -124,6 +109,27 @@ module.exports = function(grunt) {
             pre: {
                 src: ['../build/*']
             }
+        },
+        useminPrepare: {
+            js: {
+                src: ['../html/metro.html'],
+                options: {
+                    dest: '../build/',
+                    flow: {
+                        steps: ['concat', 'uglify']
+                    }
+                }
+            },
+            css: {
+                src: ['../html/metro.html'],
+                options: {
+                    dest: '../'
+                }
+            }
+        },
+        usemin: {
+            js: ['../build/html/metro.html'],
+            css: ['../build/html/metro.html']
         }
     });
 
@@ -133,11 +139,15 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-processhtml');
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-usemin');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
+
     // Default task(s).
     ///grunt.registerTask('default', ['clean:pre','concat:build', 'concat:backend','uglify', 'clean:build']);
     grunt.registerTask('eventpage', ['concat:eventPage']);
     /**
      * create a concat
+     * 'uglify:build',
      */
-    grunt.registerTask('default', ['clean:pre', 'concat:build', 'concat:backend','uglify', 'copy:build' ,'clean:build']);
+    grunt.registerTask('default', ['clean:pre', 'useminPrepare' , 'concat', 'copy', 'uglify' ,'cssmin' ,'usemin']);
 };

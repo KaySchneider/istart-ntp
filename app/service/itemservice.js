@@ -1,9 +1,11 @@
 'use strict';
 var app  = angular.module('istart');
 
-app.factory('matrix', ['$q', 'backgroundMessage',  '$window', '$http', function ($q, backgroundMessage, $window, $http) {
+app.factory('matrix', ['$q', 'backgroundMessage',  '$window', '$http',
+    function ($q, backgroundMessage, $window, $http) {
     var useTinfoilShielding = false;
     var matrixCopy = null;
+    var chrome = $window.chrome;
     var matrixService = function () {
         this.getMyLog = function() {
           console.log('YOu CALLED GET MY LOG');

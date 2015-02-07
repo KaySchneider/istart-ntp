@@ -7,7 +7,7 @@ var app = angular.module('istartMetroDirective');
 app.directive('backgroundConfig', function() {
     return {
         restrict: 'A',
-        controller: function($scope) {
+        controller: ['$scope',function($scope) {
 
             $scope.addBackgroundConfig = function(element) {
                 if($scope.tileInfo.color) {
@@ -19,7 +19,7 @@ app.directive('backgroundConfig', function() {
                     });
                 }
             }
-        },
+        }],
         link: function(scope, element) {
               scope.addBackgroundConfig(element);
         }

@@ -31,7 +31,7 @@
             }).mouseup(function() {
                 isHandle = false;
             });
-            $(this).data('items', options.items)
+            $(this).data('items', options.items);
             placeholders = placeholders.add(placeholder);
             if (options.connectWith) {
                 $(options.connectWith).add(this).data('connectWith', options.connectWith);
@@ -90,7 +90,7 @@
                 if (!items.is(dragging) && options.connectWith !== $(dragging).parent().data('connectWith')) {
                     return true;
                 }
-                ////console.log(e.type, placeholder.index() < $(this).index());
+                //console.log(e.type, placeholder.index() < $(this).index());
 
                 if (e.type == 'drop') {
                     //check if the element was an subelement

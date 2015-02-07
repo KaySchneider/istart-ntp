@@ -6,17 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="metro-killer-startpage for chrome fully customable without registration in metro-style">
     <meta name="author" content="kay schneider | hirschneider | 2013 | javascript ninja">
+    <!-- build:css ../build/css/istartbuild.css -->
     <link rel="stylesheet" href="../bower_components/angular/angular-csp.css" />
-    <!-- <link rel="stylesheet" href="/css/metro-bootstrap.min.css"> -->
-    <link rel="stylesheet" href="/css/roboto.css" >
-    <link rel="stylesheet" href="/css/istart.css">
+    <link rel="stylesheet" href="../css/roboto.css" >
+    <link rel="stylesheet" href="../css/istart.css">
     <link rel="stylesheet" href="../app/bower_components/angular-material/modules/css/angular-material-layout.css">
 
     <link rel="stylesheet" href="../app/bower_components/angular-material/angular-material.css">
 
     <link rel="stylesheet" href="../app/bower_components/angular-material/default-theme.css">
-    <link rel="stylesheet" href="/app/bower_components/angular-hero/angular-hero.css">
-
+    <link rel="stylesheet" href="../app/bower_components/angular-hero/angular-hero.css">
+    <!-- endbuild -->
     <!-- Fav and touch icons -->
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="ico/apple-touch-icon-114-precomposed.png">
@@ -30,21 +30,19 @@
 <div  ui-view class="page-transition hero-transition">
 
 </div>
-<!-- Le javascript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
 
-    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="../bower_components/jquery-ui/jquery-ui.min.js"></script>
+<!-- build:js  ../build/app/istart-V2-material-new-tab-0.0.1.js -->
+    <script src="../bower_components/jquery/dist/jquery.js"></script>
+    <script src="../bower_components/jquery-ui/jquery-ui.js"></script>
     <script src="../app/libs/jquery.sortable.js"></script>
-    <script src="../bower_components/angular/angular.min.js" ></script>
-<script src="../app/bower_components/angular-aria/angular-aria.js"></script>
-<script src="../app/bower_components/angular-animate/angular-animate.js"></script>
-<script src="../app/bower_components/hammerjs/hammer.js"></script>
-<script src="../app/bower_components/angular-material/angular-material.js"></script>
-    <script src="../bower_components/angular-route/angular-route.min.js"></script>
-    <script src="../bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
-    <script src="../bower_components/angular-dragdrop/src/angular-dragdrop.min.js" ></script>
+    <script src="../bower_components/angular/angular.js" ></script>
+    <script src="../app/bower_components/angular-aria/angular-aria.js"></script>
+    <script src="../app/bower_components/angular-animate/angular-animate.js"></script>
+    <script src="../app/bower_components/hammerjs/hammer.js"></script>
+    <script src="../app/bower_components/angular-material/angular-material.js"></script>
+    <script src="../bower_components/angular-route/angular-route.js"></script>
+    <script src="../bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="../bower_components/angular-dragdrop/src/angular-dragdrop.js" ></script>
     <script src="../app/app.js"></script>
     <script src="../app/service/itemservice.js" ></script>
     <script src="../app/controllers/desktopCtrl.js" ></script>
@@ -73,6 +71,8 @@
     <script src="../app/directives/dropDown.js"></script>
     <script src="../app/directives/istartOptionsMenu.js"></script>
     <script src="../app/directives/addNewTile.js"></script>
+    <script src="../bower_components/test.js"></script>
+<!-- endbuild -->
 </body>
 </html>
 

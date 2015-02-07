@@ -6,5 +6,6 @@ bower_components/
 tmp
 .DS_Store
 .idea
+.tmp
 app/build/
 build/
