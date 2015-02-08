@@ -1,11 +1,11 @@
 <div class="menutrigger md-whiteframe-z4" ng-show="editMode==true">
     <div class="menu " ng-mouseenter="menuOpen()"  ng-mouseleave="menuOpen()"  >
-        <span>item[0].label</span>
+        <span>{{items.menuLabel}}</span>
         <div class="drmenuItem" ng-show="openmenu==true" class="item"
              mode="edit"
              tile="tile"
              add-new-tile
-             ng-repeat="item in items"
+             ng-repeat="item in items.items"
              ng-click='item.action(item.data)'>{{item.label}}
         </div>
     </div>

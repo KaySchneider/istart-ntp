@@ -1,4 +1,7 @@
 
+.hovermenu:hover {
+    background-color: rgb(33,150,243);
+}
 
 .submen  {
     width: 300px;

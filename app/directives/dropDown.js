@@ -17,7 +17,6 @@ app.directive('dropDown', function() {
             $scope.openmenu=false;
             //we need for every menu item an call to action service!
             $scope.menuOpen = function() {
-
                 switch($scope.openmenu) {
                     case true:
                         $scope.openmenu=false;

@@ -1,0 +1,128 @@
+[
+    {
+        "name": "ebay search",
+        "description": "Search ebay directly from the tile",
+        "iswidget": true,
+        "issearch": true,
+        "config": {
+            "tld": ["com", "de", "ch"],
+            "tag": {
+                "com": "istarte-20",
+                "de": "istart-21"
+            },
+            "partnerid": {
+                "com": {
+                    "url": "/rover/1/711-53200-19255-0/1",
+                    "icep_vectorid": "229466"
+                },
+                "de": {
+                    "url": "/rover/1/5222-53480-19255-0/1",
+                    "icep_vectorid": "229536"
+                },
+                "ch": {
+                    "url": "/rover/1/707-53477-19255-0/1",
+                    "icep_vectorid": "229487"
+                }
+            },
+            "domain": "rover.ebay.com/rover/1/711-53200-19255-0/1?icep_ff3=1&pub=5575038039&toolid=10001&campid=5337372289&customid=&ipn=psmain&icep_vectorid=229466&kwid=902099&mtid=824&kw=lg",
+            "domainSearch": "rover.ebay.com",
+            "url": "/s/?field-keywords={{search}}&tag={{tag}}",
+            "icon": "ebay",
+            "label": "ebay",
+            "color": "rgb(218, 83, 44)",
+            "useredit": ["tld", "color", "cat"],
+            "defaultld": ["com"],
+            "buildLink": [null],
+            "link": "http://rover.ebay.com/rover/1/711-53200-19255-0/1?icep_ff3=1&pub=5575038039&toolid=10001&campid=5337372289&customid=&ipn=psmain&icep_vectorid=229466&kwid=902099&mtid=824&kw=lg.com?tag=istarte-20"
+        },
+        "extensionid": "ebaysearch",
+        "src": false,
+        "multiple": false,
+        "min_width": 1,
+        "min_height": 1,
+        "w": 2,
+        "h": 1,
+        "color": "rgb(218, 83, 44)"
+    },
+    {
+        "name": "Amazon search",
+        "description": "Search Amazon directly from the tile",
+        "iswidget": true,
+        "issearch": true,
+        "config": {
+            "tld": ["com", "de", "fr", "co.uk", "it", "cn", "ca", "es"],
+            "tag": {
+                "com": "istarte-20",
+                "de": "istart-21",
+                "co.uk": "istarte-21",
+                "it": "istarta-21",
+                "fr": "istartb-21",
+                "es": "istartes-21"
+            },
+            "domain": "www.amazon",
+            "url": "/s/?field-keywords={{search}}&tag={{tag}}",
+            "icon": "amazon",
+            "label": "amazon",
+            "color": "#008641",
+            "useredit": ["tld", "color"],
+            "defaultld": "de",
+            "link": "http://www.amazon.de?tag=istart-21"
+        },
+        "extensionid": "amazonsearch",
+        "src": false,
+        "multiple": false,
+        "min_width": 1,
+        "min_height": 1,
+        "w": 2,
+        "h": 2,
+        "color": "#008641"
+    },
+    {
+        "name": "facebook search",
+        "description": "Search facebook directly from the tile",
+        "iswidget": true,
+        "issearch": true,
+        "config": {
+            "tld": ["com"],
+            "domain": "facebook",
+            "url": "/search/results.php?q={{search}}",
+            "defaultld": ["com"],
+            "color": "rgb(64, 67, 204)",
+            "label": "facebook",
+            "useredit": ["color"],
+            "link": "http://facebook.com?tag="
+        },
+        "extensionid": "facebooksearch",
+        "src": false,
+        "multiple": false,
+        "min_width": 1,
+        "min_height": 1,
+        "w": 2,
+        "h": 1,
+        "color": "rgb(64, 67, 204)"
+    },
+    {
+        "name": "twitter search",
+        "description": "Search twitter directly from the tile",
+        "iswidget": true,
+        "issearch": true,
+        "config": {
+            "tld": ["com"],
+            "domain": "https://twitter.com",
+            "url": "https://twitter.com/search?q={{search}}&src=typd",
+            "defaultld": ["com"],
+            "color": "rgb(64, 67, 204)",
+            "label": "facebook",
+            "useredit": ["color"],
+            "link": "https://twitter.com"
+        },
+        "extensionid": "twittersearch",
+        "src": false,
+        "multiple": false,
+        "min_width": 1,
+        "min_height": 1,
+        "w": 2,
+        "h": 1,
+        "color": "rgb(64, 67, 204)"
+    }
+]

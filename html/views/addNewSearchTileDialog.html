@@ -1,0 +1,46 @@
+<md-dialog aria-label="Mango (Fruit)">
+    <div layout="row" layout-wrap>
+        <div flex >
+            <md-content style="overflow:scroll">
+                <md-list>
+                    <md-item ng-repeat="item in searchTiles">
+                        <md-item-content class="hovermenu">
+                            <div class="md-tile-left">
+                                <img ng-src="{{item.face}}" class="face" alt="{{item.who}}">
+                            </div>
+                            <div class="md-tile-content">
+                                <h3>{{item.name}}</h3>
+                                <p>
+                                    {{item.description}}
+                                </p>
+                            </div>
+                        </md-item-content>
+                    </md-item>
+                </md-list>
+            </md-content>
+        </div>
+        <div flex>
+            <md-content>
+                <md-subheader class="md-sticky-no-effect">tile info</md-subheader>
+                <md-input-container ng-if="tile.iswidget!=true||tile.issearch!=true">
+                    <label>Label</label>
+                    <input ng-model="tile.label" required="">
+                </md-input-container>
+                <md-input-container ng-if="tile.iswidget!=true||tile.issearch!=true">
+                    <label>URL</label>
+                    <input ng-model="tile.link" type="url">
+                </md-input-container>
+            </md-content>
+        </div>
+    </div>
+    <div class="md-actions" layout="row">
+        <span flex></span>
+        <md-button ng-click="cancel()">
+            cancel
+        </md-button>
+        <md-button ng-click="checkconfig()" class="md-primary">
+            <span ng-show="edit==false">add this tile</span>
+            <span ng-show="edit==true">edit this tile</span>
+        </md-button>
+    </div>
+</md-dialog>

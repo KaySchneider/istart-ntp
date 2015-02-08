@@ -8,12 +8,15 @@ app.directive('addNewTile', function() {
         }, //use own scope
         controller: ['$scope', '$mdDialog', '$rootScope', '$window', function ($scope, $mdDialog, $rootScope, $window) {
             var ps = $scope;
-            $scope.edit=false;
+            $scope.edit = false;
+
             $scope.DialogController = ['$scope', '$mdDialog', '$window',
                 function($scope, $mdDialog, $window) {
                     console.log($scope);
+                $scope.configCopy = null;
                 $scope.edit = ps.edit;
                 $scope.tldconf=false;
+                //$scope.edit=false;
                 $scope.defaultProtocol = 'http://';
                     if($scope.edit==false) {
                         $scope.tile={
@@ -33,12 +36,20 @@ app.directive('addNewTile', function() {
                                 console.log(ps.tile.config.tld);
                             }
                         }
+                        $scope.configCopy = angular.copy(ps.tile);
                         $scope.tile = ps.tile;
                     }
                 $scope.hide = function() {
                     $mdDialog.hide();
                 };
                 $scope.cancel = function() {
+                    console.log('DIALOG CANCEL')
+                    if($scope.edit != false) {
+                         console.log($scope.configCopy, ps.tile);
+                         ps.tile = angular.copy($scope.configCopy, ps.tile);
+                         //ps.tile = angular.copy($scope.configCopy);
+                        //ps.tile = $scope.configCopy;
+                    }
                     $mdDialog.cancel();
                 };
                 $scope.answer = function(answer) {
