@@ -31,6 +31,12 @@ app.directive('addNewSearchTile', function() {
                     $scope.edit = ps.edit;
                     $scope.tldconf=false;
                     $scope.defaultProtocol = 'http://';
+                    $scope.activeItem = null;
+
+                    $scope.setItemActive = function(index) {
+                        $scope.activeItem = index;
+                        $scope.tile=$scope.searchTiles[index];
+                    };
 
                     $scope.loadSearchTilesConfig()
                         .then(function(data) {
@@ -44,6 +50,7 @@ app.directive('addNewSearchTile', function() {
                         $mdDialog.cancel();
                     };
                     $scope.answer = function(answer) {
+                        console.log('CLOSE');
                         $mdDialog.hide(answer);
                     };
 
@@ -61,26 +68,18 @@ app.directive('addNewSearchTile', function() {
                         }
                     };
 
-                    $scope.CheckLabel = function() {    };
+                    $scope.CheckLabel = function() {
+
+                    };
 
                     /**
                      * check the current tiles configuration
                      */
                     $scope.checkconfig = function() {
-                        if($scope.tile.iswidget==true||$scope.tile.issearch==true){
+                            $scope.tile.uuid = $rootScope.getUniqueUUID();
                             $mdDialog.hide($scope.tile);
-                        }else {
-                            $scope.checkProtocol();
-                            if(typeof $scope.tile.label != 'undefined') {
-                                var trimmed = $scope.tile.label.trim();
-                                if(trimmed.length >=1) {
-                                    $scope.tile.label =  trimmed;
-                                    $mdDialog.hide($scope.tile);
-                                }
-                            }
-                        }
-                    };
 
+                    };
                 }];
             $scope.showAdvanced = function (ev) {
                 $mdDialog.show({
@@ -89,12 +88,7 @@ app.directive('addNewSearchTile', function() {
                     targetEvent: ev
                 })
                     .then(function (tileConfig) {
-                        if($scope.edit==true) {
-                            var event = new Event('resort');
-                            window.dispatchEvent(event);
-                        } else {
                             $rootScope.$broadcast('addNewTile', tileConfig);
-                        }
                     }, function () {
                         //do nothing when cancel
                     });

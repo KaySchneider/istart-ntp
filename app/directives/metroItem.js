@@ -34,9 +34,10 @@ app.directive('metroItem', function() {
                 }
             });
         },
-        controller: ['$scope' , function ($scope) {
+        controller: ['$scope' , '$rootScope', function ($scope, $rootScope) {
             $scope.config = $scope.tileInfo.config;
             $scope.hover = false;
+            $rootScope.addUUIDTOList($scope.tileInfo.uuid);
             //console.log($scope.tileInfo, "scope");
             //check here the config for different tile types!
             /**

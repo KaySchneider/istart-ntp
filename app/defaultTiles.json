@@ -11,7 +11,7 @@
                 "multiple": true,
                 "min_width": 2,
                 "min_height": 2,
-                "color": "#00899e"
+                "color": "green"
             }
         ],
         [
@@ -37,7 +37,7 @@
                 "link": "http://maps.google.com",
                 "icon": "googleplaces",
                 "label": "Maps",
-                "color": "#00899e"
+                "color": "blue"
             }
         ],
         [
@@ -202,7 +202,7 @@
                     "color": "#95009d",
                     "label": "Google",
                     "icon": "google",
-                    "useredit": ["color"],
+                    "useredit": ["color", "tld"],
                     "link": "http://www.google.com?tag="
                 },
                 "extensionid": "googlesearch",

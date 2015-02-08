@@ -4,7 +4,7 @@
             <md-content style="overflow:scroll">
                 <md-list>
                     <md-item ng-repeat="item in searchTiles">
-                        <md-item-content class="hovermenu">
+                        <md-item-content class="hovermenu" ng-class="{active:activeItem===$index}" ng-click="setItemActive($index)">
                             <div class="md-tile-left">
                                 <img ng-src="{{item.face}}" class="face" alt="{{item.who}}">
                             </div>
@@ -17,19 +17,6 @@
                         </md-item-content>
                     </md-item>
                 </md-list>
-            </md-content>
-        </div>
-        <div flex>
-            <md-content>
-                <md-subheader class="md-sticky-no-effect">tile info</md-subheader>
-                <md-input-container ng-if="tile.iswidget!=true||tile.issearch!=true">
-                    <label>Label</label>
-                    <input ng-model="tile.label" required="">
-                </md-input-container>
-                <md-input-container ng-if="tile.iswidget!=true||tile.issearch!=true">
-                    <label>URL</label>
-                    <input ng-model="tile.link" type="url">
-                </md-input-container>
             </md-content>
         </div>
     </div>

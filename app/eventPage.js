@@ -1921,12 +1921,15 @@ var calculateMostActiveUrl = function() {
             urls[hash] = urls[hash] + item.duration;
         }
     }).then(function(msg) {
+            sortTest(urls);
             urls.sort(function(a, b) {
                 return console.log(a, b);
             });
         console.log('ITEMS' , urls);
     });
 };
+
+
 
 function sortMe(a, b) {
     console.log(a,b, 'SORTED');

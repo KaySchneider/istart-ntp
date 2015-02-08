@@ -10,12 +10,14 @@ app.directive('backgroundConfig', function() {
         controller: ['$scope',function($scope) {
 
             $scope.addBackgroundConfig = function(element) {
+                console.log($scope.tileInfo.color);
                 if($scope.tileInfo.color) {
+
                     $scope.element = element;
                     angular.element(element).css('background', $scope.tileInfo.color);
                     //add watcher for live edit mode
                     $scope.$watch('tileInfo.color', function() {
-                        angular.element($scope.element).css('background', $scope.tileInfo.color);
+                        angular.element($scope.element).css('background', $scope.tileInfo.color+'');
                     });
                 }
             }

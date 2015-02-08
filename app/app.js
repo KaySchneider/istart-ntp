@@ -45,7 +45,38 @@ angular.module('istart', [
             'alAngularHero'
     ]
 
-).config(['$stateProvider', '$urlRouterProvider', '$compileProvider',
+).run(['$rootScope','$window' , function($rootScope, $window) {
+        $rootScope.uuidList = [];
+        $rootScope.getUUIDListInUse = function() {
+            return $rootScope.uuidList;
+        };
+
+        $rootScope.checkUUIdInUse = function(uuid) {
+            if($rootScope.uuidList.indexOf(uuid) != -1) {
+                return false;
+            }
+            return true;
+        };
+
+        $rootScope.getUniqueUUID = function() {
+            var uuid;
+            while(true==true) {
+                uuid = $window.guid();
+                if($rootScope.checkUUIdInUse(uuid)) {
+                    console.debug('found unique uuid', uuid);
+                    break;
+                } else {
+                    console.debug(uuid, 'is in data');
+                }
+            }
+            return uuid;
+        };
+
+        $rootScope.addUUIDTOList = function(uuid) {
+            $rootScope.uuidList.push(uuid);
+        };
+
+    }]).config(['$stateProvider', '$urlRouterProvider', '$compileProvider',
         function($stateProvider, $urlRouterProvider, $compileProvider) {
         $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension|chrome):/);
         $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|chrome|chrome-extension):/);
@@ -66,3 +97,17 @@ angular.module('istart', [
             });
     }]);
 window.startTime = Date.now();
+/**
+ * TODO: move this part to global window functions file
+ */
+window.guid = (function() {
+    function s4() {
+        return Math.floor((1 + Math.random( )) * 0x10000)
+            .toString(16)
+            .substring(1);
+    }
+    return function() {
+        return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+            s4() + '-' + s4() + s4() + s4();
+    };
+})();

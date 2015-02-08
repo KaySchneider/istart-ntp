@@ -14,6 +14,9 @@ app.directive('searchWidget', function() {
             $scope.checkConfigLoadPage = function(searchQuery, element) {
                 var domain = $scope.config.domain;
                 var currentTld = $scope.config.tld[0];
+                if($scope.config.defaultld) {
+                    currentTld = $scope.config.defaultld;
+                }
                 var paramSearch = $scope.config.url.replace($scope.replacement, searchQuery);
                 var openMe =domain + '.' + currentTld + paramSearch;
                 if(!loadpage.checkUrl(openMe)) {
@@ -23,23 +26,28 @@ app.directive('searchWidget', function() {
                     /**
                      * clear the search form input field
                      */
-                    angular.element(element[0]).val('');
+                    element.val('');
                 });
-            }
+            };
             $scope.$on('$destroy', function(){
-                angular.element($scope.element).off('keydown');
+                $scope.element.off('keydown');
             });
         }],
         link: function(scope, element, attrs) {
             scope.element = element;
-            angular.element(element[0]).on('keydown', function(event, attrs) {
+            console.log(element.parent().parent().parent().parent().parent().parent());
+            element.parent().parent().parent().parent().parent().parent().on('click', function() {
+                console.log('CLICK');
+              //  scope.checkConfigLoadPage(element.val(), element);
+            });
+            element.on('keydown', function(event, attrs) {
                 switch(event.keyCode) {
                     case 13: //enter
                         console.log('start search enter');
-                        scope.checkConfigLoadPage(angular.element(element[0]).val(), element);
+                        scope.checkConfigLoadPage(element.val(), element);
                        break;
                     case 27: //esc
-                        angular.element(element[0]).val('');
+                        element.val('');
                         break;
                 }
             });
