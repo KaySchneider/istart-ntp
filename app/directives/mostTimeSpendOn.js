@@ -16,14 +16,6 @@ app.directive('mostTimeSpendOn', function() {
             $scope.ma = matrix;
             $scope.msg = backgroundMessage;
             $scope.load=loadpage;
-            $scope.loadtest = function(url) {
-                $scope.msg.message.connect(
-                    $scope.msg.message.getMessageSkeleton('getThumbnail', {hostname:url})
-                ).then(function(data) {
-                    console.log(data, 'TUMB');
-                })
-
-            };
             $scope.loadPage = function(url) {
                 $scope.load.loadPage(url)
                     .then(function(item) {
@@ -33,7 +25,8 @@ app.directive('mostTimeSpendOn', function() {
             $scope.mostRecentPages=[];
             $scope.ma.getPagesMostTimeSpend().then(function(data) {
                 if(data!=false) {
-                    $scope.mostRecentPages = data;
+
+                    $scope.mostRecentPages = data.splice(0,4);;
                 }
             });
         }]

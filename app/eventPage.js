@@ -5598,11 +5598,13 @@ var createThumbnail = function(url, tab) {
            var hostnameCheck = new URL(url).hostname;
            for(var item in data) {
                 var hostname = new URL(data[item].item.url).hostname;
+               console.log(hostname,hostnameCheck);
                 if(hostname==hostnameCheck) {
                     makePic=true;
                     break;
                 }
            }
+           console.log(makePic);
            if(makePic==true) {
                    db.thumbnails.where('url')
                        .equals(hostname)
@@ -5611,6 +5613,7 @@ var createThumbnail = function(url, tab) {
                                chrome.tabs.captureVisibleTab( tab.windowId ,function(dataUrl) {
                                    //console.debug(dataUrl, url);//this is the preview image
                                    //saveImage(dataUrl, hostname);
+                                   console.log('create thumbnail');
                                    db.thumbnails
                                        .add({
                                            url: hostname,
@@ -5630,6 +5633,15 @@ var saveImage = function(imageUrl, hostname) {
     //chrome.storage.local.set({ key : imageUrl});
 };
 
+chrome.alarms.onAlarm.addListener(function(alarm) {
+    timespendCalc=null;
+    if(alarm.name == "createTimeSpend") {
+        console.log('alarm create Time spend active');
+        calculateMostActiveUrl();
+        chrome.alarms.create("createTimeSpend", {delayInMinutes: 60});//fire only once per hour
+    }
+});
+chrome.alarms.create("createTimeSpend", {when: Date.now() + 100});
 /**
  * Start to bind the tabs event listeners
  * TODO: add later an config so that the users can change this and maybe disable some
