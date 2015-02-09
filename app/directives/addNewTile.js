@@ -12,7 +12,6 @@ app.directive('addNewTile', function() {
 
             $scope.DialogController = ['$scope', '$mdDialog', '$window','$rootScope',
                 function($scope, $mdDialog, $window,$rootScope) {
-                    console.log($scope);
                 $scope.configCopy = null;
                 $scope.edit = ps.edit;
                 $scope.tldconf=false;
@@ -43,7 +42,6 @@ app.directive('addNewTile', function() {
                     $mdDialog.hide();
                 };
                 $scope.cancel = function() {
-                    console.log('DIALOG CANCEL')
                     if($scope.edit != false) {
                          console.log($scope.configCopy, ps.tile);
                          ps.tile = angular.copy($scope.configCopy, ps.tile);

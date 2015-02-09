@@ -1,35 +1,6 @@
 [
       [
-        [
-            {
-                "name": "Welcome Tile",
-                "description": "Helps you save time during your first steps",
-                "iswidget": true,
-                "extensionid": "welcomehey",
-                "fullscreen": "chrome-extension://lkgdlmlmcijgnglfcophfjhafiafhkae/system//instagram/html/instaWidget.html#/home",
-                "src": "chrome-extension://lkgdlmlmcijgnglfcophfjhafiafhkae/system/instagram/html/instaWidget.html",
-                "multiple": true,
-                "min_width": 2,
-                "min_height": 2,
-                "color": "green"
-            }
-        ],
-        [
-            {
-                "name": "topSites",
-                "description": "access fast and easy your topSites",
-                "iswidget": true,
-                "extensionid": "topsites",
-                "fullscreen": "chrome-extension://lkgdlmlmcijgnglfcophfjhafiafhkae/system//topsites/html/fullscreen.html",
-                "src": "chrome-extension://lkgdlmlmcijgnglfcophfjhafiafhkae/system//topsites/html/widget.html",
-                "multiple": true,
-                "min_width": 1,
-                "min_height": 1,
-                "w": 2,
-                "h": 2,
-                "color": "#00899e"
-            }
-        ],
+
         [
             {
                 "w": 1,
@@ -304,7 +275,7 @@
         [
             {
                 "w": 2,
-                "h": 2,
+                "h": 1,
                 "color": "#00a100",
                 "icon": "googleplus",
                 "link": "http://plus.google.com",
@@ -362,6 +333,7 @@
             {
                 "w": 2,
                 "h": 1,
+                "color": "#b31b42",
                 "link": "http://www.underarmour.com",
                 "label": "underarmour"
             }
@@ -427,8 +399,9 @@
             {
                 "w": 2,
                 "h": 1,
+                "color": "#b31b42",
                 "icon": "twitter",
-                "link": "http://www.twitter.com/",
+                "link": "https://twitter.com/",
                 "label": "twitter"
             }
         ]

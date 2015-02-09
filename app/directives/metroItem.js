@@ -60,6 +60,10 @@ app.directive('metroItem', function() {
                 console.log(data);
             };
 
+            $scope.removeItem = function(tileInfo) {
+                $rootScope.$broadcast('removeTile', tileInfo);
+            };
+
             $scope.dropDownOptions = {
                 'menuLabel': 'options',
                 'items': [
@@ -67,7 +71,14 @@ app.directive('metroItem', function() {
                         'label': 'color',
                         'action': $scope.showColorChooserTile,
                         'data': $scope.tileInfo,
-                        'editMode': $scope.editMode
+                        'editMode': $scope.editMode,
+                        'edittile':true
+                    },
+                    {
+                        'label':'delete',
+                        'editMode': $scope.editMode,
+                        'data':$scope.tileInfo,
+                        'action': $scope.removeItem
                     }
                 ]
             };

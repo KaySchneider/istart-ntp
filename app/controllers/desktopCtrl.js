@@ -33,6 +33,23 @@ app.controller('desktopCtrl',
         $location.path(path);
     };
 
+    $rootScope.$on('removeTile', function(ev,tileInfo) {
+        var found=false;
+        for(var outerIndex in $scope.items) {
+            for(var inner in $scope.items[outerIndex]) {
+                if($scope.items[outerIndex][inner][0].uuid == tileInfo.uuid) {
+                    $scope.items[outerIndex].splice(inner,1);
+                    $scope.ma.saveMatrix($scope.items);
+                    found=true;
+                    break;
+                }
+            }
+            if(found==true) {
+                break;
+            }
+        }
+    });
+
     /**
      * resort the matrix
      */
@@ -136,12 +153,9 @@ app.controller('desktopCtrl',
                 $scope.ma.portMatrixUUID(data);
             }
             $scope.items = data;
-            //addDnD();
             if(!$scope.$$phase) {
-                //$digest or $apply
                 $scope.$apply();
             }
-          //  $scope.$apply();
         }
     });
     $window.appControllerEndFile = Date.now();
