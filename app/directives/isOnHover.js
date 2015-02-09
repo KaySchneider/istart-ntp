@@ -5,7 +5,6 @@
  */
 
 var app = angular.module('istartMetroDirective');
-
 app.directive('isOnHover', function() {
     return {
         restrict: 'A',

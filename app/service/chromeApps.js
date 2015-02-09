@@ -7,7 +7,6 @@
  * wie wir die Messages von der Background Page in die Frontend Page bekommen.
  * So können wir auch die Ladezeiten beschleunigen!!
 **/
-'use strict';
 var app  = angular.module('istart');
 app.factory('chromeApp', ['$q',function ($q) {
     var getAppsList = function() {
