@@ -18,8 +18,9 @@
                 <span ng-if="!tileInfo.issearch">
                 </span>
     </span>
-    <icon-switcher></icon-switcher>
 
+    <icon-switcher></icon-switcher>
+    <page-thumbnail ng-hide="tileInfo.iswidget==true||tileinfo.issearch==true" url="tileInfo.link"></page-thumbnail>
     <md-card-content>
         <h2 ng-if="tileInfo.name" >{{tileInfo.name}}</h2>
         <h2 ng-if="tileInfo.label">{{tileInfo.label}}</h2>

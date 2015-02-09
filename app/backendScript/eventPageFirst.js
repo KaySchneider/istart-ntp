@@ -193,10 +193,24 @@ function addTabsEvents() {
 }
 
 var timespendCalc=null;
-
+var linkInMatrix=null;
 var setTimeSpend=function() {
     var defer=Q.defer();
     if(timespendCalc==null) {
+        chrome.storage.local.get('istart', function(data) {
+            try {
+                linkInMatrix=[];
+                var matrix = JSON.parse(data.istart);
+                for(var item in matrix) {
+                    if(matrix[item][0].link) {
+                        linkInMatrix.push(matrix[item][0].link);
+                    }
+                }
+                console.log(linkInMatrix);
+            } catch(e) {
+
+            }
+        });
         chrome.storage.local.get('timespend', function(data) {
             try  {
                 timespendCalc=JSON.parse(data.timespend);
