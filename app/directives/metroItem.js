@@ -34,7 +34,7 @@ app.directive('metroItem', function() {
                 }
             });
         },
-        controller: ['$scope' , '$rootScope', function ($scope, $rootScope) {
+        controller: ['$scope' , '$rootScope','$mdDialog', function ($scope, $rootScope, $mdDialog) {
             $scope.config = $scope.tileInfo.config;
             $scope.hover = false;
             $rootScope.addUUIDTOList($scope.tileInfo.uuid);
@@ -56,12 +56,23 @@ app.directive('metroItem', function() {
             $scope.$index = $scope.$parent.$index;
             $scope.outerIndex = $scope.$parent.$parent.$index;
 
-            $scope.showColorChooserTile = function (data) {
+            $scope.showColorChooserTile = function (ev,data) {
                 console.log(data);
             };
 
-            $scope.removeItem = function(tileInfo) {
-                $rootScope.$broadcast('removeTile', tileInfo);
+            $scope.removeItem = function(ev,tileInfo) {
+                    var name= (tileInfo.label ? tileInfo.label :tileInfo.name);
+                    var confirm = $mdDialog.confirm()
+                        .title('Delete the tile: ' + name)
+                        .content('All of the banks have agreed to forgive you your debts.')
+                        .ariaLabel('DELETE TILE')
+                        .ok('Delete')
+                        .cancel('cancel')
+                        .targetEvent(ev);
+                    $mdDialog.show(confirm).then(function() {
+                        $rootScope.$broadcast('removeTile', tileInfo);
+                    }, function() {
+                    });
             };
 
             $scope.dropDownOptions = {
