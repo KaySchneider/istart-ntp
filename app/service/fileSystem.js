@@ -35,10 +35,10 @@ app.factory('fileSystem', ['$q',function ($q) {
 
                 //var i = document.createElement('img');
 
-                // i.setAttribute('src', fileEntry.toURL());
+                //i.setAttribute('src', fileEntry.toURL());
                 //i.setAttribute('style','position:absolute;top:0px;left:0px;min-width:500px;border:1px solid red');
                 //document.getElementsByTagName('body')[0].appendChild(i);
-                console.log(fileEntry);
+                //console.log(fileEntry.toURL());
             }
         );
     };
