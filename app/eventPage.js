@@ -5570,10 +5570,26 @@ function addTabsEvents() {
 }
 
 var timespendCalc=null;
-
+var linkInMatrix=null;
 var setTimeSpend=function() {
     var defer=Q.defer();
     if(timespendCalc==null) {
+        chrome.storage.local.get('istart', function(data) {
+            try {
+                linkInMatrix=[];
+                var matrix = JSON.parse(data.istart);
+                for(var item in matrix) {
+                    for(var sub in matrix[item]) {
+                        console.log(matrix[item][sub][0]);
+                        if(matrix[item][sub][0].link) {
+                            linkInMatrix.push(matrix[item][sub][0].link);
+                        }
+                    }
+                }
+            } catch(e) {
+
+            }
+        });
         chrome.storage.local.get('timespend', function(data) {
             try  {
                 timespendCalc=JSON.parse(data.timespend);
@@ -5603,6 +5619,15 @@ var createThumbnail = function(url, tab) {
                     makePic=true;
                     break;
                 }
+           }
+           if(makePic==false) {
+               for(var item in linkInMatrix) {
+                   var hostname = new URL(linkInMatrix[item]).hostname;
+                   if(hostname==hostnameCheck) {
+                       makePic=true;
+                       break;
+                   }
+               }
            }
            console.log(makePic);
            if(makePic==true) {

@@ -10,8 +10,8 @@ app.directive('addNewTile', function() {
             var ps = $scope;
             $scope.edit = false;
 
-            $scope.DialogController = ['$scope', '$mdDialog', '$window',
-                function($scope, $mdDialog, $window) {
+            $scope.DialogController = ['$scope', '$mdDialog', '$window','$rootScope',
+                function($scope, $mdDialog, $window,$rootScope) {
                     console.log($scope);
                 $scope.configCopy = null;
                 $scope.edit = ps.edit;
@@ -25,7 +25,7 @@ app.directive('addNewTile', function() {
                             color: '#b81c46',
                             w: 1,
                             h: 1,
-                            uuid: $window.guid()
+                            uuid:  $rootScope.getUniqueUUID()
                         };
                     } else {
 
@@ -97,7 +97,7 @@ app.directive('addNewTile', function() {
                     templateUrl: '../html/views/addNewTileDialog.html',
                     targetEvent: ev
                 })
-                    .then(function (tileConfig) {
+                .then(function (tileConfig) {
                         if($scope.edit==true) {
                             var event = new Event('resort');
                             window.dispatchEvent(event);
@@ -108,7 +108,7 @@ app.directive('addNewTile', function() {
                         }
                     }, function () {
                         //do nothing when cancel
-                    });
+                });
             }
         }],
         link: function(scope, element, attrs) {

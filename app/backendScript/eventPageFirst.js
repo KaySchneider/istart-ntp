@@ -202,11 +202,13 @@ var setTimeSpend=function() {
                 linkInMatrix=[];
                 var matrix = JSON.parse(data.istart);
                 for(var item in matrix) {
-                    if(matrix[item][0].link) {
-                        linkInMatrix.push(matrix[item][0].link);
+                    for(var sub in matrix[item]) {
+                        console.log(matrix[item][sub][0]);
+                        if(matrix[item][sub][0].link) {
+                            linkInMatrix.push(matrix[item][sub][0].link);
+                        }
                     }
                 }
-                console.log(linkInMatrix);
             } catch(e) {
 
             }
@@ -240,6 +242,15 @@ var createThumbnail = function(url, tab) {
                     makePic=true;
                     break;
                 }
+           }
+           if(makePic==false) {
+               for(var item in linkInMatrix) {
+                   var hostname = new URL(linkInMatrix[item]).hostname;
+                   if(hostname==hostnameCheck) {
+                       makePic=true;
+                       break;
+                   }
+               }
            }
            console.log(makePic);
            if(makePic==true) {
