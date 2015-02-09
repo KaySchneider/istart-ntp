@@ -11,6 +11,7 @@ app.controller('desktopCtrl',
     $scope.maTemp = [];
     $scope.hiddenMatrix = $scope.items;
     $scope.editMode= false;
+    $scope.mostRecentPages=false;
     $scope.$watch('items', function() {
         $scope.hiddenMatrix = $scope.items;
         /**
@@ -52,7 +53,7 @@ app.controller('desktopCtrl',
                 //$digest or $apply
                 $scope.$apply();
             }
-            console.log('SAVE SAVE');
+            console.log('SAVE SAVE', $scope.maTemp);
             $scope.ma.saveMatrix($scope.maTemp);
         });
     });
@@ -117,8 +118,15 @@ app.controller('desktopCtrl',
     };
 
     $rootScope.$on('addNewTile', function(event, tileConfig) {
-        console.log($scope.items[0].unshift([tileConfig]));
+        $scope.items[0].unshift([tileConfig]);
+        $scope.ma.saveMatrix($scope.items);
         addDnD();
+    });
+
+    $scope.ma.getPagesMostTimeSpend().then(function(data) {
+        if(data!=false) {
+            $scope.mostRecentPages = data;
+        }
     });
 
     $scope.ma.getLocalData().then(function(data) {

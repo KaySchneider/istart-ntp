@@ -1,8 +1,8 @@
 'use strict';
 var app  = angular.module('istart');
 
-app.factory('matrix', ['$q', 'backgroundMessage',  '$window', '$http',
-    function ($q, backgroundMessage, $window, $http) {
+app.factory('matrix', ['$q', 'backgroundMessage',  '$window', '$http', '$rootScope',
+    function ($q, backgroundMessage, $window, $http, $rootScope) {
     var useTinfoilShielding = false;
     var matrixCopy = null;
     var chrome = $window.chrome;
@@ -33,7 +33,7 @@ app.factory('matrix', ['$q', 'backgroundMessage',  '$window', '$http',
             for(var item in matrix) {
                 for(var entry in matrix[item]) {
                     //console.log(matrix[item][entry][0]);
-                    matrix[item][entry][0].uuid = $window.guid();
+                    matrix[item][entry][0].uuid = $rootScope.getUniqueUUID()
                 }
             }
             //check the uuid
@@ -49,12 +49,10 @@ app.factory('matrix', ['$q', 'backgroundMessage',  '$window', '$http',
                 }
             }
             if(store != false) {
-
                 backgroundMessage.message.connect(
                     backgroundMessage.message.getMessageSkeleton('saveMatrix', {matrix:matrix})
                 ).then(function(data) {
-
-                    });
+                });
             }
         };
 
@@ -80,6 +78,20 @@ app.factory('matrix', ['$q', 'backgroundMessage',  '$window', '$http',
                     deferred.reject('error');
                 });
             return deferred.promise;
+        };
+
+        this.getPagesMostTimeSpend = function() {
+            var defer = $q.defer();
+            chrome.storage.local.get('timespend', function(data) {
+                var timespend = null;
+                try {
+                    timespend = JSON.parse(data.timespend);
+                } catch(e) {
+                    timespend = false;
+                }
+                defer.resolve(timespend);
+            });
+            return defer.promise;
         };
 
         /**

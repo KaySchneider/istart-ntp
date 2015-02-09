@@ -1903,45 +1903,43 @@ return Q;
 
 });
 ;'use strict';
+
+var hashInObject = function(needle, arr) {
+    for(var index in arr) {
+            if(arr[index].hash == needle) {
+                return index;
+                break;
+            }
+    }
+    return false;
+};
+
 var calculateMostActiveUrl = function() {
     var urls = [];
     var hashToEntry=[];
     //reduce the data to the domain for more granular data we can check the history API
     //start direct to resort the most used urls
     db.timeMasterUrl.orderBy('url').each(function(item) {
-        //console.log(item, urls, item.url in urls);
         var hash = md5(item.url) + 'a'; //make a string of it=?
-        if((hash in urls)==false) {
-          //  console.log('works WHAT');
+        var isInObject = hashInObject(hash,urls);
+        if(  isInObject == false ) {
             hashToEntry[hash]=item;
-            urls[hash] = item.duration;
-           // console.log('works not');
+            urls.push({duration: item.duration, hash: hash, item:item});
         } else {
-            hashToEntry[hash] = item;
-            urls[hash] = urls[hash] + item.duration;
+            urls[isInObject].duration = urls[isInObject].duration + item.duration;
         }
-    }).then(function(msg) {
-            sortTest(urls);
-            urls.sort(function(a, b) {
-                return console.log(a, b);
-            });
-        console.log('ITEMS' , urls);
+    }).then(function() {
+        urls.sort(function(a,b) {
+            return a.duration == b.duration ? 0 :
+                    a.duration < b.duration ? 1 : -1;
+        });
+        //write the most recent 10 items into the most time spend in local storage
+        var storeItems = urls.slice(0, 10);
+        chrome.storage.local.remove('timespend');
+        chrome.storage.local.set({'timespend': JSON.stringify(storeItems)});
     });
 };
 
-
-
-function sortMe(a, b) {
-    console.log(a,b, 'SORTED');
-    if(a < b) return 1;
-    if(a > b) return -1;
-    return 0;
-}
-
-var orderHighest = function(objectArray) {
-    var sortME =  objectArray.sort();
-    console.log('sorted', objectArray, sortMe);
-};
 
 //try to generate a large database of random stuff
 var startSurfingAutoMagic = function() {

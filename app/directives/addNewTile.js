@@ -102,7 +102,9 @@ app.directive('addNewTile', function() {
                             var event = new Event('resort');
                             window.dispatchEvent(event);
                         } else {
+                            $rootScope.addUUIDTOList(tileConfig.uuid);
                             $rootScope.$broadcast('addNewTile', tileConfig);
+
                         }
                     }, function () {
                         //do nothing when cancel
