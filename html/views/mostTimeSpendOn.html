@@ -1,0 +1,10 @@
+<div layout="row" layout-wrap style="width: 100%">
+    <md-card flex="20" class="material-tile-left"  ng-click="loadPage(items.item.url)"  style="height: 200px"  ng-repeat="items in mostRecentPages">
+        <page-thumbnail url="items.item.url"></page-thumbnail>
+        <md-card-content>
+            <h2  >{{items.item.url|limitTo:20}}</h2>
+            <p>
+            </p>
+        </md-card-content>
+    </md-card>
+</div>

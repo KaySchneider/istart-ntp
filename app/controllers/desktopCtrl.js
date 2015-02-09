@@ -123,11 +123,7 @@ app.controller('desktopCtrl',
         addDnD();
     });
 
-    $scope.ma.getPagesMostTimeSpend().then(function(data) {
-        if(data!=false) {
-            $scope.mostRecentPages = data;
-        }
-    });
+
 
     $scope.ma.getLocalData().then(function(data) {
         console.debug('DATA', data);

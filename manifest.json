@@ -7,7 +7,7 @@
     "offline_enabled": true,
     "optional_permissions": ["topSites"],
     "permissions": [
-        "history","management","storage","unlimitedStorage","\u003Call_urls\u003E", "webNavigation", "tabs"
+        "history","management","storage","unlimitedStorage","<all_urls>", "webNavigation", "tabs"
     ],
     "icons": {
         "128": "istartIcon.png",

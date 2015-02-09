@@ -91,7 +91,6 @@ app.directive('addNewSearchTile', function() {
                         console.log('ADD TILE TO THE DATABASE', tileConfig.uuid);
                             $rootScope.addUUIDTOList(tileConfig.uuid);
                             $rootScope.$broadcast('addNewTile', tileConfig);
-
                     }, function () {
                         //do nothing when cancel
                     });

@@ -52,6 +52,14 @@ db.version(3)
         timeSpendOnUrl: '++id, tabId, url, timestart, isActive', //wir messen die Zeit wie lange der Nutzer auf einer URL in den Aktiven Tab hat. somit ist die Zeiterfassung viel Granularer und genauer Bei jedem TabChange event wo sich die URl ändert wird der Eintrag hier gelöscht und in die master Table zurückgeschrieben
         activeTab: '++id,vId,tabId,windowId,active,activestartTimes'
     });
+db.version(4)
+    .stores({
+        visited: '++id,tabId,url,start,end,duration,completeUrl',
+        timeMasterUrl: '++id, tabId, url, timestart, timestop, duration', //auswertungs Tabelle Master Referrenz zur Zeitermittlung
+        timeSpendOnUrl: '++id, tabId, url, timestart, isActive', //wir messen die Zeit wie lange der Nutzer auf einer URL in den Aktiven Tab hat. somit ist die Zeiterfassung viel Granularer und genauer Bei jedem TabChange event wo sich die URl ändert wird der Eintrag hier gelöscht und in die master Table zurückgeschrieben
+        activeTab: '++id,vId,tabId,windowId,active,activestartTimes',
+        thumbnails: '++id, url'
+    });
 // Open the database
 db.open()
     .catch(function(error){

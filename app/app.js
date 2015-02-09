@@ -78,8 +78,8 @@ angular.module('istart', [
 
     }]).config(['$stateProvider', '$urlRouterProvider', '$compileProvider',
         function($stateProvider, $urlRouterProvider, $compileProvider) {
-        $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension|chrome):/);
-        $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|chrome|chrome-extension):/);
+        $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension|chrome|chrome-search):/);
+        $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|chrome|chrome-extension|chrome-search|data)/);
             // Angular before v1.2 uses $compileProvider.urlSanitizationWhitelist(...)
             console.debug('TIME TO THE APP START in seconds:' , (Date.now() - window.startTime)/1000);
         $urlRouterProvider.otherwise('/desktop');

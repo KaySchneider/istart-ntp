@@ -68,6 +68,28 @@ istartBackOffice.prototype.getMatrixPort = function(port, uid) {
     port.postMessage({ matrix: this.getMatrix(), uid: uid});
 };
 
+istartBackOffice.prototype.getThumbnail = function(port, hostname, uid) {
+    var uid = uid;
+    var sended=false;
+    var hostnameCheck = new URL(hostname).hostname;
+    db.thumbnails.where('url')
+        .equals(hostnameCheck)
+        .count(function(items) {
+            if(items!=0) {
+                db.thumbnails.where('url')
+                    .equals(hostnameCheck)
+                    .each(function(item) {
+                        if(sended==false)
+                            port.postMessage({uid:uid, thumbnail:item.data});
+                        sended=true;
+                    });
+            } else {
+                port.postMessage({uid:uid, thumbnail:null});
+                sended=true;
+            }
+        });
+};
+
 istartBackOffice.prototype.getMatrix = function() {
     if(this.matrix !== null || this.matrix.length ==0) {
         return this.matrix;
@@ -83,6 +105,8 @@ istartBackOffice.prototype.addMessageListener = function() {
                 that.getMatrixPort(port, msg.uid);
             } else if(msg.message.call == 'saveMatrix') {
                 that.saveMatrix(msg.message.matrix, port, msg.uid);
+            } else if(msg.message.call == 'getThumbnail') {
+                that.getThumbnail(port, msg.message.hostname, msg.uid)
             }
 
         });
@@ -145,11 +169,12 @@ function addTabsEvents() {
     });
 
     chrome.tabs.onCreated.addListener(function(tab) {
+
     });
 
     chrome.tabs.onRemoved.addListener(function(tabId, closeInfo) {
         /**
-         * TODO: add here tracking code if the browser shuts down!
+         *TODO: add here tracking code if the browser shuts down!
          */
     });
 
@@ -159,9 +184,75 @@ function addTabsEvents() {
             // console.log(tabId, changeInfo, tab, 'UPDATE INFORMATION');
             tempLoadedUrls[tabId] = tab.url;
             trackTimeActive.changeActiveTab(tab.id, tab);
+            var urlImage = tab.url;
+            createThumbnail(urlImage, tab);
+
         }
     });
+
 }
+
+var timespendCalc=null;
+
+var setTimeSpend=function() {
+    var defer=Q.defer();
+    if(timespendCalc==null) {
+        chrome.storage.local.get('timespend', function(data) {
+            try  {
+                timespendCalc=JSON.parse(data.timespend);
+            } catch(e) {
+                timespendCalc=false;
+            }
+            defer.resolve(timespendCalc);
+        });
+    } else {
+        defer.resolve(timespendCalc);
+    }
+    return defer.promise;
+};
+
+var createThumbnail = function(url, tab) {
+  //check if there check if the item is in the database
+    var url = url;
+    setTimeSpend().then(function(data) {
+       if(data != null || data != false) {
+           console.log(data);
+           var makePic=false;
+           var hostnameCheck = new URL(url).hostname;
+           for(var item in data) {
+                var hostname = new URL(data[item].item.url).hostname;
+                if(hostname==hostnameCheck) {
+                    makePic=true;
+                    break;
+                }
+           }
+           if(makePic==true) {
+                   db.thumbnails.where('url')
+                       .equals(hostname)
+                       .count(function(items) {
+                           if(items==0) {
+                               chrome.tabs.captureVisibleTab( tab.windowId ,function(dataUrl) {
+                                   //console.debug(dataUrl, url);//this is the preview image
+                                   //saveImage(dataUrl, hostname);
+                                   db.thumbnails
+                                       .add({
+                                           url: hostname,
+                                           data:dataUrl
+                                       });
+                               });
+                           }
+                       });
+           }
+       }
+    });
+};
+
+var saveImage = function(imageUrl, hostname) {
+    var key='image'+ hostname;
+
+    //chrome.storage.local.set({ key : imageUrl});
+};
+
 /**
  * Start to bind the tabs event listeners
  * TODO: add later an config so that the users can change this and maybe disable some
