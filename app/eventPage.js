@@ -5438,6 +5438,9 @@ istartBackOffice.prototype.loadData = function() {
 
 istartBackOffice.prototype.saveMatrix = function(matrix, port, uid) {
     chrome.storage.local.set({istart:JSON.stringify(matrix)}, function() {
+        timespendCalc=null;
+        linkInMatrix=null;
+        setTimeSpend();
     });
 };
 
@@ -5580,7 +5583,6 @@ var setTimeSpend=function() {
                 var matrix = JSON.parse(data.istart);
                 for(var item in matrix) {
                     for(var sub in matrix[item]) {
-                        console.log(matrix[item][sub][0]);
                         if(matrix[item][sub][0].link) {
                             linkInMatrix.push(matrix[item][sub][0].link);
                         }
