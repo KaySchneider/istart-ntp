@@ -45,7 +45,24 @@ var hashInObject = function(needle, arr) {
     return false;
 };
 
+var clearDataBase = function() {
+    var day = (24 * 3600000);
+    var dd = Date.now() - (day * 7);
+    var dateOb = new Date(dd);
+    console.log(dateOb.toGMTString());
+    var now = Date.now();
+    db.timeSpendOnUrl.where('timestart').below(dd)
+        .delete().then(function(item) {
+
+        });
+    db.timeMasterUrl.where('timestart').below(dd)
+        .delete().then(function(item) {
+
+    });
+};
+
 var calculateMostActiveUrl = function() {
+    clearDataBase();//delete everything older than 7 days
     var urls = [];
     var hashToEntry=[];
     //reduce the data to the domain for more granular data we can check the history API

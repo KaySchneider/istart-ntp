@@ -1914,7 +1914,24 @@ var hashInObject = function(needle, arr) {
     return false;
 };
 
+var clearDataBase = function() {
+    var day = (24 * 3600000);
+    var dd = Date.now() - (day * 7);
+    var dateOb = new Date(dd);
+    console.log(dateOb.toGMTString());
+    var now = Date.now();
+    db.timeSpendOnUrl.where('timestart').below(dd)
+        .delete().then(function(item) {
+
+        });
+    db.timeMasterUrl.where('timestart').below(dd)
+        .delete().then(function(item) {
+
+    });
+};
+
 var calculateMostActiveUrl = function() {
+    clearDataBase();//delete everything older than 7 days
     var urls = [];
     var hashToEntry=[];
     //reduce the data to the domain for more granular data we can check the history API
@@ -5664,11 +5681,12 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
     timespendCalc=null;
     if(alarm.name == "createTimeSpend") {
         console.log('alarm create Time spend active');
+        chrome.alarms.create("createTimeSpend", {delayInMinutes: 40});//fire only once per hour
+
         calculateMostActiveUrl();
-        chrome.alarms.create("createTimeSpend", {delayInMinutes: 60});//fire only once per hour
     }
 });
-chrome.alarms.create("createTimeSpend", {when: Date.now() + 100});
+chrome.alarms.create("createTimeSpend", {when: Date.now() + 500});
 /**
  * Start to bind the tabs event listeners
  * TODO: add later an config so that the users can change this and maybe disable some

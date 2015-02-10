@@ -4,7 +4,7 @@
     "description": "The title of the application, displayed in the web store."
   },
   "appDesc": {
-    "message": "The new tab page in Metro style. Awesome startpage for youre browser. All Apps, pages in one place. Customable and awesome", 
+    "message": "The new tab page in Material style. Awesome new tab page for your browser. All Apps, pages in one place. Customable and awesome",
     "description":"The description of the application, displayed in the web store."
   },
   "launchUrl": {

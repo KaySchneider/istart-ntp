@@ -287,11 +287,12 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
     timespendCalc=null;
     if(alarm.name == "createTimeSpend") {
         console.log('alarm create Time spend active');
+        chrome.alarms.create("createTimeSpend", {delayInMinutes: 40});//fire only once per hour
+
         calculateMostActiveUrl();
-        chrome.alarms.create("createTimeSpend", {delayInMinutes: 60});//fire only once per hour
     }
 });
-chrome.alarms.create("createTimeSpend", {when: Date.now() + 100});
+chrome.alarms.create("createTimeSpend", {when: Date.now() + 500});
 /**
  * Start to bind the tabs event listeners
  * TODO: add later an config so that the users can change this and maybe disable some

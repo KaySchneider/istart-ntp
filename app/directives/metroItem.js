@@ -79,7 +79,7 @@ app.directive('metroItem', function() {
                 'menuLabel': 'options',
                 'items': [
                     {
-                        'label': 'color',
+                        'label': 'configuration',
                         'action': $scope.showColorChooserTile,
                         'data': $scope.tileInfo,
                         'editMode': $scope.editMode,
