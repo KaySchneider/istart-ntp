@@ -12,13 +12,23 @@ var app = angular.module('istartMetroDirective');
 app.directive('desktopBackground', function() {
     return {
         restrict: 'A',
-        controller: ['$scope','$rootScope', function($scope, $rootScope) {
-            $scope.root = $rootScope;
+        scope: true,//nested child scope
+        controller: ['$scope','appSettings', function($scope, appSettings) {
+            appSettings.settings.background()
+                .then(function(bgoptions) {
+                    if(bgoptions.imageadd==true) {
+                        //set bg image
+                        $scope.element.css('background-image',bgoptions.image);
+                    }
+                    if(bgoptions.cssadd == true) {
+                        //set css for background
+                        $scope.element.css('background-color',bgoptions.css);
+                    }
+
+                });
         }],
         link: function(scope, element, attrs) {
-            /**
-             * check the possible background settings
-             */
+            scope.element = element;
         }
 
     }

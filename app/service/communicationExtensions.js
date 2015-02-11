@@ -51,7 +51,7 @@ app.factory('backgroundMessage', ['$q', '$window',function ($q, $window) {
         };
 
         this.resolveListener = function(uid, message) {
-            console.debug('TIME TO THE APP Time inside resolve listener:' , (Date.now() - window.startTime)/1000);
+            //console.debug('TIME TO THE APP Time inside resolve listener:' , (Date.now() - window.startTime)/1000);
             try {
                 this.listener[uid].defer.resolve(message);
             } catch(e) {
@@ -60,11 +60,10 @@ app.factory('backgroundMessage', ['$q', '$window',function ($q, $window) {
         };
 
         this.openPort = function() {
-            console.debug('TIME TO THE APP Time Call OPen The Port:' , (Date.now() - window.startTime)/1000);
+            //console.debug('TIME TO THE APP Time Call OPen The Port:' , (Date.now() - window.startTime)/1000);
             var that = this;
             var port = chrome.runtime.connect({name: "knockknock"});
             port.onMessage.addListener(function(msg) {
-                console.log(msg);
                 if(msg.uid) {
                     that.resolveListener(msg.uid, msg);
                 }

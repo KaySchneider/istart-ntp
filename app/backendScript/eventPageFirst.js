@@ -74,7 +74,11 @@ istartBackOffice.prototype.getMatrixPort = function(port, uid) {
 istartBackOffice.prototype.getThumbnail = function(port, hostname, uid) {
     var uid = uid;
     var sended=false;
-    var hostnameCheck = new URL(hostname).hostname;
+    try {
+        var hostnameCheck = new URL(hostname).hostname;
+    }  catch(e) {
+        return;//there was an error.... reject this
+    }
     db.thumbnails.where('url')
         .equals(hostnameCheck)
         .count(function(items) {

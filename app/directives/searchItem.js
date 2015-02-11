@@ -48,7 +48,7 @@ app.directive('searchWidget', function() {
         }],
         link: function(scope, element, attrs) {
             scope.element = element;
-            console.log(element.parent().parent().parent().parent().parent().parent());
+
             element.parent().parent().parent().parent().parent().parent().on('click', function(event) {
               //console.log('CLICK', scope.editMode, event);
                 //console.log(event.offsetX <= 51, event.offsetX,  event.offsetY);

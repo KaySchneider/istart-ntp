@@ -47,6 +47,7 @@ angular.module('istart', [
 
 ).run(['$rootScope','$window' ,'analytics', function($rootScope, $window, analytics) {
         $rootScope.uuidList = [];
+
         analytics.track('startapp', 'V2.001');
         $rootScope.getUUIDListInUse = function() {
             return $rootScope.uuidList;

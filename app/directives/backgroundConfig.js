@@ -10,9 +10,7 @@ app.directive('backgroundConfig', function() {
         controller: ['$scope',function($scope) {
 
             $scope.addBackgroundConfig = function(element) {
-                console.log($scope.tileInfo.color);
                 if($scope.tileInfo.color) {
-
                     $scope.element = element;
                     angular.element(element).css('background', $scope.tileInfo.color);
                     //add watcher for live edit mode
@@ -59,7 +57,7 @@ app.directive('backgroundConfig', function() {
             $scope.launchLink = function() {
                 loadpage.loadPage($scope.tileInfo.link)
                     .then(function(result) {
-                        console.log(result);
+                        //console.log(result);
                     });
             };
 
@@ -71,7 +69,7 @@ app.directive('backgroundConfig', function() {
                 appLauncher
                     .launch({id:$scope.tileInfo.appid})
                     .then(function(res) {
-                        console.log(res, 'app launcher');
+                        //console.log(res, 'app launcher');
                 });
             };
         }],

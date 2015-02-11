@@ -20,10 +20,21 @@ app.directive('appSettings', function() {
                  */
 
 
-                $scope.DialogController = ['$scope', '$mdDialog', '$window','fileSystem',
-                    function($scope, $mdDialog, $window, fileSystem) {
+                $scope.DialogController = ['$scope', '$mdDialog', '$window','fileSystem','appSettings','$http',
+                    function($scope, $mdDialog, $window, fileSystem, appSettings, $http) {
                         $scope.bgImageForm = null;
                         $scope.fs =  fileSystem;
+
+                        /**
+                         * add small gallery for background images!
+                         * Maybe we didnt habe enough place inside our form
+                         * @type {Array}
+                         */
+                        $scope.bgImages=[];
+                        $http.get('../app/defaultBgImages.json').success(function(data) {
+                            console.log(data);
+                        });
+
                         $scope.uploadfile =function() {
                             console.log($scope.bgImageForm);
                             console.log('UPLOAD FILE');
