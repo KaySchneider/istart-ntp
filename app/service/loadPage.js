@@ -1,6 +1,6 @@
 'use strict';
 var app  = angular.module('istart');
-app.factory('loadpage', ['$q',function ($q) {
+app.factory('loadpage', ['$q','analytics',function ($q, analytics) {
     var loadPage = function (url) {
         /**
          * TODO: use here the config object to check if
@@ -8,6 +8,7 @@ app.factory('loadpage', ['$q',function ($q) {
          * TODO: implement here the tracking logic! to track the actions inside the app
          */
         var defer = $q.defer();
+        analytics.track('loadPage', 'link', {value:url});
         chrome.tabs.create({
             url: url,
             active: true

@@ -10,7 +10,8 @@ var app = angular.module('istartMetroDirective');
 app.directive('appStarter', function() {
     return {
         restrict: 'A',
-        controller: ['$scope','appLauncher', '$rootScope', function($scope, appLauncher, $rootScope) {
+        controller: ['$scope','appLauncher', '$rootScope',
+        function($scope, appLauncher, $rootScope) {
             //check if we had already registered this appId on this scopes events!
             if(!$scope.appIdHandler) {
                 $scope.removeHandler = $rootScope.$on('startApp' + $scope.app.id, function() {

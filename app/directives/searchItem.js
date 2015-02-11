@@ -17,7 +17,12 @@ app.directive('searchWidget', function() {
                 if($scope.config.defaultld) {
                     currentTld = $scope.config.defaultld;
                 }
+                console.log($scope.tileInfo);
+
                 var paramSearch = $scope.config.url.replace($scope.replacement, searchQuery);
+
+                console.log( paramSearch, $scope.config, $scope );
+
                 var openMe =domain + '.' + currentTld + paramSearch;
                 if(!loadpage.checkUrl(openMe)) {
                     openMe = 'https://' + openMe;
@@ -36,9 +41,13 @@ app.directive('searchWidget', function() {
         link: function(scope, element, attrs) {
             scope.element = element;
             console.log(element.parent().parent().parent().parent().parent().parent());
-            element.parent().parent().parent().parent().parent().parent().on('click', function() {
-                console.log('CLICK');
-              //  scope.checkConfigLoadPage(element.val(), element);
+            element.parent().parent().parent().parent().parent().parent().on('click', function(event) {
+              //console.log('CLICK', scope.editMode, event);
+                //console.log(event.offsetX <= 51, event.offsetX,  event.offsetY);
+                //if(scope.editMode!=true && event.offsetY <= 51) {
+                    //console.log('LOAD');
+                    //scope.checkConfigLoadPage(element.val(), element);
+                //}
             });
             element.on('keydown', function(event, attrs) {
                 switch(event.keyCode) {

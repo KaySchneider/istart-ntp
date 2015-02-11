@@ -36,6 +36,8 @@
         <md-switch class="md-warn" ng-model="editMode">
             <md-icon icon="/img/icons/ic_mode_edit_24px.svg" style="width: 24px; height: 24px;"></md-icon>
         </md-switch>
+        <span ng-show="editMode">On</span>
+        <span ng-show="!editMode">Off</span>
     </div>
 </md-toolbar>
  <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="right">

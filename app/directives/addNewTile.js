@@ -15,7 +15,25 @@ app.directive('addNewTile', function() {
                 $scope.configCopy = null;
                 $scope.edit = ps.edit;
                 $scope.tldconf=false;
+                $scope.tldcheck = null;
+
                 //$scope.edit=false;
+                $scope.checkCurr = function(selectIndex) {
+                    $scope.tldcheck = selectIndex;
+                };
+
+                $scope.buildTldDropDownData=function() {
+                        var config = [];
+                        for(var i in ps.tile.config.tld) {
+                            config.push({label: ps.tile.config.tld[i], value:ps.tile.config.tld[i]});
+                        }
+                        $scope.dropDownTld=config;
+                        $scope.tldcheck =   $scope.dropDownTld[$scope.getDefaultSelectedValue(ps.tile.config.tld, ps.tile.defaultld)];
+                };
+                $scope.getDefaultSelectedValue=function(originalSource, selectedItemVal) {
+                    console.log(originalSource.indexOf(selectedItemVal),selectedItemVal, 'VALUE VALIUE');
+                    return originalSource.indexOf(selectedItemVal);
+                };
                 $scope.defaultProtocol = 'http://';
                     if($scope.edit==false) {
                         $scope.tile={
@@ -27,10 +45,18 @@ app.directive('addNewTile', function() {
                             uuid:  $rootScope.getUniqueUUID()
                         };
                     } else {
-
                         if(ps.tile.config) {
                             if(ps.tile.config.useredit) {
                                 $scope.tldconf = (ps.tile.config.useredit.indexOf('tld') ? false: true);
+                                if(!ps.tile.config.defaultld || typeof ps.tile.config.defaultld == "undefined") {
+                                    ps.tile.config.defaultld = ps.tile.config.tld[0];
+                                }
+                               // $scope.tldcheck = ps.tile.config.defaultld;
+                                ps.$watch('tile', function(item) {
+                                    console.log(item);
+                                });
+
+                                $scope.buildTldDropDownData();
                                 console.log($scope.tldconf, ('tld' in ps.tile.config.useredit), ps.tile.config.useredit);
                                 console.log(ps.tile.config.tld);
                             }
@@ -38,6 +64,8 @@ app.directive('addNewTile', function() {
                         $scope.configCopy = angular.copy(ps.tile);
                         $scope.tile = ps.tile;
                     }
+
+
                 $scope.hide = function() {
                     $mdDialog.hide();
                 };
@@ -45,12 +73,11 @@ app.directive('addNewTile', function() {
                     if($scope.edit != false) {
                          console.log($scope.configCopy, ps.tile);
                          ps.tile = angular.copy($scope.configCopy, ps.tile);
-                         //ps.tile = angular.copy($scope.configCopy);
-                        //ps.tile = $scope.configCopy;
                     }
                     $mdDialog.cancel();
                 };
                 $scope.answer = function(answer) {
+
                     $mdDialog.hide(answer);
                 };
 
@@ -75,6 +102,11 @@ app.directive('addNewTile', function() {
                  */
                 $scope.checkconfig = function() {
                     if($scope.tile.iswidget==true||$scope.tile.issearch==true){
+                        if($scope.tldcheck) {
+                            //write back the tld config to the search item
+                            $scope.tile.config.defaultld  =$scope.tldcheck.value;
+                        }
+                        console.log($scope.tile);
                         $mdDialog.hide($scope.tile);
                     }else {
                         $scope.checkProtocol();

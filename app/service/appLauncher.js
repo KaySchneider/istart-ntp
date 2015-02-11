@@ -10,14 +10,17 @@
  **/
 'use strict';
 var app  = angular.module('istart');
-app.factory('appLauncher', ['$q',function ($q) {
+app.factory('appLauncher', ['$q','analytics',function ($q, analytics) {
     var launchApp = function(appConfigObject) {
         /**
          * receive all the apps
+         * trackMe('chromeapp','launched', {value:this.args[0]});
          */
+        analytics.track('launchApp', 'launched', {value:appConfigObject.id});
         var defer = $q.defer();
         chrome.management.launchApp(appConfigObject.id, function(status) {
             defer.resolve(status);
+            analytics.track('launchAppOK', 'system');
         });
         return defer.promise;
     };

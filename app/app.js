@@ -45,12 +45,12 @@ angular.module('istart', [
             'alAngularHero'
     ]
 
-).run(['$rootScope','$window' , function($rootScope, $window) {
+).run(['$rootScope','$window' ,'analytics', function($rootScope, $window, analytics) {
         $rootScope.uuidList = [];
+        analytics.track('startapp', 'V2.001');
         $rootScope.getUUIDListInUse = function() {
             return $rootScope.uuidList;
         };
-
         $rootScope.checkUUIdInUse = function(uuid) {
             if($rootScope.uuidList.indexOf(uuid) != -1) {
                 return false;
@@ -110,4 +110,22 @@ window.guid = (function() {
         return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
             s4() + '-' + s4() + s4() + s4();
     };
+})();
+
+/**
+ * Analytics in app
+ * @type {_gaq|*|Array}
+ * @private
+ */
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-36766154-2']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+    var ga = document.createElement('script');
+    ga.type = 'text/javascript';
+    ga.async = true;
+    ga.src = 'https://ssl' + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(ga, s);
 })();

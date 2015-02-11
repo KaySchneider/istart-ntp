@@ -6,13 +6,14 @@ app.directive('addNewSearchTile', function() {
         scope: {
             tile:'=tile'
         }, //use own scope
-        controller: ['$scope', '$mdDialog', '$rootScope', '$window', '$q', '$http',
-         function ($scope, $mdDialog, $rootScope, $window, $q, $http) {
+        controller: ['$scope', '$mdDialog', '$rootScope', '$window', '$q', '$http', 'analytics',
+         function ($scope, $mdDialog, $rootScope, $window, $q, $http, analytics ) {
             var ps = $scope;
             $scope.edit=false;
-            $scope.DialogController = ['$scope', '$mdDialog', '$window',
-                function($scope, $mdDialog, $window) {
-                    console.log($scope);
+            $scope.DialogController = ['$scope', '$mdDialog', '$window','analytics',
+                function($scope, $mdDialog, $window, analytics) {
+
+                    analytics.track('showAddNewSearchTileDialog', 'system');
                     $scope.loadSearchTilesConfig = function() {
                         var deferred = $q.defer();
                         $http.get('../app/searchTiles.json')
@@ -91,6 +92,7 @@ app.directive('addNewSearchTile', function() {
                         console.log('ADD TILE TO THE DATABASE', tileConfig.uuid);
                             $rootScope.addUUIDTOList(tileConfig.uuid);
                             $rootScope.$broadcast('addNewTile', tileConfig);
+                            analytics.track('addNewSearchTile', 'addTile', {value:tileConfig.link});
                     }, function () {
                         //do nothing when cancel
                     });
