@@ -31,7 +31,6 @@ app.factory('matrix', ['$q', 'backgroundMessage',  '$window', '$http', '$rootSco
          * walk through the matrix and generate
          */
         this.portMatrixUUID = function(matrix) {
-            var defer = $q.defer();
             for(var item in matrix) {
                 for(var entry in matrix[item]) {
                     //console.log(matrix[item][entry][0]);
@@ -55,15 +54,13 @@ app.factory('matrix', ['$q', 'backgroundMessage',  '$window', '$http', '$rootSco
                 backgroundMessage.message.connect(
                     backgroundMessage.message.getMessageSkeleton('saveMatrix', {matrix:matrix})
                 ).then(function(data) {
-                    defer.resolve(matrix);
+                        location.reload();
                 });
             } else if(this.loopCount==0) {
                 this.loopCount=1;
                 this.portMatrixUUID(matrix);
             } else {
-                defer.resolve(matrix);
             }
-            return defer.promise;
         };
 
         this.saveMatrix = function(matrix) {

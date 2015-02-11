@@ -96,7 +96,7 @@ app.factory('appSettings', ['$q',function ($q) {
             var bgsetting;
             var bgoptions;
 
-            if(localStorage.istartbackground !=null) {
+            if(localStorage.istartbackground !=null || localStorage.istartbackground != "null") {
                 if(settings.config==null) {
                     settings.config = settings.settingsDefault;
                 }
