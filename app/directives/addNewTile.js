@@ -30,10 +30,11 @@ app.directive('addNewTile', function() {
                         $scope.dropDownTld=config;
                         $scope.tldcheck =   $scope.dropDownTld[$scope.getDefaultSelectedValue(ps.tile.config.tld, ps.tile.defaultld)];
                 };
+
                 $scope.getDefaultSelectedValue=function(originalSource, selectedItemVal) {
-                    console.log(originalSource.indexOf(selectedItemVal),selectedItemVal, 'VALUE VALIUE');
                     return originalSource.indexOf(selectedItemVal);
                 };
+
                 $scope.defaultProtocol = 'http://';
                     if($scope.edit==false) {
                         $scope.tile={
@@ -51,14 +52,7 @@ app.directive('addNewTile', function() {
                                 if(!ps.tile.config.defaultld || typeof ps.tile.config.defaultld == "undefined") {
                                     ps.tile.config.defaultld = ps.tile.config.tld[0];
                                 }
-                               // $scope.tldcheck = ps.tile.config.defaultld;
-                                ps.$watch('tile', function(item) {
-                                    console.log(item);
-                                });
-
                                 $scope.buildTldDropDownData();
-                                console.log($scope.tldconf, ('tld' in ps.tile.config.useredit), ps.tile.config.useredit);
-                                console.log(ps.tile.config.tld);
                             }
                         }
                         $scope.configCopy = angular.copy(ps.tile);
@@ -71,7 +65,6 @@ app.directive('addNewTile', function() {
                 };
                 $scope.cancel = function() {
                     if($scope.edit != false) {
-                         console.log($scope.configCopy, ps.tile);
                          ps.tile = angular.copy($scope.configCopy, ps.tile);
                     }
                     $mdDialog.cancel();
@@ -102,13 +95,16 @@ app.directive('addNewTile', function() {
                  */
                 $scope.checkconfig = function() {
                     if($scope.tile.iswidget==true||$scope.tile.issearch==true){
+
                         if($scope.tldcheck) {
                             //write back the tld config to the search item
                             $scope.tile.config.defaultld  =$scope.tldcheck.value;
                         }
                         console.log($scope.tile);
                         $mdDialog.hide($scope.tile);
+
                     }else {
+
                         $scope.checkProtocol();
                         if(typeof $scope.tile.label != 'undefined') {
                             var trimmed = $scope.tile.label.trim();

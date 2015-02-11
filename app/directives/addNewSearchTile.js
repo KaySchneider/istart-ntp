@@ -12,13 +12,12 @@ app.directive('addNewSearchTile', function() {
             $scope.edit=false;
             $scope.DialogController = ['$scope', '$mdDialog', '$window','analytics',
                 function($scope, $mdDialog, $window, analytics) {
-
                     analytics.track('showAddNewSearchTileDialog', 'system');
+
                     $scope.loadSearchTilesConfig = function() {
                         var deferred = $q.defer();
                         $http.get('../app/searchTiles.json')
                             .success(function(data, status, headers, config) {
-                                console.log(data, status, headers, config);
                                 deferred.resolve(data);
                             })
                             .error(function(data, status, headers, config) {
@@ -28,15 +27,40 @@ app.directive('addNewSearchTile', function() {
                             });
                         return deferred.promise;
                     };
+
                     $scope.searchTiles=[];
                     $scope.edit = ps.edit;
                     $scope.tldconf=false;
                     $scope.defaultProtocol = 'http://';
                     $scope.activeItem = null;
+                    $scope.tldEdit=false;
 
                     $scope.setItemActive = function(index) {
+                        $scope.tldEdit=false;
                         $scope.activeItem = index;
                         $scope.tile=$scope.searchTiles[index];
+                        if($scope.tile.config.useredit.indexOf('tld') != -1) {
+                            $scope.buildTldDropDownData();
+                            $scope.tldEdit=true;
+                        }
+                    };
+
+                    //$scope.edit=false;
+                    $scope.checkCurr = function(selectIndex) {
+                        $scope.tldcheck = selectIndex;
+                    };
+
+                    $scope.buildTldDropDownData = function() {
+                        var config = [];
+                        for(var i in $scope.tile.config.tld) {
+                            config.push({label: $scope.tile.config.tld[i], value:$scope.tile.config.tld[i]});
+                        }
+                        $scope.dropDownTld=config;
+                        $scope.tldcheck =   $scope.dropDownTld[$scope.getDefaultSelectedValue($scope.tile.config.tld, $scope.tile.defaultld)];
+                    };
+
+                    $scope.getDefaultSelectedValue=function(originalSource, selectedItemVal) {
+                        return originalSource.indexOf(selectedItemVal);
                     };
 
                     $scope.loadSearchTilesConfig()
@@ -77,9 +101,12 @@ app.directive('addNewSearchTile', function() {
                      * check the current tiles configuration
                      */
                     $scope.checkconfig = function() {
+                            if($scope.tldEdit==true) {
+                                //write back the tld config to the search item
+                                $scope.tile.config.defaultld  =$scope.tldcheck.value;
+                            }
                             $scope.tile.uuid = $rootScope.getUniqueUUID();
                             $mdDialog.hide($scope.tile);
-
                     };
                 }];
             $scope.showAdvanced = function (ev) {

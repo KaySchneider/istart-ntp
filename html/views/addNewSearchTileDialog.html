@@ -19,6 +19,19 @@
                 </md-list>
             </md-content>
         </div>
+        <div flex ng-show="activeItem&&tldEdit===true">
+            <md-content >
+                <h2>select domain</h2>
+                <md-input-container>
+                    <label>Domain</label>
+                    <!-- use own  -->
+                    <select ng-model="tldcheck"
+                            ng-change="checkCurr(tldcheck)"
+                            ng-options="item as item.label for item in dropDownTld">
+                    </select>
+                </md-input-container>
+            </md-content>
+        </div>
     </div>
     <div class="md-actions" layout="row">
         <span flex></span>
