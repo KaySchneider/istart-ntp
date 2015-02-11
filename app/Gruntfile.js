@@ -95,7 +95,7 @@ module.exports = function(grunt) {
                   },
                   {   nonull:true,
                       src: '../app/searchTiles.json',
-                      dest: '../build/app/defaultTiles.json',
+                      dest: '../build/app/searchTiles.json',
                       filter:'isFile'
                   },
                   {
