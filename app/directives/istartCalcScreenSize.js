@@ -9,7 +9,6 @@
  */
 
 var app = angular.module('istartMetroDirective');
-
 app.directive('istartCalcScreenSize', function() {
     return {
         restrict: 'A',

@@ -36,6 +36,7 @@ app.factory('matrix', ['$q', 'backgroundMessage',  '$window', '$http', '$rootSco
                 for(var entry in matrix[item]) {
                     //console.log(matrix[item][entry][0]);
                     matrix[item][entry][0].uuid = $rootScope.getUniqueUUID()
+                    $rootScope.addUUIDTOList(matrix[item][entry][0].uuid);
                 }
             }
             //check the uuid
@@ -62,7 +63,7 @@ app.factory('matrix', ['$q', 'backgroundMessage',  '$window', '$http', '$rootSco
             } else {
                 defer.resolve(matrix);
             }
-            return defer.promise();
+            return defer.promise;
         };
 
         this.saveMatrix = function(matrix) {

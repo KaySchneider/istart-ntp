@@ -22,7 +22,7 @@ app.directive('desktopBackground', function() {
                     }
                     if(bgoptions.cssadd == true) {
                         //set css for background
-                        $scope.element.css('background-color',bgoptions.css);
+                        $scope.element.css('background',bgoptions.css);
                     }
 
                 });

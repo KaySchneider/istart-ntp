@@ -150,11 +150,18 @@ app.controller('desktopCtrl',
         } else {
             if(!data[0][0][0].uuid) {
                 console.debug('NO UUID -  CREATE ONE AND REFRESH THE LIST');
-                $scope.ma.portMatrixUUID(data);
-            }
-            $scope.items = data;
-            if(!$scope.$$phase) {
-                $scope.$apply();
+                $scope.ma.portMatrixUUID(data)
+                    .then(function(matrix) {
+                        $scope.items = data;
+                        if(!$scope.$$phase) {
+                            $scope.$apply();
+                        }
+                    });
+            } else {
+                $scope.items = data;
+                if(!$scope.$$phase) {
+                    $scope.$apply();
+                }
             }
         }
     });
