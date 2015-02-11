@@ -6,27 +6,35 @@ var app = angular.module('istartMetroDirective');
 app.directive('searchWidget', function() {
     return {
         restrict: 'A',
-        controller: ['$scope', 'loadpage',function($scope, loadpage) {
+        controller: ['$scope', 'loadpage', 'analytics',function($scope, loadpage, analytics) {
             $scope.startSearch = function() {
                 $scope.checkConfigLoadPage(angular.element($scope.element[0]).val(),$scope.element);
             };
             $scope.replacement =  '{{search}}';
+            $scope.addReplace = '{{tag}}';
             $scope.checkConfigLoadPage = function(searchQuery, element) {
                 var domain = $scope.config.domain;
                 var currentTld = $scope.config.tld[0];
+                var currentTag = '';
                 if($scope.config.defaultld) {
                     currentTld = $scope.config.defaultld;
                 }
+                if($scope.config.tag) {
+                    try {
+                        currentTag = $scope.config.tag[currentTld];
+                    } catch(e) {
+
+                    }
+                }
                 console.log($scope.tileInfo);
-
-                var paramSearch = $scope.config.url.replace($scope.replacement, searchQuery);
-
-                console.log( paramSearch, $scope.config, $scope );
+                var paramSearch = $scope.config.url.replace($scope.replacement, searchQuery).replace($scope.addReplace, currentTag);
 
                 var openMe =domain + '.' + currentTld + paramSearch;
+
                 if(!loadpage.checkUrl(openMe)) {
                     openMe = 'https://' + openMe;
                 }
+
                 loadpage.loadPage(openMe).then(function(data) {
                     /**
                      * clear the search form input field

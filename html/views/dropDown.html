@@ -1,7 +1,9 @@
 <div class="menutrigger md-whiteframe-z4" ng-show="editMode==true">
     <div class="menu " ng-mouseenter="menuOpen()"  ng-mouseleave="menuOpen()"  >
-        <span>{{items.menuLabel}}</span>
-
+        <span style="float:right">
+                <img src="/img/icons/ic_more_vert_24px.svg" style="max-width: 24px;" />
+        </span>
+        <span style="clear: both"></span>
             <md-button ng-if="item.edittile" class="drmenuItem" ng-show="openmenu==true" class="item"
                  mode="edit"
                  tile="tile"

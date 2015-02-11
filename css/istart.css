@@ -7,6 +7,10 @@
     background-color: rgba(158,158,158,0.2);
 }
 
+.maincontentarea {
+    background:none;
+}
+
 .submen  {
     width: 300px;
     background: white;
@@ -75,11 +79,18 @@
 
 .menutrigger{
     position: absolute;
-    background-color: white;
+    /*background-color: white;*/
     padding:20px;
     right:0px;
 }
 
+.menutrigger:hover {
+    background-color: white;
+}
+
+.menutrigger > div {
+    background-color: white;
+}
 /**
     Styles for the Dialog tests.
     TODO: change the below classnames to production classes bevore commiting
