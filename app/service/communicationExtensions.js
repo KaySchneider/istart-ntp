@@ -82,6 +82,7 @@ app.factory('backgroundMessage', ['$q', '$window',function ($q, $window) {
             return deferId.defer;
         };
     };
+
     if(!senderObject) {
         /**
          * bad implementation of an singleton in js!

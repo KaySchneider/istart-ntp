@@ -60,6 +60,7 @@ app.factory('matrix', ['$q', 'backgroundMessage',  '$window', '$http', '$rootSco
                 this.loopCount=1;
                 this.portMatrixUUID(matrix);
             } else {
+                location.reload();
             }
         };
 

@@ -18,11 +18,11 @@ app.directive('desktopBackground', function() {
                 .then(function(bgoptions) {
                     if(bgoptions.imageadd==true) {
                         //set bg image
-                        $scope.element.css('background-image',bgoptions.image);
+                        $scope.element.css('background-image', bgoptions.image);
                     }
                     if(bgoptions.cssadd == true) {
                         //set css for background
-                        $scope.element.css('background',bgoptions.css);
+                        $scope.element.css('background', bgoptions.css);
                     }
 
                 });

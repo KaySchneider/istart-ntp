@@ -150,13 +150,8 @@ app.controller('desktopCtrl',
         } else {
             if(!data[0][0][0].uuid) {
                 console.debug('NO UUID -  CREATE ONE AND REFRESH THE LIST');
-                $scope.ma.portMatrixUUID(data)
-                    .then(function(matrix) {
-                        $scope.items = data;
-                        if(!$scope.$$phase) {
-                            $scope.$apply();
-                        }
-                    });
+                $scope.ma.portMatrixUUID(data);
+
             } else {
                 $scope.items = data;
                 if(!$scope.$$phase) {
@@ -168,7 +163,6 @@ app.controller('desktopCtrl',
     $window.appControllerEndFile = Date.now();
     console.debug('TIME TO THIS DESKTOPCONTROLLER:' , ($window.appControllerEndFile - $window.startTime)/1000);
 }]);
-
 
 function addDnD() {
     $('.pagerTest').sortable({

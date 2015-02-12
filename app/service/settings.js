@@ -72,7 +72,8 @@ app.factory('appSettings', ['$q',function ($q) {
             };
 
             if(settings.loaded==null) {
-                if(localStorage.istartbackground!=null) {
+                console.log(localStorage.istartbackground, 'BACKGROUND SETTINGS', localStorage.istartbackground!="null", localStorage.istartbackground!==null);
+                if(localStorage.istartbackground!="null") {
                     settings.loadV1BackgroundSettings();
                 }
                 //nothing loaded load the settings

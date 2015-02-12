@@ -9,11 +9,10 @@ var app = angular.module('istartMetroDirective');
 app.directive('iconSwitcher', ['$compile' ,function($compile) {
     return {
         restrict: 'E',
-        replace: true, //DEPRECATED: WARNING! see  https://docs.angularjs.org/api/ng/service/$compile section template
-//        template: '<img src="{{tileInfo.icon}}" ng-if="isImage==true" />',
+        replace: true, //DEPRECATED: WARNING! see  https://docs.angularjs.org/api/ng/service/$compile section template doesnt work  well
+        // template: '<img src="{{tileInfo.icon}}" ng-if="isImage==true" />',
         link: function(scope, element, attrs) {
-            scope.imgTemplate = '<img src="{{tileInfo.icon}}" />';
-
+            scope.imgTemplate = '<img src="{{tileInfo.icon}}" style="max-width:150px;"/>';
 
             var testIco =function(ico) {
                 if(ico.indexOf('.png') > -1 || ico.indexOf('chrome://') > -1 ) {
