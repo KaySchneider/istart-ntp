@@ -35,6 +35,7 @@ app.directive('metroItem', function() {
             });
         },
         controller: ['$scope' , '$rootScope','$mdDialog', function ($scope, $rootScope, $mdDialog) {
+            console.log($scope.tileInfo);
             $scope.config = $scope.tileInfo.config;
             $scope.hover = false;
             $rootScope.addUUIDTOList($scope.tileInfo.uuid);

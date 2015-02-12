@@ -63,7 +63,7 @@
         </div>
         <div my-repeat-directive class="itemholders" ng-repeat="item_desktop in items track by $index" layout-align="center center" >
          <span layout="row" layout-wrap class="pagerTest" style="width:100%;position:relative;" calc-items items="item_desktop" id="tileholder{{$index}}"  ng-model="items[0]" >
-                <metro-item  flex="20" ng-repeat="item in  (filteredTiles = ( item_desktop|  filter:filterTiles)) track by item[0].uuid"
+                <metro-item ng-if="item!==null" flex="20" ng-repeat="item in  (filteredTiles = ( item_desktop|  filter:filterTiles)) track by item[0].uuid"
                              my-repeat-directive
                              tile-info="item[0]"
                              edit-mode="editMode"

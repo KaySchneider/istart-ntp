@@ -28,18 +28,28 @@ app.factory('matrix', ['$q', 'backgroundMessage',  '$window', '$http', '$rootSco
         this.loopCount=0;
 
         /**
-         * walk through the matrix and generate
+         * walk through the matrix and generatesave
          */
         this.portMatrixUUID = function(matrix) {
             for(var item in matrix) {
                 for(var entry in matrix[item]) {
-                    //console.log(matrix[item][entry][0]);
-                    matrix[item][entry][0].uuid = $rootScope.getUniqueUUID()
+                    if(matrix[item][entry] == null || typeof matrix[item][entry] == "undefined") {
+                        unset(matrix[item][entry]);
+                        continue;
+                    }
+                    try {
+                    console.log(matrix, item, entry, 'PORTED ITEM');
+                    matrix[item][entry][0].uuid = $rootScope.getUniqueUUID();
                     $rootScope.addUUIDTOList(matrix[item][entry][0].uuid);
+                    } catch(e) {
+                        console.log(e, 'ERR');
+                        return false;
+                    }
                 }
             }
+            var store = true;
             //check the uuid
-            var founded = [];
+          /*  var founded = [];
             for(var item in matrix) {
                 for(var entry in matrix[item]) {
                     if(founded.indexOf(matrix[item][entry][0].uuid) == -1) {
@@ -49,17 +59,20 @@ app.factory('matrix', ['$q', 'backgroundMessage',  '$window', '$http', '$rootSco
                         var store = false;
                     }
                 }
-            }
+            }*/
             if(store != false) {
+                console.log("SAVE PORTED COLLECTION");
                 backgroundMessage.message.connect(
                     backgroundMessage.message.getMessageSkeleton('saveMatrix', {matrix:matrix})
                 ).then(function(data) {
+                        console.log('RELAOD THE PAGE???');
                         location.reload();
                 });
             } else if(this.loopCount==0) {
                 this.loopCount=1;
                 this.portMatrixUUID(matrix);
             } else {
+                console.log('RELAOD THE PAGE???');
                 location.reload();
             }
         };
@@ -103,12 +116,40 @@ app.factory('matrix', ['$q', 'backgroundMessage',  '$window', '$http', '$rootSco
         };
 
         /**
+         * hard fix
+         * @param defer
+         */
+        this.localToChrome = function (defer) {
+            try {
+                //parse the data from local Storage
+                var migrateData = JSON.parse(localStorage.istart);
+                //save the data in the local Storage
+                localStorage.setItem('istartbackup', JSON.stringify(migrateData));
+                var remove = localStorage.removeItem('istart');
+                this.saveMatrix(migrateData);
+                defer.resolve(migrateData);
+            } catch (e) {
+                alert("Error during porting the tiles into the new version. All youre settings are saved in localStorage.istartbackup :) ");
+            }
+        };
+
+        /**
          * this is much better for the performance to call the items direct here from the localStorage
          * @returns {defer.promise|*}
          */
         this.getLocalData = function() {
             var defer = $q.defer();
             var that = this;
+            /**
+             * check if we have some old tiles there. If yes we port them to chrome
+             * storage. Maybe the most bugs with the new Version based on this problem
+             */
+            if (localStorage.istart) {
+                //console.log(localStorage.istart, 'localStorage is SET');
+                this.localToChrome(defer);
+                return false;
+            }
+
             chrome.storage.local.get('istart',function( datas ) {
                 try {
                     var matrix = JSON.parse(datas.istart);
