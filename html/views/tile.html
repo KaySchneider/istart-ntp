@@ -1,29 +1,30 @@
-<md-card   istart-backdop-tester class="material-tile-left" data-drag="true"  id="item_{{outerIndex}}_{{$index}}" background-config  style="height: 200px" >
-    <drop-down item="dropDownOptions" dropid="tileInfo.id" edit-mode="editMode" tile="tileInfo">
+<li   istart-backdop-tester
+      class="material-tile-left metro tile"
+      data-drag="true"
+      id="item_{{outerIndex}}_{{$index}}"
+      ng-class="{'wide xxl':tileInfo.h==2&&tileInfo.w==2,'wide app': tileInfo.w==2&&tileInfo.h==1}"
+      background-config
+      style="" >
 
-    </drop-down>
+<span>
+    <span title="delete item"  ng-click="removeItem($event, tileInfo)" class="trashiconme" ng-show="editMode==true"></span>
+    <span title="edit item"
+          mode="edit"
+          tile="tileInfo"
+          class="editiconme"
+          add-new-tile
+          ng-show="editMode==true"></span>
+
     <span ng-if="tileInfo.iswidget" class="md-lime-theme" >
-                <span ng-if="tileInfo.issearch"  class="flex">
-                    <md-toolbar is-on-hover ng-show="hover==true && editMode==false" class="md-whiteframe-z2">
-                        <md-content  md-theme="docs-dark" class="md-padding" layout="row" layout-sm="column">
-                            <md-input-container class="md-docs-dark-theme">
-                                <label><i18n>search</i18n></label>
-                                <input search-widget>
-                            </md-input-container>
-                                <!-- <md-button><i18n>search</i18n></md-button> -->
-                        </md-content>
-                    </md-toolbar>
+                <span ng-if="tileInfo.issearch"   ng-show="hover==true && editMode==false" class="md-whiteframe-z2">
+                    <input search-widget style="z-index:2;line-height: 20px;position:absolute;top:5px;left:-5px" placeholder="search">
                 </span>
                 <span ng-if="!tileInfo.issearch">
                 </span>
     </span>
-    <icon-switcher></icon-switcher>
-    <page-thumbnail ng-hide="tileInfo.iswidget==true||tileinfo.issearch==true" url="tileInfo.link"></page-thumbnail>
-    <md-card-content>
-        <h2 ng-if="tileInfo.name" >{{tileInfo.name}}</h2>
-        <h2 ng-if="tileInfo.label">{{tileInfo.label}}</h2>
-        <p>
-            <!-- TODO: implement here userful stats for the user! example, how many times was the app started... or something like this -->
-        </p>
-    </md-card-content>
-</md-card>
+    <span ng-if="tileInfo.name" ng-class="{'labelIcon':tileInfo.config.icon||tileInfo.icon}">{{tileInfo.name}}</span>
+    <span ng-if="tileInfo.label" ng-class="{'labelIcon':tileInfo.config.icon||tileInfo.icon}">{{tileInfo.label}}</span>
+    <span ng-if="tileInfo.config.icon" class="{{tileInfo.config.icon}} iconImage"></span>
+    <span ng-if="tileInfo.icon" class="{{tileInfo.icon}} iconImage"></span>
+</span>
+</li>

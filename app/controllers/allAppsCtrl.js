@@ -1,6 +1,7 @@
 'use strict';
 var app = angular.module('istart');
-app.controller('allAppsCtrl', ['$scope','chromeApp', 'bindKeys', '$rootScope' , '$location', '$anchorScroll',
+app.controller('allAppsCtrl', ['$scope','chromeApp', 'bindKeys', '$rootScope',
+    '$location', '$anchorScroll',
 function($scope,chromeApp,bindKeys, $rootScope, $location, $anchorScroll) {
     $scope.appList = [];
     $scope.bindKeyss = bindKeys;

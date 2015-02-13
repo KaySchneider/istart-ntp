@@ -11,7 +11,7 @@ app.directive('metroItem', function() {
     return {
         templateUrl: 'views/tile.html',
         restrict: 'E',
-        replace: false,
+        replace: true,
         scope: {
             tileInfo: '=',
             editMode: '='
@@ -35,7 +35,6 @@ app.directive('metroItem', function() {
             });
         },
         controller: ['$scope' , '$rootScope','$mdDialog', function ($scope, $rootScope, $mdDialog) {
-            console.log($scope.tileInfo);
             $scope.config = $scope.tileInfo.config;
             $scope.hover = false;
             $rootScope.addUUIDTOList($scope.tileInfo.uuid);
@@ -98,16 +97,25 @@ app.directive('metroItem', function() {
     }
 });
 app.directive('myRepeatDirective', function() {
-    return function(scope, element, attrs) {
-        //angular.element(element).css('color','blue');
-        if(scope.item) {
-            if(scope.item[0].w) {
-                if(scope.item[0].w == 2 && scope.item[0].h == 2)
-                    angular.element(element).attr('flex', 50);
+    return {
+
+    link:function(scope, element, attrs) {
+            //angular.element(element).css('color','blue');
+            if(scope.item) {
+                if(scope.item[0].w) {
+                    if(scope.item[0].w == 2 && scope.item[0].h == 2)
+                        angular.element(element).attr('flex', 50);
+                }
             }
-        }
-        if (scope.$last){
-            addDnD();
+            if (scope.$last){
+                console.log(scope.$parent.$parent.$parent);
+                scope.$parent.$parent.$parent.$broadcast('readyTiles',{});
+                console.log('LAST');
+                addDnD(); //add drag and drop stuff
+
+                scope.$broadcast('readyTiles',{});
+
+            }
         }
     };
 });

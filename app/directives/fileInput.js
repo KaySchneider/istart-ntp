@@ -14,6 +14,7 @@ app.directive('fileInput', function() {
         link: function(scope, element, attrs) {
             element.on('change', function() {
                 scope.file = element[0].files;
+                scope.$apply();
             });
         }
 

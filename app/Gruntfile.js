@@ -37,9 +37,11 @@ module.exports = function(grunt) {
         },
         uglify: {
             options: {
-                banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %>  */\n'
+                banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %>  */\n',
+                compress: {
+                    drop_console: true // <-
+                }
             },
-
             backend: {
                 src: '../build/app/eventPage.js',
                 dest: '../build/app/eventPage.min.js'
@@ -156,7 +158,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-usemin');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
-
+    grunt.loadNpmTasks("grunt-remove-logging");
     // Default task(s).
     ///grunt.registerTask('default', ['clean:pre','concat:build', 'concat:backend','uglify', 'clean:build']);
     grunt.registerTask('eventpage', ['concat:eventPage']);

@@ -14,6 +14,7 @@ app.directive('appSettings', function() {
                 var ps = $scope;
                 $scope.edit=false;
 
+
                 /**
                  * request the file system to store an image from DataURL
                  * @type {*[]}
@@ -21,10 +22,11 @@ app.directive('appSettings', function() {
 
 
                 $scope.DialogController = ['$scope', '$mdDialog', '$window','fileSystem','appSettings','$http',
-                    function($scope, $mdDialog, $window, fileSystem, appSettings, $http) {
-                        $scope.bgImageForm = null;
+                    '$rootScope',
+                    function($scope, $mdDialog, $window, fileSystem, appSettings, $http, $rootScope) {
+                        $scope.bgImageForm = "";
                         $scope.fs =  fileSystem;
-
+                        $scope.appSettings= appSettings;
                         /**
                          * add small gallery for background images!
                          * Maybe we didnt habe enough place inside our form
@@ -35,13 +37,22 @@ app.directive('appSettings', function() {
                             console.log(data);
                         });
 
+                        $scope.fileNameChanged = function(data) {
+                            console.log(data);
+                        };
+
                         $scope.uploadfile =function() {
-                            console.log($scope.bgImageForm);
                             console.log('UPLOAD FILE');
                             var fr = new FileReader();
                             fr.onloadend  = (function (sd) {
                                 console.log(sd);
-                                $scope.fs.writeFile(sd,$scope.bgImageForm[0]);
+                                $scope.fs.writeFile(sd,$scope.bgImageForm[0])
+                                    .then(function(fileNameUrl) {
+                                        console.log('THE FILENAME URL IS: ' + fileNameUrl);
+                                        $scope.appSettings.settings.setBackgroundImage('url(' + fileNameUrl + ')');
+                                        $rootScope.$broadcast('changeBackground');
+                                        $mdDialog.hide();
+                                    });//gets the entrys urls
                             });
                             //that.rawFile = filename[0];
                             fr.readAsDataURL($scope.bgImageForm[0]);

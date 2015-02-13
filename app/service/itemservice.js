@@ -38,9 +38,9 @@ app.factory('matrix', ['$q', 'backgroundMessage',  '$window', '$http', '$rootSco
                         continue;
                     }
                     try {
-                    console.log(matrix, item, entry, 'PORTED ITEM');
-                    matrix[item][entry][0].uuid = $rootScope.getUniqueUUID();
-                    $rootScope.addUUIDTOList(matrix[item][entry][0].uuid);
+                        console.log(matrix, item, entry, 'PORTED ITEM');
+                        matrix[item][entry][0].uuid = $rootScope.getUniqueUUID();
+                        $rootScope.addUUIDTOList(matrix[item][entry][0].uuid);
                     } catch(e) {
                         console.log(e, 'ERR');
                         return false;
@@ -151,12 +151,13 @@ app.factory('matrix', ['$q', 'backgroundMessage',  '$window', '$http', '$rootSco
             }
 
             chrome.storage.local.get('istart',function( datas ) {
+                var matrix = false;
                 try {
                     var matrix = JSON.parse(datas.istart);
                 } catch(e) {
                     var matrix = false;
                 }
-                if(matrix===false) {
+                if(matrix===false || !datas.istart) {
                     //first load
                     that.loadDefaultMatrix()
                         .then(function(data) {

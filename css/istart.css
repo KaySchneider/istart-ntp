@@ -79,10 +79,11 @@
 
 
 .menutrigger{
-    position: absolute;
+    /*position: absolute;*/
     /*background-color: white;*/
-    padding:20px;
+    padding:0px;
     right:0px;
+    z-index:200;
 }
 
 .menutrigger:hover {
@@ -132,4 +133,43 @@ drop-down {
 }
 .dialogdemoBasicUsage h2 .md-subheader-content {
     padding-left: 10px;
+}
+
+
+
+
+
+.searchtile {
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+}
+
+
+
+
+
+md-grid-list {
+    margin: 8px; }
+.gray {
+    background: #f5f5f5; }
+ .green {
+    background: #b9f6ca; }
+ .yellow {
+    background: #ffff8d; }
+ .blue {
+    background: #84ffff; }
+ .purple {
+    background: #b388ff; }
+ .red {
+    background: #ff8a80; }
+
+
+.istartsidemen * md-list .md-button {
+    color: inherit;
+    font-weight: 500!important;
+    text-align: left;
+    width: 100%;
+    padding: 20px;
 }

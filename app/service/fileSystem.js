@@ -25,7 +25,8 @@ app.factory('fileSystem', ['$q',function ($q) {
         return defer.promise;
     };
 
-    var makeUrl  = function (name) {
+    var makeUrl  = function (name, defer) {
+        var deferItem=defer;
         fileSystem.root.getFile(name, {
 
                 create:false
@@ -39,11 +40,13 @@ app.factory('fileSystem', ['$q',function ($q) {
                 //i.setAttribute('style','position:absolute;top:0px;left:0px;min-width:500px;border:1px solid red');
                 //document.getElementsByTagName('body')[0].appendChild(i);
                 //console.log(fileEntry.toURL());
+                defer.resolve( fileEntry.toURL() );
             }
         );
     };
 
     var writeFile = function(fname,rawFile) {
+        var defer = $q.defer();
         var fileEnd = getFileType(rawFile.name);
         var fname = 'background.'+fileEnd;
         var rawFile=rawFile;
@@ -57,7 +60,7 @@ app.factory('fileSystem', ['$q',function ($q) {
                        fileEntry.createWriter(function(fileWriter) {
 
                            fileWriter.onwriteend = function(e) {
-                               makeUrl(fname);
+                               makeUrl(fname, defer);
                            };
 
                            fileWriter.onerror = function(e) {
@@ -72,7 +75,7 @@ app.factory('fileSystem', ['$q',function ($q) {
             }, function(e) {
                 console.error(e);
             });
-
+        return defer.promise;
     };
 
     var getFileType=function(fileName) {

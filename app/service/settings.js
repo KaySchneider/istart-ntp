@@ -59,6 +59,11 @@ app.factory('appSettings', ['$q',function ($q) {
             });
             return defer.promise;
         },
+        setBackgroundImage: function(bgImage) {
+            settings.config.background.imageadd=true;
+            settings.config.background.image=bgImage;
+            settings.save();
+        },
         background : function() {
 
             var deferr = $q.defer();
@@ -96,8 +101,8 @@ app.factory('appSettings', ['$q',function ($q) {
              */
             var bgsetting;
             var bgoptions;
-
-            if(localStorage.istartbackground !=null || localStorage.istartbackground != "null") {
+            console.log(localStorage.istartbackground);
+            if(localStorage.istartbackground != "null" && typeof localStorage.istartbackground != "undefined") {
                 if(settings.config==null) {
                     settings.config = settings.settingsDefault;
                 }

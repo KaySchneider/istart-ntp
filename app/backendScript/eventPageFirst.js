@@ -60,11 +60,12 @@ istartBackOffice.prototype.loadData = function() {
 };
 
 istartBackOffice.prototype.saveMatrix = function(matrix, port, uid) {
-    chrome.storage.local.set({istart:JSON.stringify(matrix)}, function() {
+    chrome.storage.local.set({istart:JSON.stringify(matrix)});
         timespendCalc=null;
         linkInMatrix=null;
+        port.postMessage({matrix:this.getMatrix(), uid:uid});
         setTimeSpend();
-    });
+
 };
 
 istartBackOffice.prototype.getMatrixPort = function(port, uid) {

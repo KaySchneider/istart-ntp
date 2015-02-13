@@ -4,11 +4,14 @@
             <md-content>
                 <md-subheader class="md-sticky-no-effect">istart Configuration</md-subheader>
                 <md-input-container>
+                    <form name="fake" >
                     <label>Background-Image</label>
                     <!-- add here an uploader for the background image or set an color -->
-                    <form name="fake" >
-                        <input filevar="bgImageForm"  type="file" file-input>
+                        <input filevar="bgImageForm" ng-model="bgImageForm"  type="file" file-input >
                     </form>
+                </md-input-container>
+                <md-input-container>
+
                 </md-input-container>
                 <md-input-container ng-if="tldconf != false">
                     <label>Domain</label>
@@ -17,22 +20,10 @@
                 </md-input-container>
             </md-content>
         </div>
-        <div flex>
-            <md-content>
-                <md-subheader class="md-sticky-no-effect">tile info</md-subheader>
-                <md-input-container ng-if="tile.iswidget!=true||tile.issearch!=true">
-                    <label>Label</label>
-                    <input ng-model="tile.label" required="">
-                </md-input-container>
-                <md-input-container ng-if="tile.iswidget!=true||tile.issearch!=true">
-                    <label>URL</label>
-                    <input ng-model="tile.link" type="url">
-                </md-input-container>
-            </md-content>
-        </div>
+
     </div>
     <div class="md-actions" layout="row">
-        <md-button ng-click="uploadfile()">set file as background</md-button>
+        <md-button ng-click="uploadfile()">set file as background and save</md-button>
         <span flex></span>
         <md-button ng-click="cancel()">
             cancel

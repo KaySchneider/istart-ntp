@@ -3,7 +3,7 @@
 
         [
             {
-                "w": 1,
+                "w": 2,
                 "h": 1,
                 "link": "http://maps.google.com",
                 "icon": "googleplaces",
@@ -31,10 +31,10 @@
                 "extensionid": "youtubesearch",
                 "src": false,
                 "multiple": false,
-                "min_width": 1,
-                "min_height": 1,
-                "w": 1,
-                "h": 1,
+                "min_width": 2,
+                "min_height": 2,
+                "w": 2,
+                "h": 2,
                 "color": "orange"
             }
         ],
@@ -123,8 +123,8 @@
                 "extensionid": "amazonsearch",
                 "src": false,
                 "multiple": false,
-                "min_width": 1,
-                "min_height": 1,
+                "min_width": 2,
+                "min_height": 2,
                 "w": 2,
                 "h": 2,
                 "color": "#008641"
@@ -179,7 +179,7 @@
                 "extensionid": "googlesearch",
                 "src": false,
                 "multiple": false,
-                "min_width": 1,
+                "min_width": 2,
                 "min_height": 1,
                 "w": 2,
                 "h": 1,
@@ -235,40 +235,14 @@
                 "extensionid": "facebooksearch",
                 "src": false,
                 "multiple": false,
-                "min_width": 1,
+                "min_width": 2,
                 "min_height": 1,
                 "w": 2,
                 "h": 1,
                 "color": "rgb(64, 67, 204)"
             }
-        ],
-        [
-            {
-                "name": "Pinterest search",
-                "description": "Search pins on Pinterest",
-                "iswidget": true,
-                "issearch": true,
-                "config": {
-                    "tld": ["com"],
-                    "domain": "www.pinterest",
-                    "url": "/search/pins/?q={{search}}",
-                    "defaultld": ["com"],
-                    "color": "#cb2027",
-                    "label": "Pinterest",
-                    "icon": "pinterest",
-                    "useredit": ["color"],
-                    "link": "http://www.pinterest.com?tag="
-                },
-                "extensionid": "pinterestsearch",
-                "src": false,
-                "multiple": false,
-                "min_width": 1,
-                "min_height": 1,
-                "w": 2,
-                "h": 1,
-                "color": "#cb2027"
-            }
         ]
+
     ]
     ,
     [

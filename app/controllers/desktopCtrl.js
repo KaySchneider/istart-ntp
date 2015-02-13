@@ -56,7 +56,7 @@ app.controller('desktopCtrl',
     angular.element($window).on('resort', function () {
         $scope.maTemp = [];
         $('.itemholders').each(function(index, elementDom) {
-            $('md-card', elementDom).each(function(innerIndex, items) {
+            $('li', elementDom).each(function(innerIndex, items) {
                 var innerOuterIndexOld = items.id.replace('item_','').split('_');
                 if(!$scope.maTemp[parseInt(index)]) {
                     $scope.maTemp[parseInt(index)] = [];
@@ -139,21 +139,60 @@ app.controller('desktopCtrl',
         $scope.ma.saveMatrix($scope.items);
         addDnD();
     });
+    $scope.lGrid=[];
+    $scope.LargeGridMaker = function() {
+        $scope.lGrid = [];
+        for(var item in $scope.items) {
+            for(var conf in $scope.items[item]) {
+                $scope.lGrid.push($scope.items[item][conf]);
+            }
+        }
+        addDnD();
+   };
 
+   $scope.$on('readyTiles', function() {
+       console.log('last ready');
+        $scope.recalcSizes();
+   });
 
+   $scope.startW = 0;
+   $scope.recalcSizes = function() {
+       console.log('ELEMENT RECALC', angular.element('.pagerTest'));
+     angular.element('.pagerTest').each(function(item){
+         if(item==0){
+             $scope.startW=0;
+         }
+         var width = $scope.calcNewWidth($scope.items[item].length);
+         var el  = $('#p'+item);
+         el.css({'width':  width + 'px'});
+         el.css({'left': $scope.startW +'px'});
+         $scope.startW += width+300;
+
+     });
+   };
+
+    $scope.calcNewWidth = function (countChilds) {
+            if(countChilds < 4) {
+                countChilds = 4;
+            }
+            return  Math.ceil(countChilds/4)*250  ;
+    };
 
     $scope.ma.getLocalData().then(function(data) {
         console.debug('DATA', data);
         if(data == false) {
-            console.log('inside first run setting up the default tiles');
+            console.log('inside first run setting up the default tiles and load the first run');
             $scope.ma.saveFirstRun();
         } else {
-            if(!data[0][0][0].uuid) {
+            if(typeof data[0][0][0].uuid == "undefined") {
                 console.debug('NO UUID -  CREATE ONE AND REFRESH THE LIST');
+                console.log(data[0][0][0]);
                 $scope.ma.portMatrixUUID(data);
 
             } else {
+
                 $scope.items = data;
+
                 if(!$scope.$$phase) {
                     $scope.$apply();
                 }

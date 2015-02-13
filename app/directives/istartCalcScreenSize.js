@@ -18,7 +18,9 @@ app.directive('istartCalcScreenSize', function() {
                 $scope.setElementNewWidth();
             });
             $scope.setElementNewWidth = function() {
-                angular.element($scope.element).css('height', $($window.top).height()-4 + 'px');
+                var ceil = Math.ceil( ($($window.top).height()-140)/130);
+                console.log(ceil);
+                angular.element($scope.element).css('height', ceil * 130 + 'px');
             };
         }],
         link: function(scope, element, attrs) {
