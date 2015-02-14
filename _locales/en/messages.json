@@ -136,5 +136,8 @@
     },
     "cancel":{
         "message": "cancel"
+    },
+    "delete_message": {
+        "message": "Delete this tile ?"
     }
 }

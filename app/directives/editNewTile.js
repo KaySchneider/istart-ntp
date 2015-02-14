@@ -24,7 +24,8 @@ app.directive('editTileBottom', function() {
                 $scope.alert = '';
                 $mdBottomSheet.show({
                     templateUrl: '../html/templates/editTileBottom.html',
-                    controller: ['$scope','$mdBottomSheet', '$rootScope', function($scope, $mdBottomSheet, $rootScope) {
+                    controller: ['$scope','$mdBottomSheet', '$rootScope','$mdDialog','i18n',
+                        function($scope, $mdBottomSheet, $rootScope, $mdDialog, i18n) {
                         $scope.tileSizes = [
                             {label:'large', value:{h:2,w:2}},
                             {label:'medium', value:{h:1,w:2}},
@@ -50,6 +51,15 @@ app.directive('editTileBottom', function() {
                             $scope.tileInfo.h = $scope.sizeCheck.value.h;
                         };
 
+                        $scope.initSize=function() {
+                            if($rootScope.editTileInfo.w==2&&$rootScope.editTileInfo.h==2) {
+                                $scope.sizeCheck=$scope.tileSizes[0];
+                            } else if ($rootScope.editTileInfo.w==2&&$rootScope.editTileInfo.h==1) {
+                                $scope.sizeCheck=$scope.tileSizes[1];
+                            } else if ($rootScope.editTileInfo.w==1&&$rootScope.editTileInfo.h==1) {
+                                $scope.sizeCheck=$scope.tileSizes[2];
+                            }
+                        };
 
                         $scope.buildTldDropDownData=function() {
                             var config = [];
@@ -62,6 +72,22 @@ app.directive('editTileBottom', function() {
                                                     $scope.getDefaultSelectedValue($rootScope.editTileInfo.config.tld,
                                                                                    $rootScope.editTileInfo.defaultld)
                                                     ];
+                        };
+
+                        $scope.removeItem = function(ev,tileInfo) {
+                            var name= (tileInfo.label ? tileInfo.label :tileInfo.name);
+                            var confirm = $mdDialog.confirm()
+                                .title('Delete the tile: ' + name)
+                                .content(i18n.chrome.getMessage('delete_message'))
+                                .ariaLabel('DELETE TILE')
+                                .ok('Delete')
+                                .cancel('cancel')
+                                .targetEvent(ev);
+                            $mdDialog.show(confirm).then(function() {
+                                $rootScope.$broadcast('removeTile', tileInfo);
+                                $mdBottomSheet.cancel();
+                            }, function() {
+                            });
                         };
 
                         $scope.getDefaultSelectedValue=function(originalSource, selectedItemVal) {
@@ -117,6 +143,8 @@ app.directive('editTileBottom', function() {
                                 $scope.buildTldDropDownData();
                             }
                         }
+
+                        $scope.initSize();
                         //copy the tiles settings so that we can switch the old settings back on abbort dialog!
                         $scope.configCopy = angular.copy($rootScope.editTileInfo);
                         $scope.tileInfo = $rootScope.editTileInfo;

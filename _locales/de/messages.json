@@ -87,6 +87,9 @@
     },
     "cancel":{
         "message": "Abbrechen"
+    },
+    "delete_message": {
+        "message": "Dieses Element unwiederuflich Löschen ?"
     }
 
 

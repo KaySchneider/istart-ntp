@@ -64,13 +64,14 @@ app.directive('metroItem', function() {
                     var name= (tileInfo.label ? tileInfo.label :tileInfo.name);
                     var confirm = $mdDialog.confirm()
                         .title('Delete the tile: ' + name)
-                        .content('All of the banks have agreed to forgive you your debts.')
+                        .content('')
                         .ariaLabel('DELETE TILE')
                         .ok('Delete')
                         .cancel('cancel')
                         .targetEvent(ev);
                     $mdDialog.show(confirm).then(function() {
                         $rootScope.$broadcast('removeTile', tileInfo);
+
                     }, function() {
                     });
             };
