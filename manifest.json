@@ -1,13 +1,15 @@
 {
     "name": "__MSG_appName__",
     "description": "__MSG_appDesc__",
-    "version": "2.0.1.49",
+    "version": "2.0.1.50",
     "manifest_version": 2,
     "default_locale": "en_US",
     "offline_enabled": true,
     "optional_permissions": ["topSites"],
     "permissions": [
-        "history","management","storage","unlimitedStorage","<all_urls>", "webNavigation", "tabs", "alarms"
+        "history","management","storage",
+        "unlimitedStorage","<all_urls>",
+        "webNavigation", "tabs", "alarms"
     ],
     "icons": {
         "128": "istartIcon.png",
