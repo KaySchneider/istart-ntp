@@ -81,6 +81,12 @@
     },
     "bookmarks": {
         "message": "bookmarks"
+    },
+    "save":{
+        "message": "Speichern"
+    },
+    "cancel":{
+        "message": "Abbrechen"
     }
 
 

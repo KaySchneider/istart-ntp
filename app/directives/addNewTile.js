@@ -22,6 +22,7 @@ app.directive('addNewTile', function() {
                     $scope.tldcheck = selectIndex;
                 };
 
+
                 $scope.buildTldDropDownData=function() {
                         var config = [];
                         for(var i in ps.tile.config.tld) {

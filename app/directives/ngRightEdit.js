@@ -8,6 +8,7 @@ app.directive('ngRightEdit', function() {
     return {
         restrict: 'A',
         controller:['$rootScope','$scope',function($rootScope, $scope) {
+            $rootScope.editBottom=false;
             /**
              * remove all other active borders on the desktop
              */
@@ -25,12 +26,15 @@ app.directive('ngRightEdit', function() {
                 switch(has) {
                     case true:
                         $scope.editTile=false;
+                        $rootScope.editBottom=false;
                         $scope.ngEditElement.removeClass('editBorder');
                         break;
                     case false:
                         $scope.editTile=true;
                         $scope.ngEditElement.addClass('editBorder');
                         $rootScope.$broadcast('changeEditTile', { tileId: $scope.tileInfo.uuid});
+                        $rootScope.editBottom=true;
+                        $rootScope.editTileInfo=$scope.tileInfo;
                         break;
                 }
                 try {

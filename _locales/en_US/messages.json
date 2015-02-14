@@ -124,6 +124,12 @@
     },
     "bookmarks": {
         "message": "bookmarks"
+    },
+    "save":{
+        "message": "save"
+    },
+    "cancel":{
+        "message": "cancel"
     }
 
 }

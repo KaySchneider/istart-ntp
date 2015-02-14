@@ -45,11 +45,11 @@ app.directive('metroItem', function() {
              * Auch in Anbetracht der unterschiedlichen Optionen welchen vom Nutzer konfiguriert werden können.
              * Dort muss es auch eine Einheitliche Methode geben!
              */
-            if ($scope.tileInfo.min_width) {
+            if ($scope.tileInfo.min_width && typeof $scope.tileInfo.w == "undefined") {
                 $scope.tileInfo.w = $scope.tileInfo.min_width;
             }
 
-            if ($scope.tileInfo.min_height) {
+            if ($scope.tileInfo.min_height && typeof $scope.tileInfo.h == "undefined") {
                 $scope.tileInfo.h = $scope.tileInfo.min_height;
             }
 
