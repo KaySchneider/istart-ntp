@@ -2,8 +2,11 @@
       class="material-tile-left metro tile"
       data-drag="true"
       id="item_{{outerIndex}}_{{$index}}"
-      ng-class="{'wide xxl':tileInfo.h==2&&tileInfo.w==2,'wide app': tileInfo.w==2&&tileInfo.h==1}"
+      ng-class="{'wide xxl':tileInfo.h==2&&tileInfo.w==2,
+                 'wide app': tileInfo.w==2&&tileInfo.h==1,
+                 'editBorder': editTile==true}"
       background-config
+      ng-right-edit
       style="" >
 
 <span>

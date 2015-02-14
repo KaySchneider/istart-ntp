@@ -322,10 +322,10 @@ div.activebartools > a:hover {
 }
 
 .sortable-placeholder {
-    transition: width 2s;
-    -moz-transition: width 2s; /* Firefox 4 */
+    transition: width 0.2s;
+    -moz-transition: width 0.2s; /* Firefox 4 */
     /* -webkit-transition: width  0.1s; /* Safari and Chrome */
-    -o-transition: width 2s; /* Opera */
+    -o-transition: width 0.2s; /* Opera */
 }
 
 li {
