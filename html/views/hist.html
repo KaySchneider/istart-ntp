@@ -66,6 +66,7 @@
                 <metro-item  ng-repeat="item in  (filteredTiles = ( item_desktop|  filter:filterTiles)) track by item[0].uuid"
                              my-repeat-directive
                              tile-info="item[0]"
+                             ng-if="item[0]"
                              edit-mode="editMode"
                              class=" "></metro-item>
             </ul>
