@@ -47,6 +47,14 @@ app.directive('ngRightEdit', function() {
         link: function(scope, element, attrs) {
             scope.editTile=false;
             scope.ngEditElement=element;
+
+            if('editicon' in attrs.$attr) {
+                element.on('click', function(ev) {
+                    ev.preventDefault();
+                    console.log(attrs);
+                    scope.changeEditMode();
+                });
+            }
             element.on('contextmenu', function(ev) {
                 ev.preventDefault();
                 scope.changeEditMode();

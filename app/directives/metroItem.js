@@ -55,7 +55,8 @@ app.directive('metroItem', function() {
             }
 
             $scope.$index = $scope.$parent.$index;
-            $scope.outerIndex = $scope.$parent.$parent.$index;
+            $scope.outerIndex = $scope.$parent.$parent.$parent.$index;
+
 
             $scope.showColorChooserTile = function (ev,data) {
                 console.log(data);

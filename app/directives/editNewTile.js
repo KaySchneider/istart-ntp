@@ -24,8 +24,9 @@ app.directive('editTileBottom', function() {
                 $scope.alert = '';
                 $mdBottomSheet.show({
                     templateUrl: '../html/templates/editTileBottom.html',
-                    controller: ['$scope','$mdBottomSheet', '$rootScope','$mdDialog','i18n',
-                        function($scope, $mdBottomSheet, $rootScope, $mdDialog, i18n) {
+                    controller: ['$scope','$mdBottomSheet', '$rootScope','$mdDialog','i18n', 'analytics',
+                        function($scope, $mdBottomSheet, $rootScope, $mdDialog, i18n, analytics) {
+                        analytics.track('editTile', 'editTile');
                         $scope.tileSizes = [
                             {label:'large', value:{h:2,w:2}},
                             {label:'medium', value:{h:1,w:2}},

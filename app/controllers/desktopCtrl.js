@@ -61,6 +61,9 @@ app.controller('desktopCtrl',
                 if(!$scope.maTemp[parseInt(index)]) {
                     $scope.maTemp[parseInt(index)] = [];
                 }
+                /**
+                 *
+                 */
                 $scope.maTemp[parseInt(index)][parseInt(innerIndex)] = $scope.hiddenMatrix[parseInt(innerOuterIndexOld[0])][parseInt(innerOuterIndexOld[1])];
             })
         }).promise().done(function() {
@@ -192,6 +195,7 @@ app.controller('desktopCtrl',
             } else {
 
                 $scope.items = data;
+                $scope.hiddenMatrix = $scope.items;
 
                 if(!$scope.$$phase) {
                     $scope.$apply();
