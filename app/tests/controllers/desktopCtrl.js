@@ -41,6 +41,4 @@ describe('Unit: DesktopCtrl', function() {
             expect(scope.maTemp).toEqual(dfM);
     });
 
-
-
 });
