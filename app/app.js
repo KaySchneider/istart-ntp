@@ -82,6 +82,7 @@ angular.module('istart', [
             // Angular before v1.2 uses $compileProvider.urlSanitizationWhitelist(...)
             console.debug('TIME TO THE APP START in seconds:' , (Date.now() - window.startTime)/1000);
         $urlRouterProvider.otherwise('/desktop');
+            console.log('START ROUTING THE FUCKING APP');
         $stateProvider
             .state('desktop', {
                 url: '/desktop',

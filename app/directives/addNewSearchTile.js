@@ -1,5 +1,5 @@
 'use strict';
-var app = angular.module('istartMetroDirective');
+var app = angular.module('istartMetroDirective',[]);
 app.directive('addNewSearchTile', function() {
     return {
         restrict: 'A',//set your own click handler

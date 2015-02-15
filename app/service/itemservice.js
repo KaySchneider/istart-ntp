@@ -91,7 +91,7 @@ app.factory('matrix', ['$q', 'backgroundMessage',  '$window', '$http', '$rootSco
             var deferred = $q.defer();
             $http.get('../app/defaultTiles.json')
                 .success(function(data, status, headers, config) {
-                    console.log(data, status, headers, config);
+                    console.log(data, status, headers, config, "LOAD");
                     deferred.resolve(data);
                 })
                 .error(function(data, status, headers, config) {
@@ -151,10 +151,13 @@ app.factory('matrix', ['$q', 'backgroundMessage',  '$window', '$http', '$rootSco
             }
 
             chrome.storage.local.get('istart',function( datas ) {
+                console.log(datas.istart, 'receive data');
                 var matrix = false;
                 try {
                     var matrix = JSON.parse(datas.istart);
+                    console.log(matrix);
                 } catch(e) {
+                    console.error(e);
                     var matrix = false;
                 }
                 if(matrix===false || !datas.istart) {
@@ -169,6 +172,7 @@ app.factory('matrix', ['$q', 'backgroundMessage',  '$window', '$http', '$rootSco
                         });
                 } else {
                     matrixCopy = matrix;
+                    console.log(matrix, 'RESOLVE');
                     defer.resolve(matrix);
                 }
             });

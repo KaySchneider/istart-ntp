@@ -6,7 +6,7 @@
  * template and behaviour
  */
 
-var app = angular.module('istartMetroDirective', []);
+var app = angular.module('istartMetroDirective');
 app.directive('metroItem', function() {
     return {
         templateUrl: 'views/tile.html',

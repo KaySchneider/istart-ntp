@@ -4,6 +4,7 @@ var app = angular.module('istart');
 app.controller('desktopCtrl',
            ['$scope','matrix','$window','$location','internalUrlLoader','$mdSidenav', '$rootScope',
     function($scope, matrix, $window, $location, internalUrlLoader, $mdSidenav, $rootScope) {
+        console.log('inside the desktop controller, never reached this stage inside the karma/jasmine tests');
     $window.appControllerStart = Date.now();
     $scope.items  = [];//add an empty array as default items during laod process!! Only for print the matrix the first time
     console.log('start app desktop');
@@ -182,7 +183,7 @@ app.controller('desktopCtrl',
     };
 
     $scope.ma.getLocalData().then(function(data) {
-        console.debug('DATA', data);
+        console.log("HALLO");
         if(data == false) {
             console.log('inside first run setting up the default tiles and load the first run');
             $scope.ma.saveFirstRun();

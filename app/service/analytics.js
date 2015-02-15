@@ -3,7 +3,7 @@
  * Created by ikay on 10.02.15.
  *
  */
-
+var app  = angular.module('istart');
 app.factory('analytics', ['$q',function ($q) {
     var track = function(eventid, action, optionalArguments) {
         try {
