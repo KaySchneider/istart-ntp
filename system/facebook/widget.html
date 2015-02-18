@@ -1,0 +1,62 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>weather widget</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <style>
+            body {
+                margin: 0px;
+                background-color: #3b5998;
+                color:white;
+            }
+            .hidden {
+                display:none;
+                visibility: none;
+            }
+            .master {
+                width: 225px;
+                height: 125px;
+                -webkit-transition: top 1s;
+                top:0px;
+                position:relative;
+            }
+            .cast {
+                display:block;
+                width:250px;
+                height:125px
+               
+            }
+            
+            
+           
+        </style>
+    </head>
+    <body>
+        <div id="fb-root"></div>
+        <div class="master" id="master" >
+
+        </div>
+        <div class="hidden" id="fbTemplate">
+            <div class="statusupdate">
+                <div >
+                    <p class="user">{{username}} {{time}}</p>
+                    {{statusElement}}
+                </div>
+            </div>
+        </div>
+        
+        <div class="hidden" id="fbImageTemplate">
+            <p class="fbtext">{{text}}</p>
+            <img src="{{src}}" class="fbimagesmall"/>
+        </div>
+        
+        <iframe id="FB" src="https://istartfb.herokuapp.com/" ></iframe>
+        <script src="js/livetile.js"></script>
+        <script src="js/app.js" ></script>
+    </body>
+
+</html>

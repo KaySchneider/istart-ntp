@@ -57,19 +57,22 @@
             maybe switch to native javascript loop and mustache rendering engine??
         -->
 
-    <div class="pagerContainer" style="position: absolute;">
-
+    <div class="pagerContainer" style="position: absolute;" id="interpolateed">
+        {{interpolatedHtml}}
+         <!--
             <ul class="pagerTest itemholders"
                 istart-calc-screen-size
                 ng-repeat="item_desktop in items"
                 id="p{{$index}}">
-                <metro-item  ng-repeat="item in  (filteredTiles = ( item_desktop|  filter:filterTiles)) track by item[0].uuid"
+                <metro-item  ng-repeat="item in  item_desktop track by item[0].uuid"
                              my-repeat-directive
                              tile-info="item[0]"
-                             ng-if="item[0]"
                              edit-mode="editMode"
-                             class=" "></metro-item>
+                             ></metro-item>
+
             </ul>
+            -->
+        <!-- repace this with an straight js loop and $interpolate -->
     </div>
 
 

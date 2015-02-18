@@ -1,0 +1,9 @@
+<div class="container">
+    <div id="slider" class="list-unstyled list-inline bgList">
+        <figure  id="imagestrip" style="height:{{ bgMessageCount * 100}}%">
+            <div class="scrollBox" ng-repeat="data in imageBg" >
+                <i18n class="text-header3" i18n="{{data.message}}" imwidth="{{100/bgMessageCount}}"  oddcolor="{{$index}}"></i18n>
+            </div>
+        </figure>
+    </div>
+</div>

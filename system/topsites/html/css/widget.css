@@ -1,0 +1,118 @@
+body {
+    max-height: 100%;
+    min-width: 100%;
+    overflow-y:hidden;
+    overflow-x:scroll;
+    margin:0px;
+    background-color: #282828;
+}
+
+.win-backbutton {
+    cursor:pointer;
+
+}
+
+.win-backbutton::before {
+    font-family: "IcoMoon",Arial,Helvetica,Sans-Serif;
+    content: "\e069";
+    font-size: 40px;
+    width: 50px;
+    height: 50px;
+    display: block;
+    float:left;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    line-height: 1.7em;
+}
+
+.win-backbutton:hover::before {
+    font-family: "IcoMoon",Arial,Helvetica,Sans-Serif;
+    content: "\e0f8";
+    cursor: pointer;
+
+}
+
+.appcontainer {
+    max-height: 100%;
+    min-height: 100%;
+    min-width: 2000px;
+}
+.label {
+    display:block;
+    width: 214px;
+    height: 130px;
+    color:#454545;
+    font-size:14px;
+    border:0px solid slategrey;
+    float:left;
+    word-break: break-word;
+    overflow: ellispis;
+    font-family: 'Open Sans',Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    padding:10px;
+    margin:40px;
+    font-weight: lighter !important;
+    text-rendering: optimizelegibility;
+    cursor: pointer;
+    background-color: #f5f5f5;
+}
+
+.label:hover {
+    color:#0cf;
+    background: cornsilk;
+}
+
+header {
+    padding-left: 40px;
+    padding-top: 20px;
+    margin:0px;
+    background-color:black;
+    color:white;
+    clear: both;
+}
+
+
+header>h2.titlearea {
+    font-family: 'Open Sans',Arial, Helvetica, sans-serif;
+    float: left;
+    font-size: 40px;
+    font-weight: 100;
+    line-height: 0em;
+    font-weight: lighter !important;
+    text-rendering: optimizelegibility;
+    margin-left:120px;
+}
+
+.titlearea {
+    font-family: 'Open Sans',Arial, Helvetica, sans-serif;
+    font-size: 40px;
+    font-weight: 100;
+    line-height: 0em;
+    font-weight: lighter !important;
+    text-rendering: optimizelegibility;
+    margin-left:120px;
+    color:white;
+}
+
+button {
+    font-family: 'Open Sans',Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    margin-left:120px;
+    cursor: pointer;
+}
+
+.appcontent {
+    padding-left: 40px;
+    padding-top:20px;
+    float:left;
+    max-height: calc(100% - 800px);
+    float:left;
+}
+
+
+
+.clear {
+    clear:both;
+}
+

@@ -1,0 +1,229 @@
+@keyframes slidy {
+    20% { top: 0%; }
+    25% { top: -100%; }
+    45% { top: -100%; }
+    50% { top: -200%; }
+    70% { top: -200%; }
+    75% { top: -300%; }
+    95% { top: -300%; }
+    100% { top: -400%; }
+}
+div#slider { overflow: hidden; }
+
+figure#imagestrip  {
+    position: relative;
+    height: 500%;
+    width: 100%!important;
+    margin: 0;
+    left: 0;
+    top:0;
+    font-size: 0;
+    -webkit-transition: all 3s ease;
+}
+
+
+.bg-color-blue {
+    background-color: #0072BC !important;
+}
+.bg-color-blueDark {
+    background-color: #662D91 !important;
+}
+.bg-color-green {
+    background-color: #01a31c !important;
+}
+.bg-color-greenDark {
+    background-color: #008641 !important;
+}
+.bg-color-red {
+    background-color: #bc1c48 !important;
+}
+.bg-color-yellow {
+    background-color: #ffc40d !important;
+}
+.bg-color-orange {
+    background-color: #CD4900 !important;
+}
+.bg-color-pink {
+    background-color: #c3325f !important;
+}
+.bg-color-purple {
+    background-color: #603cba !important;
+}
+.bg-color-darken {
+    background-color: #1c1c1c !important;
+}
+
+
+.win-backbutton {
+    cursor:pointer;
+
+}
+
+.win-backbutton::before {
+    font-family: "IcoMoon",Arial,Helvetica,Sans-Serif;
+    content: "\e069";
+    font-size: 40px;
+    width: 50px;
+    height: 50px;
+    display: block;
+    float:left;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    line-height: 1.7em;
+}
+
+.win-backbutton:hover::before {
+    font-family: "IcoMoon",Arial,Helvetica,Sans-Serif;
+    content: "\e0f8";
+    cursor: pointer;
+
+}
+
+body {
+    max-height: 100%;
+    min-width: 100%;
+    overflow-y:hidden;
+    overflow-x:scroll;
+    margin:0px;
+    background-color: #282828;
+}
+
+.win-backbutton {
+    cursor:pointer;
+
+}
+
+.win-backbutton::before {
+    font-family: "IcoMoon",Arial,Helvetica,Sans-Serif;
+    content: "\e069";
+    font-size: 40px;
+    width: 50px;
+    height: 50px;
+    display: block;
+    float:left;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    line-height: 1.7em;
+}
+
+
+
+.win-backbutton:hover::before {
+    font-family: "IcoMoon",Arial,Helvetica,Sans-Serif;
+    content: "\e0f8";
+    cursor: pointer;
+
+}
+
+.appcontainer {
+    max-height: 100%;
+    min-height: 100%;
+    min-width: 2000px;
+}
+.label {
+    display:block;
+    width: 214px;
+    height: 130px;
+    color:#454545;
+    font-size:14px;
+    border:0px solid slategrey;
+    float:left;
+    word-break: break-word;
+    overflow: ellispis;
+    font-family: 'Open Sans',Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    padding:10px;
+    margin:40px;
+    font-weight: lighter !important;
+    text-rendering: optimizelegibility;
+    cursor: pointer;
+    background-color: #f5f5f5;
+}
+
+.label:hover {
+    color:#0cf;
+    background: cornsilk;
+}
+
+header {
+    padding-left: 40px;
+    padding-top: 20px;
+    margin:0px;
+    background-color: #1c1c1c !important;
+    color:white;
+    clear: both;
+    min-height: 69px;
+    position:fixed;
+    width: 100%;
+}
+
+nav {
+    display:block;
+    position:fixed;
+    width:100%;
+    min-height: 40px;
+    top:90px;
+    background-color: #2A2A2A;
+}
+
+nav span {
+    display:inline-block;
+    cursor:pointer;
+}
+
+nav * a , nav * a:link,nav * a:active, nav * a:visited {
+    display: inline-block;
+    background-color: #2A2A2A;
+    float:left;
+    padding: 20px;
+}
+nav * a:hover {
+    background-color: #888888;
+}
+
+
+header>h2.titlearea {
+    font-family: 'Open Sans',Arial, Helvetica, sans-serif;
+    float: left;
+    font-size: 27px;
+    font-weight: 100;
+    line-height: 0em;
+    font-weight: lighter !important;
+    text-rendering: optimizelegibility;
+    margin-left: 13px;
+}
+
+.titlearea {
+    font-family: 'Open Sans',Arial, Helvetica, sans-serif;
+    font-size: 40px;
+    font-weight: 100;
+    line-height: 0em;
+    font-weight: lighter !important;
+    text-rendering: optimizelegibility;
+    margin-left:13px;
+    color:white;
+}
+
+button {
+    font-family: 'Open Sans',Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    margin-left:120px;
+    cursor: pointer;
+}
+
+.appcontent {
+    padding-left: 40px;
+    padding-top:20px;
+    float:left;
+    max-height: calc(100% - 800px);
+    float:left;
+}
+
+
+
+.clear {
+    clear:both;
+}
+

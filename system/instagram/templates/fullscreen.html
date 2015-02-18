@@ -1,0 +1,33 @@
+
+<link rel="stylesheet" type="text/css" href="../css/iconmoon.css" />
+
+
+<header>
+    <span class="win-backbutton" aria-label="Back" disabled type="button"></span>
+    <h2 class="titlearea win-type-ellipsis">
+        Welcome to iStart
+    </h2>
+    <div class="clear"></div>
+</header>
+<nav>
+    <span  ng-repeat="datas in menue">
+        <a   ng-Click="click()">
+            <i18n class="" i18n="{{datas.message}}" ></i18n>
+        </a>
+    </span>
+
+
+</nav>
+
+<div class="textcontainer list-unstyled list-inline" id="contentbox">
+    <div class="hidden" ng-repeat="data in menue" id="{{data.menuEntry}}">
+        <div class="themecontainer "  ng-repeat="entry in data.entry" >
+            <h4><i18n class="text-header4" i18n="{{entry.title}}"></i18n></h4>
+            <p class="text-body">
+                <i18n class="text-body" i18n="{{entry.body}}"></i18n>
+            </p>
+
+        </div>
+
+    </div>
+</div>

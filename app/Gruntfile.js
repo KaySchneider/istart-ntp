@@ -85,6 +85,12 @@ module.exports = function(grunt) {
                       dest: '../build/locales/',
                       filter:'isFile'
                   },
+                  {
+                      nonull:true,
+                      src: '../system/**',
+                      dest: '../build/system/',
+                      filter: 'isFile'
+                  },
                   {   nonull:true,
                       src: '../app/libs/jquery.sortable.js',
                       dest: '../build/app/libs/jquery.sortable.js',

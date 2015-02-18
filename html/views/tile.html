@@ -1,15 +1,15 @@
 <li   istart-backdop-tester
       class="material-tile-left metro tile"
       data-drag="true"
-      id="item_{{outerIndex}}_{{$index}}"
+      id="item_{{outerIndex}}_{{innerIndex}}"
       ng-class="{'wide xxl':tileInfo.h==2&&tileInfo.w==2,
                  'wide app': tileInfo.w==2&&tileInfo.h==1,
                  'editBorder': editTile==true}"
       background-config
       ng-right-edit
-      style="" >
+       >
 
-<span>
+<span style="margin:0">
     <span title="delete item"  ng-click="removeItem($event, tileInfo)" class="trashiconme" ng-show="editMode==true"></span>
     <span title="edit item"
           mode="edit"
@@ -23,9 +23,19 @@
                 <span ng-if="tileInfo.issearch"   ng-show="hover==true && editMode==false" class="md-whiteframe-z2">
                     <input search-widget style="z-index:2;line-height: 20px;position:absolute;top:5px;left:-5px" placeholder="search">
                 </span>
-                <span ng-if="!tileInfo.issearch">
+                <span ng-if="tileInfo.isyoutube">
+
+                    <youtube-player video="{{tileInfo.config.video}}"></youtube-player>
+                </span>
+                <span ng-if="!tileInfo.issearch&&!tileInfo.isyoutube" >
+                    <iframe scrolling="no" src="{{tileInfo.src}}"
+                            ></iframe>
+                    <ul class="metrohelper" >
+                        <li istart-backdop-tester class="metrohelpersub"  ></li>
+                    </ul>
                 </span>
     </span>
+    <!-- add video directive if tile contains youtube... -->
     <span ng-if="tileInfo.name" ng-class="{'labelIcon':tileInfo.config.icon||tileInfo.icon}">{{tileInfo.name}}</span>
     <span ng-if="tileInfo.label" ng-class="{'labelIcon':tileInfo.config.icon||tileInfo.icon}">{{tileInfo.label}}</span>
     <span ng-if="tileInfo.config.icon" class="{{tileInfo.config.icon}} iconImage"></span>

@@ -1,0 +1,33 @@
+<md-dialog aria-label="System tiles">
+    <div layout="row" layout-wrap>
+        <div flex >
+            <md-content style="overflow:scroll">
+                <md-list>
+                    <md-item ng-repeat="item in searchTiles">
+                        <md-item-content class="hovermenu" ng-class="{active:activeItem===$index}" ng-click="setItemActive($index)">
+                            <div class="md-tile-left">
+                                <img ng-src="{{item[0].face}}" class="face" alt="{{item[0].who}}">
+                            </div>
+                            <div class="md-tile-content">
+                                <h3>{{item[0].name}}</h3>
+                                <p>
+                                    {{item[0].description}}
+                                </p>
+                            </div>
+                        </md-item-content>
+                    </md-item>
+                </md-list>
+            </md-content>
+        </div>
+    </div>
+    <div class="md-actions" layout="row">
+        <span flex></span>
+        <md-button ng-click="cancel()">
+            cancel
+        </md-button>
+        <md-button ng-click="checkconfig()" class="md-primary">
+            <span ng-show="edit==false">add this tile</span>
+            <span ng-show="edit==true">edit this tile</span>
+        </md-button>
+    </div>
+</md-dialog>

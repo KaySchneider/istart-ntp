@@ -1,10 +1,13 @@
 'use strict';
-
+(function() {
 var app = angular.module('istart');
 app.controller('desktopCtrl',
            ['$scope','matrix','$window','$location','internalUrlLoader','$mdSidenav', '$rootScope',
-    function($scope, matrix, $window, $location, internalUrlLoader, $mdSidenav, $rootScope) {
+               'searchExternalPlugins','$compile',
+    function($scope, matrix, $window, $location, internalUrlLoader, $mdSidenav,
+             $rootScope, searchExternalPlugins, $compile) {
         console.log('inside the desktop controller, never reached this stage inside the karma/jasmine tests');
+
     $window.appControllerStart = Date.now();
     $scope.items  = [];//add an empty array as default items during laod process!! Only for print the matrix the first time
     console.log('start app desktop');
@@ -38,6 +41,9 @@ app.controller('desktopCtrl',
         var found=false;
         for(var outerIndex in $scope.items) {
             for(var inner in $scope.items[outerIndex]) {
+                if($scope.items[outerIndex][inner] == null) {
+                    continue;
+                }
                 if($scope.items[outerIndex][inner][0].uuid == tileInfo.uuid) {
                     $scope.items[outerIndex].splice(inner,1);
                     $scope.ma.saveMatrix($scope.items);
@@ -51,6 +57,36 @@ app.controller('desktopCtrl',
         }
     });
 
+    var showItems = function(items) {
+        var dom="";
+       for(var outerIndex in items) {
+           dom += ' <ul class="pagerTest itemholders"' +
+                ' istart-calc-screen-size' +
+                ' id="p'+outerIndex+'">';
+
+           for(var innerIndex in items[outerIndex]) {
+                   if(items[outerIndex][innerIndex] !== null) {
+                       dom += '<metro-item  ' +
+                              ' my-repeat-directive'+
+                              ' outer-index="'+outerIndex+'" ' +
+                              ' inner-index="'+innerIndex+'" ' +
+                              ' tile-info="items['+outerIndex+']['+innerIndex+'][0]"' +
+                              ' edit-mode="editMode"' +
+                              ' ></metro-item>';
+                   }
+               }
+           dom += "</ul>";
+       }
+        /**
+         * add new item
+         */
+        var html = $compile(dom)($scope);
+        angular.element('#interpolateed').html(html);
+        $window.items = $scope.items;
+        resizeScreen();
+        window.setTimeout(addDnD, 400);
+    };
+
     /**
      * resort the matrix
      */
@@ -58,6 +94,9 @@ app.controller('desktopCtrl',
         $scope.maTemp = [];
         $('.itemholders').each(function(index, elementDom) {
             $('li', elementDom).each(function(innerIndex, items) {
+                if(!items.id) {
+                    return;
+                }
                 var innerOuterIndexOld = items.id.replace('item_','').split('_');
                 if(!$scope.maTemp[parseInt(index)]) {
                     $scope.maTemp[parseInt(index)] = [];
@@ -68,10 +107,29 @@ app.controller('desktopCtrl',
                 $scope.maTemp[parseInt(index)][parseInt(innerIndex)] = $scope.hiddenMatrix[parseInt(innerOuterIndexOld[0])][parseInt(innerOuterIndexOld[1])];
             })
         }).promise().done(function() {
-            //console.log( $scope.maTemp );
-            //$scope.items= $scope.maTemp;
+            var data = $scope.maTemp;
+            var tmpData = [];
+            var outerRun=0;
+            var innerRun=0;
+            for(var item in data) {
+                var insert = false;
+                for(var subItem in data[item]) {
+                    if(data[item][subItem]!=null) {
+                        if (!tmpData[outerRun]) {
+                            tmpData[outerRun] = [];
+                        }
+                        if (!tmpData[outerRun][innerRun]) {
+                            tmpData[outerRun][innerRun] = data[item][subItem];
+                        }
+                        insert=true;
+                        innerRun++;
+                    }
+                }
+                if(insert===true)
+                    outerRun++;
+            }
+            $scope.maTemp = tmpData;
             if(!$scope.$$phase) {
-                //$digest or $apply
                 $scope.$apply();
             }
             console.log('SAVE SAVE', $scope.maTemp);
@@ -155,35 +213,47 @@ app.controller('desktopCtrl',
    };
 
    $scope.$on('readyTiles', function() {
-       console.log('last ready');
-        $scope.recalcSizes();
+    //    $scope.recalcSizes();
    });
 
    $scope.startW = 0;
    $scope.recalcSizes = function() {
-       console.log('ELEMENT RECALC', angular.element('.pagerTest'));
      angular.element('.pagerTest').each(function(item){
          if(item==0){
              $scope.startW=0;
+
          }
-         var width = $scope.calcNewWidth($scope.items[item].length);
-         var el  = $('#p'+item);
-         el.css({'width':  width + 'px'});
-         el.css({'left': $scope.startW +'px'});
-         $scope.startW += width+300;
+         /**
+          * maybe some users has null inside some items!
+          */
+        try {
+            if($scope.items[item] ) {
+                var width = $scope.calcNewWidth($scope.items[item].length);
+                var el = $('#p' + item);
+                el.css({'width': width + 'px'});
+                el.css({'left': $scope.startW + 'px'});
+                $scope.startW += width + 300;
+            }
+        } catch(e) {
+
+        }
 
      });
    };
 
+
     $scope.calcNewWidth = function (countChilds) {
             if(countChilds < 4) {
                 countChilds = 4;
+
             }
+            /**
+             * calculate here the new height
+             */
             return  Math.ceil(countChilds/4)*250  ;
     };
 
     $scope.ma.getLocalData().then(function(data) {
-        console.log("HALLO");
         if(data == false) {
             console.log('inside first run setting up the default tiles and load the first run');
             $scope.ma.saveFirstRun();
@@ -197,7 +267,10 @@ app.controller('desktopCtrl',
 
                 $scope.items = data;
                 $scope.hiddenMatrix = $scope.items;
-
+                searchExternalPlugins.plugins.init().then(function() {
+                    console.log('ready');
+                });
+                showItems($scope.items);
                 if(!$scope.$$phase) {
                     $scope.$apply();
                 }
@@ -209,6 +282,7 @@ app.controller('desktopCtrl',
 }]);
 
 function addDnD() {
+    console.log('ADD');
     $('.pagerTest').sortable({
         connectWith: '.pagerTest'
     });
@@ -229,4 +303,114 @@ function addDnD() {
     $('.metrohelper').sortable({
         connectWith: '.pagerTest'
     });
-};
+}
+    window.onresize =function() {
+        resizeScreen();
+    };
+function resizeScreen() {
+    var items= window.items;
+    var startW;
+    var container = $('#interpolateed');
+        var ceil = Math.ceil( ($(window.top).height()-140)/140);
+        var height = ceil * 130;
+        $('.pagerTest').each(function(item){
+            if(item==0){
+                startW=0;
+
+            }
+            /**
+             * all used vars to calculate the new width of the
+             * ul container containing the tiles
+             * we take care of the different heights and widths while calculating
+             * the rows and cells
+             * @type {number}
+             */
+            var oneWidth = 277.3333335;
+            var staticItemsOnRow=ceil;
+            var currentLine=0;
+            var currentRowHeight=0;
+            var countCells=0;
+            var allContainerWidth=0;
+
+            var maxItems = items[item].length;
+            for(var info in items[item]) {
+
+                if(!items[item][info]) {
+                    continue;
+                }
+
+               if(items[item][info][0] == null){
+                   continue;
+               }
+              if(currentLine==2)
+                currentLine = 0;
+
+              if(currentRowHeight>=staticItemsOnRow) {
+                  currentRowHeight=0;
+                  countCells++;
+              }
+
+              if(items[item][info][0].w==1) {
+                   currentLine++;
+                  if(currentLine==2) {
+                      currentRowHeight++;//the item is full
+                  }
+                  if(info == maxItems-1) {
+                      if(currentRowHeight!=0) {
+                          countCells++;
+                      }
+                  }
+                   continue;
+              }
+
+               if(items[item][info][0].w == 2) {
+                   //line is full
+                   if(currentLine==1) {
+                       currentRowHeight++;
+                   }
+                   currentLine=2;
+                   currentRowHeight++;
+                   //check if the height is also two
+                   if(items[item][info][0].h == 2) {
+                       currentRowHeight++;
+                   }
+                   if(info == maxItems-1) {
+                       if(currentRowHeight!=0) {
+                            countCells++;
+                       }
+                   }
+                   continue;
+               }
+
+            }
+            /**
+             * calculate the correct width
+             */
+            allContainerWidth = (oneWidth * countCells)+8;
+            /**
+             * maybe some users has null inside some items!
+             */
+            try {
+                if(items[item] ) {
+                    var width = allContainerWidth;
+                    var el = $('#p' + item);
+                    el.css({'width': width + 'px'});
+                    el.css({'left':  startW + 'px'});
+                    el.css({height: height + 'px'});
+                    el.css({border: "1px solid red"});
+                    startW += width + 300;
+                }
+            } catch(e) {
+
+            }
+        });
+}
+
+function calcNewWidth( countChilds) {
+        if(countChilds < 4) {
+            countChilds = 4;
+        }
+        return  Math.ceil(countChilds/4)*250  ;
+}
+
+})();

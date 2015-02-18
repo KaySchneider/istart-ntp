@@ -1,0 +1,61 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>weather widget</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <style>
+            body {
+                margin: 0px;
+            }
+            .hidden {
+                display:none;
+                visibility: none;
+            }
+            .master {
+                width: 225px;
+                height: 125px;
+                -webkit-transition: top 1s;
+                top:0px;
+                position:relative;
+            }
+            .cast {
+                display:block;
+                width:250px;
+                height:125px
+               
+            }
+            
+            
+           
+        </style>
+    </head>
+    <body>
+
+        <div class="master" id="master" >
+
+        </div>
+        <div class="hidden" id="wtemplate">
+            <div class="today cast">
+                {{city}}<br/>
+                {{temperature}}<br/>
+                {{date}}
+            </div>
+            <div class="forecast cast">
+                {{city}}<br/>
+                {{cloudtext}}
+                temperature low:{{low}}
+                temperature high: {{high}}
+                {{date}}
+                {{day}}
+            </div>
+
+
+        </div>
+        <script src="js/app.js" ></script>
+    </body>
+
+</html>

@@ -5692,6 +5692,12 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
     }
 });
 chrome.alarms.create("createTimeSpend", {when: Date.now() + 500});
+
+console.log('VERSION WITH EXTERNAL MESSAGE HANDLER');
+chrome.runtime.onMessageExternal.addListener(
+    function(request, sender, sendResponse) {
+      console.log(request, sender, sendResponse, 'GET EXTERNAL MESSAGE HEY');
+    });
 /**
  * Start to bind the tabs event listeners
  * TODO: add later an config so that the users can change this and maybe disable some

@@ -43,10 +43,13 @@ angular.module('istart', [
             'ngMaterial',
             'ngAnimate'
     ]
-).run(['$rootScope','$window' ,'analytics', function($rootScope, $window, analytics) {
+).run(['$rootScope','$window' ,'analytics','liveTileApi',
+  function($rootScope, $window, analytics, liveTileApi) {
+        $rootScope.api = liveTileApi;
         $rootScope.uuidList = [];
-
+        $window.trackStart();
         analytics.track('startapp', 'V2.001');
+
         $rootScope.getUUIDListInUse = function() {
             return $rootScope.uuidList;
         };
@@ -75,10 +78,18 @@ angular.module('istart', [
             $rootScope.uuidList.push(uuid);
         };
 
-    }]).config(['$stateProvider', '$urlRouterProvider', '$compileProvider',
-        function($stateProvider, $urlRouterProvider, $compileProvider) {
+    }]).config(['$stateProvider', '$urlRouterProvider', '$compileProvider', '$sceDelegateProvider',
+        function($stateProvider, $urlRouterProvider, $compileProvider, $sceDelegateProvider) {
         $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension|chrome|chrome-search):/);
         $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|chrome|chrome-extension|chrome-search|data)/);
+            $sceDelegateProvider.resourceUrlWhitelist([
+                // Allow same origin resource loads.
+                'self',
+                // Allow loading from our assets domain.  Notice the difference between * and **.
+                'http://www.youtube.com/**',
+                'https://www.youtube.com/**',
+                'chrome-extension://**'
+            ]);
             // Angular before v1.2 uses $compileProvider.urlSanitizationWhitelist(...)
             console.debug('TIME TO THE APP START in seconds:' , (Date.now() - window.startTime)/1000);
         $urlRouterProvider.otherwise('/desktop');
@@ -88,6 +99,11 @@ angular.module('istart', [
                 url: '/desktop',
                 controller: 'desktopCtrl',
                 templateUrl: 'views/hist.html'
+            })
+            .state('fullscreen', {
+                url: '/fullscreen/:extensionid',
+                controller: 'fullScreenWidgetCtrl',
+                templateUrl:'views/fullScreenWidget.html'
             })
             .state('apps', {
                 url: '/apps',
@@ -116,8 +132,9 @@ window.guid = (function() {
  * @type {_gaq|*|Array}
  * @private
  */
+
 var _gaq = _gaq || [];
-$(document).ready(function() {
+window.trackStart = function() {
 
     _gaq.push(['_setAccount', 'UA-36766154-2']);
     _gaq.push(['_trackPageview']);
@@ -130,4 +147,4 @@ $(document).ready(function() {
         var s = document.getElementsByTagName('script')[0];
         s.parentNode.insertBefore(ga, s);
     })();
-});
+};
