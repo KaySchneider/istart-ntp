@@ -47,6 +47,9 @@ app.controller('desktopCtrl',
                 if($scope.items[outerIndex][inner][0].uuid == tileInfo.uuid) {
                     $scope.items[outerIndex].splice(inner,1);
                     $scope.ma.saveMatrix($scope.items);
+                    //repaint the items
+                    clearItems();
+                    showItems($scope.items);
                     found=true;
                     break;
                 }
@@ -57,8 +60,12 @@ app.controller('desktopCtrl',
         }
     });
 
+    var clearItems = function() {
+        angular.element('#interpolateed').html('');
+    }
+
     var showItems = function(items) {
-        var dom="";
+       var dom="";
        for(var outerIndex in items) {
            dom += ' <ul class="pagerTest itemholders"' +
                 ' istart-calc-screen-size' +
