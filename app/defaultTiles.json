@@ -11,26 +11,6 @@
                 "color": "blue"
             }
         ],
-          [
-              {
-                  "name": "youtube player",
-                  "description": "Play videos direct on the tile",
-                  "iswidget": true,
-                  "isyoutube": true,
-                  "config": {
-                      "video": "M7lc1UVf-VE"
-                  },
-                  "extensionid": "youtubeplayer",
-                  "src": false,
-                  "multiple": false,
-                  "min_width": 2,
-                  "min_height": 2,
-                  "w": 2,
-                  "h": 2,
-                  "color": "orange"
-              }
-
-          ],
         [
             {
                 "name": "youtube search",

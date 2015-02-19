@@ -1,12 +1,13 @@
 'use strict';
 (function() {
 var app = angular.module('istart');
-app.controller('addBookmarkCtrl', [ '$scope','matrix',
-    function($scope,matrix ) {
+app.controller('addBookmarkCtrl', [ '$scope','matrix', '$rootScope',
+    function($scope,matrix, $rootScope ) {
         $scope.ma =matrix;
         $scope.label = "";
         $scope.url="";
-
+        $scope.color="blue";
+        $scope.added = false;
         $scope.tileConfig = {
             "w": 2,
             "h": 1,
@@ -16,17 +17,18 @@ app.controller('addBookmarkCtrl', [ '$scope','matrix',
         };
 
         $scope.addTile = function() {
+            console.log('ADD TILE');
             var config = $scope.tileConfig;
-            config.link = $scope.tileConfig.url;
-            config.label = $scope.tileConfig.label;
-            $scope.items[0][0].push(
-                
-            );
+            config.link = $scope.url;
+            config.label = $scope.label;
+            config.color = $scope.color;
+            config.uuid = $rootScope.getUniqueUUID();
+            $scope.items[0].unshift([config]);
+            $scope.ma.saveMatrix($scope.items);
+            $scope.added=true;
         };
 
         chrome.tabs.getSelected(null, function(tab){
-            console.log(tab);
-            //title,url
             $scope.label = tab.title;
             $scope.url = tab.url;
             $scope.edit=false;
@@ -42,7 +44,7 @@ app.controller('addBookmarkCtrl', [ '$scope','matrix',
                         $scope.ma.portMatrixUUID(data);
 
                     } else {
-                        if(isUrlTile($scope.url, data)) {
+                        if(isUrlTile($scope.url, data, $rootScope)) {
                             $scope.edit=true;
 
                         }
@@ -54,14 +56,8 @@ app.controller('addBookmarkCtrl', [ '$scope','matrix',
 
     }]);
 
-    function addTileOnFirst(newTile, items) {
-
-    }
-
-    function isUrlTile(url, items) {
-
+    function isUrlTile(url, items, rootScope) {
         for(var outerIndex in items) {
-
             if( typeof  items[outerIndex] == "undefined" || items[outerIndex]==null) {
                 continue;
             }
@@ -71,6 +67,7 @@ app.controller('addBookmarkCtrl', [ '$scope','matrix',
                 }
                 if(typeof items[outerIndex][innerIndex] != "undefined") {
                     if(items[outerIndex][innerIndex][0]) {
+                        rootScope.addUUIDTOList(items[outerIndex][innerIndex][0].uuid);
                         if(!items[outerIndex][innerIndex][0].link)
                             continue;
                         if(items[outerIndex][innerIndex][0].link == url) {

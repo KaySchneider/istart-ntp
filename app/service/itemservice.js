@@ -33,7 +33,7 @@ app.factory('matrix', ['$q', 'backgroundMessage',  '$window', '$http', '$rootSco
             for(var item in matrix) {
                 for(var entry in matrix[item]) {
                     if(matrix[item][entry] == null || typeof matrix[item][entry] == "undefined") {
-                        unset(matrix[item][entry]);
+                        //unset(matrix[item][entry]);
                         continue;
                     }
                     try {

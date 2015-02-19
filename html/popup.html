@@ -45,17 +45,33 @@
         .md-button  span {
             color: #f1f7f5;
         }
+
+        .md-button {
+            background-color: #4b4b4b;
+            border:none;
+            padding:10px;
+            font-weight: 700;
+        }
     </style>
     <div class="bg" ng-controller="addBookmarkCtrl">
-        <h2>Add New tile</h2>
-        <div>
+        <div ng-show="added==false">
+            <h2>Add New tile</h2>
             <div>
-                label:  <input type="text" value="{{label|limitTo:20}}"/>
+                <div>
+                    label:  <input type="text" value="{{label|limitTo:20}}" ng-model="label"/>
+                </div>
+                <div>
+                    URL: <input type="text" disabled value="{{url}}" ng-model="url"/>
+                </div>
+                <div>
+                    color: <input type="color" ng-model="color">
+                </div>
+                <button class="md-button md-primary primary-theme" ng-hide="edit==true" ng-click="addTile()">add</button>
+                <h2 ng-show="edit==true">Item already added :)</h2>
             </div>
-            <div>
-                URL: <input type="text" value="{{url}}"/>
-            </div>
-            <button class="md-button md-primary primary-theme">add</button>
+        </div>
+        <div ng-show="added==true">
+            <h2>item added :)</h2>
         </div>
     </div>
 </div>
