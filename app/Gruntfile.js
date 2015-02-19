@@ -125,7 +125,7 @@ module.exports = function(grunt) {
         },
         useminPrepare: {
             js: {
-                src: ['../html/metro.html'],
+                src: ['../html/metro.html', '../html/popup.html'],
                 options: {
                     dest: '../build/',
                     flow: {
@@ -134,7 +134,7 @@ module.exports = function(grunt) {
                 }
             },
             css: {
-                src: ['../html/metro.html'],
+                src: ['../html/metro.html', '../html/popup.html'],
                 options: {
                     dest: '../'
                 }
@@ -151,8 +151,8 @@ module.exports = function(grunt) {
                     }
                 }
             },
-            js: ['../build/html/metro.html'],
-            css: ['../build/html/metro.html']
+            js: ['../build/html/metro.html', '../build/html/popup.html'],
+            css: ['../build/html/metro.html', '../build/html/popup.html']
         }
     });
 

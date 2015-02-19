@@ -5466,6 +5466,16 @@ istartBackOffice.prototype.getMatrixPort = function(port, uid) {
     port.postMessage({ matrix: this.getMatrix(), uid: uid});
 };
 
+/**
+ * adds a new tile to the matrix!
+ * @param tileId
+ * @param port
+ * @param uid
+ */
+istartBackOffice.prototype.addTileToMatrix = function(tileId,port, uid) {
+
+};
+
 istartBackOffice.prototype.getThumbnail = function(port, hostname, uid) {
     var uid = uid;
     var sended=false;
@@ -5681,6 +5691,10 @@ var saveImage = function(imageUrl, hostname) {
 
     //chrome.storage.local.set({ key : imageUrl});
 };
+
+
+
+
 
 chrome.alarms.onAlarm.addListener(function(alarm) {
     timespendCalc=null;

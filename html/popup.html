@@ -1,0 +1,72 @@
+<!Doctype html>
+<html lang="en" ng-app="istart" ng-csp>
+<head>
+    <meta charset="utf-8">
+    <title>iStart - Metro-Style Startpage</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="metro-killer-startpage for chrome fully customable without registration in metro-style">
+    <meta name="author" content="kay schneider | hirschneider | 2013 | javascript ninja">
+    <!-- build:css ../build/css/istart-V2-popup.css -->
+    <link rel="stylesheet" href="../app/bower_components/angular/angular-csp.css" />
+    <link rel="stylesheet" href="../css/roboto.css" >
+    <!-- endbuild -->
+    <link rel="stylesheet" href="../app/bower_components/angular-material/modules/css/angular-material-layout.css">
+
+
+    <link rel="shortcut icon" href="ico/favicon.png">
+</head>
+
+<body id="mbg" class="win-ui-dark metro" style="overflow-x: scroll;height: auto;"><!--win-ui-dark-->
+<!-- start here with the new apps content... and at first we create some performance test -->
+<div ui-view  class="">
+    <style>
+        .bg {
+            width: 400px;height:200px;background-color: #252525!important;
+            color:#f1f7f5;
+            padding: 20px;
+        }
+
+        md-button {
+            color:#f1f7f5;
+        }
+        input {
+            border-radius: 2px;
+            padding:5px;
+            min-width: 300px;
+        }
+        button {
+            margin: 1em;
+            padding-left: 1em;
+            padding-right: 1em;
+            line-height: 25px;
+            color: #f1f7f5;
+        }
+
+        .md-button  span {
+            color: #f1f7f5;
+        }
+    </style>
+    <div class="bg" ng-controller="addBookmarkCtrl">
+        <h2>Add New tile</h2>
+        <div>
+            <div>
+                label:  <input type="text" value="{{label|limitTo:20}}"/>
+            </div>
+            <div>
+                URL: <input type="text" value="{{url}}"/>
+            </div>
+            <button class="md-button md-primary primary-theme">add</button>
+        </div>
+    </div>
+</div>
+<!-- build:js  ../build/app/istart-V2-popup.js -->
+<script src="../app/bower_components/angular/angular.js"></script>
+<script src="../app/bower_components/angular-route/angular-route.js"></script>
+<script src="../bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+<script src="../app/popup.js"></script>
+<script src="../app/service/communicationExtensions.js"></script>
+<script src="../app/controllers/addBookmarkCtrl.js"></script>
+<script src="../app/service/itemservice.js"></script>
+<!-- endbuild -->
+</body>
+</html>
