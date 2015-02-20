@@ -1,0 +1,79 @@
+<md-bottom-sheet class="md-grid " style="position:fixed">
+    <md-list>
+        <md-item >
+            <md-content class="md-padding" layout="row" layout-sm="column" style="font-size:1.2em">
+                <md-input-container>
+                    <label>color</label>
+                    <input type="color" ng-model="tileInfo.color" required>
+                </md-input-container>
+            </md-content>
+        </md-item>
+        <md-item ng-if="tileInfo.iswidget!=true||tileInfo.issearch!=true">
+            <md-content class="md-padding" layout="row" layout-sm="column" style="font-size:1.2em">
+            <md-input-container>
+                <label>Title</label>
+                <input ng-model="tileInfo.label" required>
+            </md-input-container>
+            </md-content>
+        </md-item>
+        <md-item ng-if="tileInfo.iswidget!=true||tileInfo.issearch!=true">
+            <md-content class="md-padding" layout="row" layout-sm="column" style="font-size:1.2em">
+                <md-input-container>
+                    <label>Title</label>
+                    <input ng-model="tileInfo.link" type="url"  required>
+                </md-input-container>
+            </md-content>
+        </md-item>
+        <md-item ng-if="tldconf != false">
+                <md-input-container >
+                    <label>Domain</label>
+                    <!-- use own  -->
+                    <select ng-model="tldcheck"
+                            ng-change="checkCurr(tldcheck)"
+                            ng-options="item as item.label for item in dropDownTld">
+                    </select>
+                </md-input-container>
+        </md-item>
+        <md-item >
+            <md-input-container >
+                <label>Size</label>
+                <!-- use own  -->
+                <select ng-model="sizeCheck"
+                        ng-change="checkCurrSize(sizeCheck)"
+                        ng-options="item as item.label for item in tileSizes">
+                </select>
+            </md-input-container>
+        </md-item>
+        <md-item >
+            <md-button class="md-grid-item-content" aria-label="HALLO" ng-click="cancel()">
+                <div class="md-icon-container">
+                    <md-inline-grid-icon  >
+                        <md-icon md-svg-src="/img/icons/ic_cancel_24px.svg" style="width: 24px; height: 24px;"></md-icon>
+                    </md-inline-grid-icon>
+                </div>
+                <p class="md-grid-text"><i18n>cancel</i18n></p>
+            </md-button>
+        </md-item>
+        <md-item >
+            <md-button class="md-grid-item-content" aria-label="HALLO" ng-click="checkconfig()">
+                <div class="md-icon-container">
+                    <md-inline-grid-icon  >
+                        <md-icon md-svg-src="/img/icons/ic_save_24px.svg" style="width: 24px; height: 24px;"></md-icon>
+                    </md-inline-grid-icon>
+                </div>
+                <p class="md-grid-text"><i18n>save</i18n></p>
+            </md-button>
+        </md-item>
+        <md-item >
+            <md-button class="md-grid-item-content" aria-label="HALLO" ng-click="removeItem($event, tileInfo)">
+                <div class="md-icon-container">
+                    <md-inline-grid-icon  >
+                        <md-icon md-svg-src="/img/icons/ic_delete_24px.svg" style="width: 24px; height: 24px;"></md-icon>
+                    </md-inline-grid-icon>
+                </div>
+                <p class="md-grid-text"><i18n>delete</i18n></p>
+            </md-button>
+        </md-item>
+
+    </md-list>
+</md-bottom-sheet>

@@ -1,0 +1,80 @@
+<h2 class="pheader" >iStart</h2>
+<div style="position: fixed;height:80px;top:0;left:0;width: 100%;z-index:1;border:0px solid red" is-on-hover></div>
+<md-toolbar md-scroll-shrink class="md-whiteframe-z2 " is-on-hover ng-show="hover==true||editMode==true" style="position:fixed;" >
+    <div class="md-toolbar-tools">
+        <md-button ng-click="toggleMenu()">
+            <md-icon md-svg-src="/img/icons/ic_menu_24px.svg" style="width: 24px; height: 24px"></md-icon>
+        </md-button>
+        <md-button class="md-hue-1 " ng-click="go('/apps')">
+            <md-icon md-svg-src="/img/icons/ic_apps_48px.svg" style="width: 24px; height: 24px;"></md-icon>
+            <i18n>all_apps</i18n>
+        </md-button>
+        <md-button class="md-hue-1" ng-click="loadExtensions()">
+            <md-icon md-svg-src="/img/icons/ic_extension_48px.svg" style="width: 24px; height: 24px;"></md-icon>
+            <i18n>extensions</i18n>
+        </md-button>
+        <md-button class="md-hue-1" ng-click="loadDownloads()">
+            <md-icon md-svg-src="/img/icons/ic_file_download_48px.svg" style="width: 24px; height: 24px;"></md-icon>
+            <i18n>downloads</i18n>
+        </md-button>
+        <md-button class="md-hue-1" ng-click="loadBookmarks()">
+            <md-icon
+                    md-font-icon="icon-home"
+                    ng-style="{color: 'red', 'font-size': '24px', 'height': '24px'}"
+                    alt="icon-home"
+                    class="step">
+            </md-icon>
+            <i18n>bookmarks</i18n>
+        </md-button>
+        <md-input-container>
+            <label><i18n>search</i18n></label>
+            <input ng-model="filterTiles" >
+        </md-input-container>
+
+        </md-content>
+        <md-switch class="md-warn" ng-model="editMode">
+            <md-icon icon="/img/icons/ic_mode_edit_24px.svg" style="width: 24px; height: 24px;"></md-icon>
+            edit mode: {{editMode}}
+        </md-switch>
+    </div>
+</md-toolbar>
+<md-sidenav class="md-sidenav-left md-whiteframe-z2 istartsidemen" md-component-id="right">
+    <md-toolbar class="md-theme-light">
+        <h1 class="md-toolbar-tools">istart V2 Options</h1>
+    </md-toolbar>
+    <md-content  class="md-padding">
+        <md-button ng-click="closeMenu()" class="md-primary">
+            <i18n>close menu</i18n>
+        </md-button>
+        <istart-options-menu></istart-options-menu>
+    </md-content>
+</md-sidenav>
+
+<div class="container" id="wrap" style="position:absolute;top:0;left:0">
+
+        <!--
+            restore the old tiles and try to make the loop much faster
+            maybe switch to native javascript loop and mustache rendering engine??
+        -->
+
+    <div class="pagerContainer" style="position: absolute;" id="interpolateed">
+        {{interpolatedHtml}}
+         <!--
+            <ul class="pagerTest itemholders"
+                istart-calc-screen-size
+                ng-repeat="item_desktop in items"
+                id="p{{$index}}">
+                <metro-item  ng-repeat="item in  item_desktop track by item[0].uuid"
+                             my-repeat-directive
+                             tile-info="item[0]"
+                             edit-mode="editMode"
+                             ></metro-item>
+
+            </ul>
+            -->
+        <!-- repace this with an straight js loop and $interpolate -->
+    </div>
+
+
+</div>
+

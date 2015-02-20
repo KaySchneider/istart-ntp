@@ -1,7 +1,7 @@
 'use strict';
 
 describe('Unit: tiles Directive', function() {
-    var elm, scope, $compile;
+    var elm, scope, $compile, $rootScope;
 
     beforeEach(module('istartMetroDirective'));
 
@@ -17,8 +17,6 @@ describe('Unit: tiles Directive', function() {
         scope.tileInfo = window.testerUnitDefaultTile[0];
         scope.$compile=$compile;
         scope.root = _$rootScope_;
-        //$compile(elm)(scope);
-        //scope.$digest();
     }));
 
     it('backGroundConfig should set style attribute on given element and add color from tiles config to it',

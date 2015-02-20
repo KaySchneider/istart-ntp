@@ -1,0 +1,44 @@
+<md-dialog aria-label="Add new tile">
+    <div layout="row" layout-wrap>
+        <div flex >
+            <md-content>
+                <md-subheader class="md-sticky-no-effect">choose color</md-subheader>
+                <md-input-container>
+                    <label>color</label>
+                    <input ng-model="tile.color"  type="color">
+                </md-input-container>
+                <md-input-container ng-if="tldconf != false">
+                    <label>Domain</label>
+                    <!-- use own  -->
+                        <select ng-model="tldcheck"
+                                ng-change="checkCurr(tldcheck)"
+                                ng-options="item as item.label for item in dropDownTld">
+                        </select>
+                </md-input-container>
+            </md-content>
+        </div>
+        <div flex>
+            <md-content>
+                <md-subheader class="md-sticky-no-effect">tile info</md-subheader>
+                    <md-input-container ng-if="tile.iswidget!=true||tile.issearch!=true">
+                        <label>Label</label>
+                        <input ng-model="tile.label" required="">
+                    </md-input-container>
+                    <md-input-container ng-if="tile.iswidget!=true||tile.issearch!=true">
+                        <label>URL</label>
+                        <input ng-model="tile.link" type="url">
+                    </md-input-container>
+            </md-content>
+        </div>
+    </div>
+    <div class="md-actions" layout="row">
+        <span flex></span>
+        <md-button ng-click="cancel()">
+            cancel
+        </md-button>
+        <md-button ng-click="checkconfig()" class="md-primary">
+            <span ng-show="edit==false">add this tile</span>
+            <span ng-show="edit==true">save this tile</span>
+        </md-button>
+    </div>
+</md-dialog>

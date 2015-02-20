@@ -20,6 +20,9 @@
             }
         }
   },
+  "addNewTileForThisPage": {
+        "message": "add new iStart tile für this page"
+  },
   "search": {
         "message": "Search"
   },

@@ -56,6 +56,11 @@ if(use===false) {
             }
         };
     };
+    chrome.runtime.onMessage = {};
+
+    chrome.runtime.onMessage.addListener = function() {
+        return true;
+    };
 
 
     /**
@@ -78,6 +83,7 @@ if(use===false) {
         var cbObject={};
         try {
             var keys = Object.keys(chrome.storage.local.data);
+            console.log(keys, "KEYS");
             if(keys.indexOf(key) != -1) {
                 cbObject[key] = chrome.storage.local.data[key];
                 callback(cbObject);
@@ -87,6 +93,10 @@ if(use===false) {
         } catch(c) {
             console.error(c);
         }
+    };
+
+    chrome.storage.clearAll = function() {
+        chrome.storage.local.data=[];
     };
 
     chrome.storage.local.set = function(objectStored, callback) {

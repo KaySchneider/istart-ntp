@@ -1,12 +1,4 @@
 
-.hovermenu.active {
-    background-color: rgb(33,150,243);
-}
-
-.hovermenu:hover {
-    background-color: rgba(158,158,158,0.2);
-}
-
 .maincontentarea {
     background:none;
 }

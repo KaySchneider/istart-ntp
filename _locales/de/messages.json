@@ -7,6 +7,9 @@
     "message": "Neue Tab Seite im Material Style. Alle wichtigen links und Apps auf einem Blick! Awesome new tab for your chrome",
     "description":"The description of the application, displayed in the web store."
   },
+  "addNewTileForThisPage": {
+    "message": "iStart tile für diese Seite hinzufügen"
+  },
   "launchUrl": {
       "message": "http://amz.lokamat.de#!de"
   },

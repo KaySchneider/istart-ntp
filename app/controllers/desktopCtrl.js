@@ -62,7 +62,7 @@ app.controller('desktopCtrl',
 
     var clearItems = function() {
         angular.element('#interpolateed').html('');
-    }
+    };
 
     var showItems = function(items) {
        var dom="";
@@ -404,7 +404,7 @@ function resizeScreen() {
                     el.css({'width': width + 'px'});
                     el.css({'left':  startW + 'px'});
                     el.css({height: height + 'px'});
-                    el.css({border: "1px solid red"});
+                    //el.css({border: "1px solid red"});
                     startW += width + 300;
                 }
             } catch(e) {

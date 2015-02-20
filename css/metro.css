@@ -978,6 +978,7 @@ div>ul>li:hover>form>input {
     display:block !important;
     visibility: visible;
 }
+
 div>ul>li.editItems:hover>form>input {
     display:none !important;
     visibility: none;
@@ -1021,4 +1022,13 @@ ul.li.drag-active {
 
 .sideBarWrap a {
     color:black;
+}
+
+
+.hovermenu.active {
+    background-color: rgb(33,150,243);
+}
+
+.hovermenu:hover {
+    background-color: rgba(158,158,158,0.2);
 }

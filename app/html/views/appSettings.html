@@ -1,0 +1,35 @@
+<md-dialog aria-label="settings">
+    <div layout="row" layout-wrap>
+        <div flex >
+            <md-content>
+                <md-subheader class="md-sticky-no-effect">istart Configuration</md-subheader>
+                <md-input-container>
+                    <form name="fake" >
+                    <label>Background-Image</label>
+                    <!-- add here an uploader for the background image or set an color -->
+                        <input filevar="bgImageForm" ng-model="bgImageForm"  type="file" file-input >
+                    </form>
+                </md-input-container>
+                <md-input-container>
+
+                </md-input-container>
+                <md-input-container ng-if="tldconf != false">
+                    <label>Domain</label>
+                    <select ng-options="item for item in  tile.config.tld track by $index" ng-model="tile.config.defaultld">
+                    </select>
+                </md-input-container>
+            </md-content>
+        </div>
+
+    </div>
+    <div class="md-actions" layout="row">
+        <md-button ng-click="uploadfile()">set file as background and save</md-button>
+        <span flex></span>
+        <md-button ng-click="cancel()">
+            cancel
+        </md-button>
+        <md-button ng-click="close()" class="md-primary">
+            <span>close</span>
+        </md-button>
+    </div>
+</md-dialog>

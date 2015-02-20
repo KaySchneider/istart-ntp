@@ -1,0 +1,104 @@
+<!Doctype html>
+<html lang="en" ng-app="istart" ng-csp>
+<head>
+    <meta charset="utf-8">
+    <title>iStart - Metro-Style Startpage</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="metro-killer-startpage for chrome fully customable without registration in metro-style">
+    <meta name="author" content="kay schneider | hirschneider | 2013 | javascript ninja">
+    <!-- build:css ../build/css/istartbuild.css -->
+    <link rel="stylesheet" href="../app/bower_components/angular/angular-csp.css" />
+    <link rel="stylesheet" href="../css/roboto.css" >
+    <link rel="stylesheet" href="../css/istart.css">
+    <link rel="stylesheet" href="../app/bower_components/angular-material/modules/css/angular-material-layout.css">
+    <link rel="stylesheet" href="../app/bower_components/angular-material/default-theme.css">
+    <link rel="stylesheet" href="../app/bower_components/angular-material/angular-material.css">
+    <link rel="stylesheet" href="../app/bower_components/angular-hero/angular-hero.css">
+    <link rel="stylesheet" href="../css/metro.css">
+    <!-- endbuild -->
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="ico/apple-touch-icon-57-precomposed.png">
+    <link rel="shortcut icon" href="ico/favicon.png">
+</head>
+
+<body id="mbg" class="win-ui-dark metro" style="overflow-x: scroll"><!--win-ui-dark-->
+<!-- start here with the new apps content... and at first we create some performance test -->
+<div style="position:absolute;left:0px;top:0px; width: 100%;height: 100%;position: fixed" desktop-background></div>
+<div ui-view  class="">
+
+</div>
+<edit-tile-bottom tileInfo="editTileInfo" ></edit-tile-bottom>
+<!-- build:js  ../build/app/istart-V2-material-new-tab-0.0.1.js -->
+<script src="../bower_components/jquery/dist/jquery.js"></script>
+<script src="../bower_components/jquery-ui/jquery-ui.js"></script>
+<script src="../app/libs/jquery.sortable.js"></script>
+<script src="../app/bower_components/angular/angular.js"></script>
+<script src="../app/bower_components/angular-route/angular-route.js"></script>
+<script src="../app/bower_components/angular-aria/angular-aria.js"></script>
+<script src="../app/bower_components/angular-animate/angular-animate.js"></script>
+<script src="../app/bower_components/angular-material/angular-material.js"></script>
+<script src="../bower_components/angular-route/angular-route.js"></script>
+<script src="../bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+<!--<script src="../bower_components/angular-dragdrop/src/angular-dragdrop.js" ></script>-->
+<script src="../app/app.js"></script>
+<script src="../app/service/itemservice.js" ></script>
+<script src="../app/controllers/desktopCtrl.js" ></script>
+<script src="../app/controllers/allAppsCtrl.js" ></script>
+<script src="../app/directives/addNewSearchTile.js"></script>
+<script src="../app/directives/addNewTile.js"></script>
+
+<script src="../app/directives/metroItem.js" ></script>
+<script src="../app/directives/calcItems.js" ></script>
+<script src="../app/directives/sortable.js" ></script>
+<script src="../app/directives/searchItem.js" ></script>
+<script src="../app/service/loadPage.js" ></script>
+<script src="../app/directives/fastSearch.js" ></script>
+<script src="../app/directives/isOnHover.js" ></script>
+<script src="../app/service/communicationExtensions.js" ></script>
+<script src="../app/service/chromeApps.js" ></script>
+<script src="../app/directives/appStarter.js" ></script>
+<script src="../app/service/appLauncher.js" ></script>
+<script src="../app/directives/appIconSetSrc.js" ></script>
+<script src="../app/service/bindKeys.js" ></script>
+<script src="../app/directives/istartCalcScreenSize.js"></script>
+<script src="../app/service/getWindowHeight.js"></script>
+<script src="../app/directives/icon-switcher.js"></script>
+<script src="../app/directives/backgroundConfig.js"></script>
+<script src="../app/service/i18n.js"></script>
+<script src="../app/directives/i18n.js"></script>
+<script src="../app/bower_components/angular-hero/angular-hero-min.js"></script>
+<script src="../app/service/internalUrlLoader.js"></script>
+<script src="../app/directives/dropDown.js"></script>
+<script src="../app/directives/istartOptionsMenu.js"></script>
+
+
+<script src="../app/directives/mostTimeSpendOn.js"></script>
+<script src="../app/directives/pageThumbnail.js"></script>
+<script src="../app/directives/settings.js"></script>
+<script src="../app/service/settings.js"></script>
+<script src="../app/service/fileSystem.js"></script>
+<script src="../app/directives/fileInput.js"></script>
+<script src="../app/service/analytics.js"></script>
+<script src="../app/directives/repeatTiles.js"></script>
+<script src="../app/directives/desktopBackground.js"></script>
+<script src="../app/controllers/metroItemCtrl.js"></script>
+<script src="../app/directives/istartSearchBar.js"></script>
+<script src="../app/directives/ngRightEdit.js"></script>
+<script src="../app/directives/editNewTile.js"></script>
+<script src="../app/service/searchExternalPlugins.js"></script>
+<script src="../app/service/systemLiveTiles.js"></script>
+<script src="../app/directives/addNewSystemTile.js"></script>
+<script src="../app/controllers/fullScreenWidgetCtrl.js"></script>
+<script src="../app/service/liveTileApi.js"></script>
+<script src="../app/service/getUrlThumbnail.js"></script>
+<script src="../app/directives/youtubeVideo.js"></script>
+<!-- endbuild -->
+</body>
+</html>
+
+
+
+

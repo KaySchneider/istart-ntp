@@ -30,8 +30,8 @@ module.exports = function(config) {
         'controllers/*.js',
         'directives/*.js',
         'tests/**/*.js',
-        '../html/views/*.html',
-        '../html/templates/*.html'
+        'html/views/*.html',
+        'html/templates/*.html'
     ],
 
 
@@ -40,13 +40,19 @@ module.exports = function(config) {
     ],
 
 
+
+
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-        '../html/views/*.html': 'ng-html2js',
-        '../html/templates/*.html': 'ng-html2js'
+        'html/views/*.html': ['ng-html2js'],
+        'html/templates/*.html': ['ng-html2js']
     },
 
+      ngHtml2JsPreprocessor: {
+          stripPrefix: 'html/',
+          moduleName: 'my.templates'
+      },
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
@@ -79,5 +85,6 @@ module.exports = function(config) {
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
     singleRun: false
+
   });
 };

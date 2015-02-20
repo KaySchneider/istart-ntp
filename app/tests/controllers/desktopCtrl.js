@@ -1,6 +1,7 @@
 describe('Unit: DesktopCtrl', function() {
     // Our tests will go here
     beforeEach(module('istart'));
+    beforeEach(module('my.templates'));
     /**
      * override the chrome.getMessage Object
      *
@@ -40,5 +41,7 @@ describe('Unit: DesktopCtrl', function() {
             scope.$digest();
             expect(scope.maTemp).toEqual(dfM);
     });
+
+
 
 });

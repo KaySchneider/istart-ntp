@@ -1,6 +1,5 @@
 'use strict';
 var app  = angular.module('istart');
-
 app.factory('matrix', ['$q', 'backgroundMessage',  '$window', '$http', '$rootScope',
     function ($q, backgroundMessage, $window, $http, $rootScope) {
     var useTinfoilShielding = false;
@@ -151,10 +150,10 @@ app.factory('matrix', ['$q', 'backgroundMessage',  '$window', '$http', '$rootSco
             chrome.storage.local.get('istart',function( datas ) {
                 var matrix = false;
                 try {
-                    var matrix = JSON.parse(datas.istart);
+                    matrix = JSON.parse(datas.istart);
                 } catch(e) {
                     console.error(e);
-                    var matrix = false;
+                    matrix = false;
                 }
                 if(matrix===false || !datas.istart) {
                     //first load
