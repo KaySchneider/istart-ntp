@@ -5,6 +5,7 @@ app.factory('matrix', ['$q', 'backgroundMessage',  '$window', '$http', '$rootSco
     var useTinfoilShielding = false;
     var matrixCopy = null;
     var chrome = $window.chrome;
+    var importTemp=[];
     var matrixService = function () {
         this.getMyLog = function() {
           console.log('YOu CALLED GET MY LOG');
@@ -73,6 +74,85 @@ app.factory('matrix', ['$q', 'backgroundMessage',  '$window', '$http', '$rootSco
                 console.log('RELAOD THE PAGE???');
                 location.reload();
             }
+        };
+
+        /**
+         * import matrix items by string.
+         *
+         * @param matrixString string
+         */
+        this.importMatrix = function(matrixString) {
+            var matrix = false;
+            try {
+                matrix = JSON.parse(matrixString);
+                console.log(matrix, "imprted matrix");
+            } catch(e) {
+                console.error(e);
+                return false;
+            }
+            return matrix;//get the matrix and check if it contains an array
+        };
+
+
+        this.clearImportNulls = function(items) {
+            var clearedArr =[];
+            var newOuterIndex=0;
+            var newInnerIndex=0;
+            var seted;
+            for(var outer in items ) {
+                if(items[outer]==null) {
+                    continue;
+                }
+                seted=false;
+                newInnerIndex=0;
+                for(var inner in items[outer]) {
+                    if(items[outer][inner]!==null) {
+                        if(!clearedArr[newOuterIndex]) {
+                            clearedArr[newOuterIndex]=[];
+                        }
+                        clearedArr[newOuterIndex][newInnerIndex]=items[outer][inner];
+                        newInnerIndex +=1;
+                        seted=true;
+                    }
+                }
+                if(seted===true)
+                    newOuterIndex +=1;
+            }
+            console.log(clearedArr);
+            return clearedArr;
+        };
+
+        this.writeBackImport = function(matrixArr) {
+            //save item before import
+            var deferred = $q.defer();
+            chrome.storage.local.get('istart', function(data) {
+                var tmp = data;
+                chrome.storage.local.set({'istartbackup':data});
+            });
+            this.saveMatrix(matrixArr).
+            then(function(result) {
+                    deferred.resolve(result);
+                });
+            return deferred.promise;
+        };
+
+        this.checkImportMatrix = function(matrixString) {
+            var result = this.importMatrix(matrixString);
+            if(result==null) {
+                return false;
+            }
+            if(result[0]) {
+                if(result[0][0]) {
+                    importTemp = this.clearImportNulls(result);
+                    return true;
+                }
+            }
+            return false;
+        };
+
+
+        this.getImportTempMatrix = function() {
+          return importTemp;
         };
 
         this.saveMatrix = function(matrix) {

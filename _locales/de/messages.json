@@ -93,6 +93,9 @@
     },
     "delete_message": {
         "message": "Dieses Element unwiederuflich Löschen ?"
+    },
+    "error": {
+        "message": "Fehler"
     }
 
 

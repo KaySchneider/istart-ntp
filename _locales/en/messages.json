@@ -142,5 +142,8 @@
     },
     "delete_message": {
         "message": "Delete this tile ?"
+    },
+    "error": {
+        "message": "Error"
     }
 }

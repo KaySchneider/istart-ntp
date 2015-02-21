@@ -48,7 +48,7 @@ angular.module('istart', [
         $rootScope.api = liveTileApi;
         $rootScope.uuidList = [];
         $window.trackStart();
-        analytics.track('startapp', 'V2.001');
+        analytics.track('startapp', 'V2.001.56');
 
         $rootScope.getUUIDListInUse = function() {
             return $rootScope.uuidList;

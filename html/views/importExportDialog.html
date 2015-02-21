@@ -1,0 +1,65 @@
+<md-dialog aria-label="Import Export items" style="min-height: 500px;min-width: 600px">
+    <md-subheader class="md-sticky-no-effect">EXPORT - IMPORT SETTINGS</md-subheader>
+                <md-content layout="" ng-show="importDone==false">
+
+                    <div flex>
+                        <md-toolbar ng-show="importResult==true" ng-class="{'md-warn':importError===true,
+                                                                            'md-default': importError===false}">
+                            <div class="md-toolbar-tools">
+                                <span >{{resultMessage}}</span>
+
+                            </div>
+                        </md-toolbar>
+                        <md-content ng-show="importError==false">
+                            <md-button flex ng-click="prev($event)">
+                                <span> previous</span>
+                            </md-button>
+                            <md-button flex ng-click="nextPreview($event)">
+                                <span>next</span>
+                            </md-button>
+                            <p>Label:   {{currItem.label||currItem.description}}</p>
+                            <p>URL: {{currItem.url||currItem.link}}</p>
+                            {{prevIndexInner}} {{prevIndexOuter}}
+
+                        </md-content>
+                        <md-input-container>
+                            <label>items import</label>
+                            <textarea style="width: 100%;height: 200px !Important;overflow: scroll" ng-model="importMatrix"></textarea>
+                        </md-input-container>
+
+                    </div>
+                    <div flex>
+                        <md-input-container ng-show="importResult===true&&importError==false">
+                            <md-button class="md-warn" ng-click="importAndSave()">
+                                <span>Import this items!</span>
+                            </md-button>
+                        </md-input-container>
+                        <md-input-container>
+                            <md-button ng-click="checkImport()">
+                                <span>check import data</span>
+                            </md-button>
+                        </md-input-container>
+                        <md-input-container>
+                            <md-button ng-click="generateExportFile()">
+                                <span>get export file</span>
+                            </md-button>
+                        </md-input-container>
+                        <md-input-container ng-show="downloadFile!=false">
+                            <a href="{{downloadFile}}" download="istart.json">Download Settingsfile</a>
+                        </md-input-container>
+                    </div>
+                </md-content>
+                <md-content ng-show="importDone==true">
+                    <h2>The items are imported please reload this page now that the changes take effect.</h2>
+
+                </md-content>
+    <div class="md-actions" layout="row">
+        <span flex></span>
+        <md-button ng-click="cancel()">
+            cancel
+        </md-button>
+        <md-button ng-click="close()" class="md-primary">
+            <span ng-show=""><i18n>close</i18n></span>
+        </md-button>
+    </div>
+</md-dialog>
