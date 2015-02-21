@@ -83,7 +83,8 @@ if(use===false) {
         var cbObject={};
         try {
             var keys = Object.keys(chrome.storage.local.data);
-            console.log(keys, "KEYS");
+            //console.log(keys, "KEYS");
+            //console.log('before type error')
             if(keys.indexOf(key) != -1) {
                 cbObject[key] = chrome.storage.local.data[key];
                 callback(cbObject);
@@ -91,7 +92,10 @@ if(use===false) {
                 callback(null);
             }
         } catch(c) {
-            console.error(c);
+
+            //console.error(c);
+        } finally {
+            console.log("AFTER THE ERROR HAPPENS");
         }
     };
 
@@ -99,6 +103,11 @@ if(use===false) {
         chrome.storage.local.data=[];
     };
 
+    /***
+     * ensure that the data is stingifyied!
+     * @param objectStored
+     * @param callback
+     */
     chrome.storage.local.set = function(objectStored, callback) {
         //receive list of keys in the objectStored items
         var objectKeys = Object.keys(objectStored);

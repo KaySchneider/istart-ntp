@@ -26,7 +26,6 @@
                             <label>items import</label>
                             <textarea style="width: 100%;height: 200px !Important;overflow: scroll" ng-model="importMatrix"></textarea>
                         </md-input-container>
-
                     </div>
                     <div flex>
                         <md-input-container ng-show="importResult===true&&importError==false">
@@ -43,9 +42,6 @@
                             <md-button ng-click="generateExportFile()">
                                 <span>get export file</span>
                             </md-button>
-                        </md-input-container>
-                        <md-input-container ng-show="downloadFile!=false">
-                            <a href="{{downloadFile}}" download="istart.json">Download Settingsfile</a>
                         </md-input-container>
                     </div>
                 </md-content>

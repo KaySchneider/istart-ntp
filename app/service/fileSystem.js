@@ -9,6 +9,23 @@ app.factory('fileSystem', ['$q',function ($q) {
     var fileSystem=null;
     var userDir = null;
     var rawFile=null;
+
+    var requestExtensionFileSystem = function() {
+        var defer = $q.defer();
+        window.webkitRequestFileSystem(window.PERSISTENT, 50 * 1024 * 1024, function(filesystem) {
+            fileSystem=filesystem;
+            fileSystem.root.getDirectory("/", {
+                create: false
+            }, function(dirEntry){
+                userDir = dirEntry;
+                defer.resolve();
+            });
+        }, function(e) {
+            defer.reject(e);
+        });
+        return defer.promise;
+    };
+
     var requestFileSystem = function() {
         var defer = $q.defer();
         window.webkitRequestFileSystem(window.PERSISTENT, 50 * 1024 * 1024, function(filesystem) {
@@ -107,4 +124,3 @@ app.factory('fileSystem', ['$q',function ($q) {
         }
     }
 }]);
-
