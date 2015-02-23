@@ -13,7 +13,7 @@ app.directive('addNewSearchTile', function() {
             $scope.DialogController = ['$scope', '$mdDialog', '$window','analytics',
                 function($scope, $mdDialog, $window, analytics) {
                     analytics.track('showAddNewSearchTileDialog', 'system');
-
+                    $scope.neighborhoods = ['Chelsea', 'Financial District', 'Midtown', 'West Village', 'Williamsburg'];
                     $scope.loadSearchTilesConfig = function() {
                         var deferred = $q.defer();
                         $http.get('../app/searchTiles.json')
@@ -44,6 +44,7 @@ app.directive('addNewSearchTile', function() {
                             $scope.tldEdit=true;
                         }
                     };
+
 
                     //$scope.edit=false;
                     $scope.checkCurr = function(selectIndex) {
@@ -103,7 +104,7 @@ app.directive('addNewSearchTile', function() {
                     $scope.checkconfig = function() {
                             if($scope.tldEdit==true) {
                                 //write back the tld config to the search item
-                                $scope.tile.config.defaultld  =$scope.tldcheck.value;
+                                $scope.tile.config.defaultld  =$scope.tldcheck;
                             }
                             $scope.tile.uuid = $rootScope.getUniqueUUID();
                             $mdDialog.hide($scope.tile);

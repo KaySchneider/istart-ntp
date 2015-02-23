@@ -22,14 +22,16 @@
         <div flex ng-show="activeItem&&tldEdit===true">
             <md-content >
                 <h2>select domain</h2>
-                <md-input-container>
-                    <label>Domain</label>
-                    <!-- use own  -->
-                    <select ng-model="tldcheck"
+                <label>Domain</label>
+                <md-select  placeholder="Domain"
                             ng-change="checkCurr(tldcheck)"
-                            ng-options="item as item.label for item in dropDownTld">
-                    </select>
-                </md-input-container>
+                            ng-model="tldcheck">
+                    <md-option
+                            ng-value="item.label"
+                            ng-repeat="item in dropDownTld">{{item.label}}
+                    </md-option>
+                </md-select>
+
             </md-content>
         </div>
     </div>

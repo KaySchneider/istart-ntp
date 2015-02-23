@@ -46,8 +46,12 @@
                     </div>
                 </md-content>
                 <md-content ng-show="importDone==true">
-                    <h2>The items are imported please reload this page now that the changes take effect.</h2>
-
+                    <div>
+                        <h2>The items are imported please reload this page now that the changes take effect.</h2>
+                    </div>
+                    <md-button aria-label="reload the page" ng-click="reload()">
+                        <md-icon md-svg-src="/img/icons/ic_replay_48px.svg" style="width: 48px; height: 48px;"></md-icon>
+                    </md-button>
                 </md-content>
     <div class="md-actions" layout="row">
         <span flex></span>

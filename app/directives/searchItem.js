@@ -49,8 +49,13 @@ app.directive('searchWidget', function() {
         link: function(scope, element, attrs) {
             scope.element = element;
 
-            element.parent().parent().parent().parent().parent().parent().on('click', function(event) {
-              //console.log('CLICK', scope.editMode, event);
+            element.parent().parent().parent().parent().on('click', function(event) {
+              console.log('CLICK', scope.editMode, event.target.tagName);
+                if(event.target.tagName != "INPUT") {
+                    if(scope.editMode!=true) {
+                        scope.checkConfigLoadPage(element.val(), element);
+                    }
+                }
                 //console.log(event.offsetX <= 51, event.offsetX,  event.offsetY);
                 //if(scope.editMode!=true && event.offsetY <= 51) {
                     //console.log('LOAD');

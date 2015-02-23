@@ -53,7 +53,6 @@ app.directive('backgroundConfig', function() {
                     $scope.element.off('click');//remove the handler
                 });
             };
-
             $scope.addBackDropIstartFullScreenWidget = function() {
                 $scope.removeHandlerIstartBackdropTester =
                $scope.element.on('click', function($event) {
@@ -64,8 +63,8 @@ app.directive('backgroundConfig', function() {
                     $scope.element.off('click');//remove the handler
                 });
             };
-
             $scope.launchLink = function() {
+                console.log("LOAD");
                 loadpage.loadPage($scope.tileInfo.link)
                     .then(function(result) {
                         //console.log(result);
@@ -94,9 +93,11 @@ app.directive('backgroundConfig', function() {
             } else if(scope.tileInfo.iswidget == true) {
                 if( typeof scope.tileInfo.fullscreen != "undefined") {
                     scope.element = element;
-                    console.log('add add');
                     scope.addBackDropIstartFullScreenWidget();
                 }
+            } else if(scope.tileInfo.issearch == true) {
+                scope.element = element;
+                scope.addBackDropIstartBackdropTesterLink();
             }
         }
     };

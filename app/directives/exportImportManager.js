@@ -36,6 +36,10 @@ app.directive('exportImportManager', function() {
                               });
                         };
 
+                        $scope.reload = function () {
+                            window.location.reload();
+                        };
+
                         $scope.nextPreview = function($event) {
                             $event.preventDefault();
                             if($scope.prevIndexInner +1 > $scope.matrixForImport[$scope.prevIndexOuter].length -1 ) {
