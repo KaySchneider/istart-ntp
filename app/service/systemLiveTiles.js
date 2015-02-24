@@ -12,7 +12,21 @@ app.factory('systemLiveTiles', ['$window',function ($window) {
             'min_width':2,
             'min_height':1,
             'extensionid':'retroclock'
-        }]
+        }],
+        [
+            {
+                "name": 'facebook info widget',
+                "description": 'adds message and notification count to iStart on this tile',
+                "smartwidget": true,
+                "w": 2,
+                "h": 1,
+                "link": "https://facebook.com",
+                "directive":  "facebook-info",
+                "label": "facebook",
+                "color": "rgb(64, 67, 204)",
+                "extensionid":"facebookInfoWidget"
+            }
+        ]
         /**[{
             'name':'Welcome Tile',
             'description':'Helps you save time during your first steps',

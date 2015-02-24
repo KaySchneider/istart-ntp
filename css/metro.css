@@ -482,6 +482,12 @@ li {
 .googleplus {
     background-image: url('../img/editedIcon/png/Googl+1.png');
 }
+.facebook {
+    background-image: url('../img/editedIcon/png/appbar.social.facebook.png')
+}
+.aliexpress {
+    background-image: url('../img/editedIcon/png/appbar.store.png')
+}
 .google {
     background-image: url('../img/editedIcon/png/Google.png');
 }
@@ -669,7 +675,6 @@ li {
     line-height: 20px;
     font-size: 15px;
     left: 5px;
-    z-index:-1;
 }
 
 .metro2h4w * .labelIcon {
@@ -742,8 +747,6 @@ iframe.wide.xxl {
     -webkit-transition: bottom 2s; /* Safari and Chrome */
     -o-transition: bottom 2s; /* Opera */
 }
-
-
 
 
 

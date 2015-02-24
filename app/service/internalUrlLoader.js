@@ -22,6 +22,15 @@ app.factory('internalUrlLoader', ['$window',function ($window) {
         });
     };
 
+    var originalNewTab = function() {
+        /**
+         * loads the new tab page
+         */
+        chrome.tabs.create({
+            url: 'chrome-search://local-ntp/local-ntp.html'
+        });
+    };
+
     var loadExtensionPage = function() {
         /**
          * TODO: read the config and check if the user want to load this page
@@ -37,7 +46,8 @@ app.factory('internalUrlLoader', ['$window',function ($window) {
     return {
         'extensions':loadExtensionPage,
         'downloads':loadDownloadPage,
-        'bookmarks': loadBookmarks
+        'bookmarks': loadBookmarks,
+        'ntp':originalNewTab
     };
 }]);
 

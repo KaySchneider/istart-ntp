@@ -39,7 +39,6 @@ app.directive('metroItem', function() {
         controller: ['$scope' , '$rootScope','$mdDialog', function ($scope, $rootScope, $mdDialog) {
             $scope.config = $scope.tileInfo.config;
             $scope.hover = false;
-
             $rootScope.addUUIDTOList($scope.tileInfo.uuid);
             //console.log($scope.tileInfo, "scope");
             //check here the config for different tile types!

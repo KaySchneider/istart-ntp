@@ -34,13 +34,26 @@ app.directive('searchWidget', function() {
                 if(!loadpage.checkUrl(openMe)) {
                     openMe = 'https://' + openMe;
                 }
-
-                loadpage.loadPage(openMe).then(function(data) {
-                    /**
-                     * clear the search form input field
-                     */
-                    element.val('');
-                });
+                /**
+                 * TODO: add ebay by default to the new items
+                 * TODO:parse ebay here out and add it to viglink
+                 */
+                if($scope.tileInfo.config.viglink) {
+                    var vigLink= "https://redirect.viglink.com?key=2111b9c00c910862aaba7ba1bd3ae2ba&u=" + encodeURI(openMe);
+                    loadpage.loadPage(vigLink).then(function(data) {
+                        /**
+                         * clear the search form input field
+                         */
+                        element.val('');
+                    });
+                } else {
+                    loadpage.loadPage(openMe).then(function(data) {
+                        /**
+                         * clear the search form input field
+                         */
+                        element.val('');
+                    });
+                }
             };
             $scope.$on('$destroy', function(){
                 $scope.element.off('keydown');
@@ -50,17 +63,12 @@ app.directive('searchWidget', function() {
             scope.element = element;
 
             element.parent().parent().parent().parent().on('click', function(event) {
-              console.log('CLICK', scope.editMode, event.target.tagName);
                 if(event.target.tagName != "INPUT") {
                     if(scope.editMode!=true) {
                         scope.checkConfigLoadPage(element.val(), element);
                     }
                 }
-                //console.log(event.offsetX <= 51, event.offsetX,  event.offsetY);
-                //if(scope.editMode!=true && event.offsetY <= 51) {
-                    //console.log('LOAD');
-                    //scope.checkConfigLoadPage(element.val(), element);
-                //}
+
             });
             element.on('keydown', function(event, attrs) {
                 switch(event.keyCode) {

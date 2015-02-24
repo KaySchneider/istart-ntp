@@ -5,39 +5,25 @@
         "iswidget": true,
         "issearch": true,
         "config": {
-            "tld": ["com", "de", "ch"],
+            "tld": ["com", "de", "ch", "it", "cn", "ca", "co.uk", "nl", "at", "in", "com.hk"],
             "tag": {
                 "com": "istarte-20",
                 "de": "istart-21"
             },
-            "partnerid": {
-                "com": {
-                    "url": "/rover/1/711-53200-19255-0/1",
-                    "icep_vectorid": "229466"
-                },
-                "de": {
-                    "url": "/rover/1/5222-53480-19255-0/1",
-                    "icep_vectorid": "229536"
-                },
-                "ch": {
-                    "url": "/rover/1/707-53477-19255-0/1",
-                    "icep_vectorid": "229487"
-                }
-            },
-            "domain": "rover.ebay.com/rover/1/711-53200-19255-0/1?icep_ff3=1&pub=5575038039&toolid=10001&campid=5337372289&customid=&ipn=psmain&icep_vectorid=229466&kwid=902099&mtid=824&kw=lg",
+            "viglink":true,
+            "domain": "http://www.ebay",
             "domainSearch": "rover.ebay.com",
-            "url": "/s/?field-keywords={{search}}&tag={{tag}}",
+            "url": "/sch/{{search}}",
             "icon": "ebay",
             "label": "ebay",
             "color": "rgb(218, 83, 44)",
-            "useredit": ["tld", "color", "cat"],
-            "defaultld": ["com"],
-            "buildLink": [null],
+            "useredit": ["tld", "color"],
+            "defaultld": "com",
             "link": "http://rover.ebay.com/rover/1/711-53200-19255-0/1?icep_ff3=1&pub=5575038039&toolid=10001&campid=5337372289&customid=&ipn=psmain&icep_vectorid=229466&kwid=902099&mtid=824&kw=lg.com?tag=istarte-20"
         },
         "extensionid": "ebaysearch",
         "src": false,
-        "multiple": false,
+        "multiple": true,
         "min_width": 1,
         "min_height": 1,
         "w": 2,
@@ -78,6 +64,33 @@
         "color": "#008641"
     },
     {
+        "name": "aliexpress.com search ",
+        "description": "Search aliexpress directly from the tile",
+        "iswidget": true,
+        "issearch": true,
+        "config": {
+            "tld": ["com"],
+            "viglink":true,
+            "domain": "http://www.aliexpress",
+            "domainSearch": "www.aliexpress.",
+            "url": "/wholesale?SearchText={{search}}",
+            "icon": "aliexpress",
+            "label": "aliexpress",
+            "color": "rgb(218, 83, 44)",
+            "useredit": ["color"],
+            "defaultld": "com",
+            "link": "http://aliexpress.com"
+        },
+        "extensionid": "aliexpressearch",
+        "src": false,
+        "multiple": true,
+        "min_width": 1,
+        "min_height": 1,
+        "w": 2,
+        "h": 1,
+        "color": "rgb(218, 83, 44)"
+    },
+    {
         "name": "facebook search",
         "description": "Search facebook directly from the tile",
         "iswidget": true,
@@ -93,6 +106,7 @@
             "link": "http://facebook.com?tag="
         },
         "extensionid": "facebooksearch",
+        "icon": "facebook",
         "src": false,
         "multiple": false,
         "min_width": 1,

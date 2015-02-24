@@ -3,18 +3,20 @@
 
         [
             {
+                "smartwidget": true,
                 "w": 2,
                 "h": 1,
-                "link": "http://maps.google.com",
-                "icon": "googleplaces",
-                "label": "Maps",
-                "color": "blue"
+                "link": "https://facebook.com",
+                "directive":  "facebook-info",
+                "icon": "facebook",
+                "label": "facebook",
+                "color": "rgb(64, 67, 204)"
             }
         ],
         [
             {
                 "name": "youtube search",
-                "description": "Search facebook directly from the tile",
+                "description": "Search youtube directly from the tile",
                 "iswidget": true,
                 "issearch": true,
                 "config": {
@@ -55,39 +57,25 @@
                 "iswidget": true,
                 "issearch": true,
                 "config": {
-                    "tld": ["com", "de", "ch"],
+                    "tld": ["com", "de", "ch", "it", "cn", "ca", "co.uk", "nl", "at", "in", "com.hk"],
                     "tag": {
                         "com": "istarte-20",
                         "de": "istart-21"
                     },
-                    "partnerid": {
-                        "com": {
-                            "url": "/rover/1/711-53200-19255-0/1",
-                            "icep_vectorid": "229466"
-                        },
-                        "de": {
-                            "url": "/rover/1/5222-53480-19255-0/1",
-                            "icep_vectorid": "229536"
-                        },
-                        "ch": {
-                            "url": "/rover/1/707-53477-19255-0/1",
-                            "icep_vectorid": "229487"
-                        }
-                    },
-                    "domain": "rover.ebay.com/rover/1/711-53200-19255-0/1?icep_ff3=1&pub=5575038039&toolid=10001&campid=5337372289&customid=&ipn=psmain&icep_vectorid=229466&kwid=902099&mtid=824&kw=lg",
+                    "viglink":true,
+                    "domain": "http://www.ebay",
                     "domainSearch": "rover.ebay.com",
-                    "url": "/s/?field-keywords={{search}}&tag={{tag}}",
+                    "url": "/sch/{{search}}",
                     "icon": "ebay",
                     "label": "ebay",
                     "color": "rgb(218, 83, 44)",
-                    "useredit": ["tld", "color", "cat"],
-                    "defaultld": ["com"],
-                    "buildLink": [null],
+                    "useredit": ["tld", "color"],
+                    "defaultld": "com",
                     "link": "http://rover.ebay.com/rover/1/711-53200-19255-0/1?icep_ff3=1&pub=5575038039&toolid=10001&campid=5337372289&customid=&ipn=psmain&icep_vectorid=229466&kwid=902099&mtid=824&kw=lg.com?tag=istarte-20"
                 },
                 "extensionid": "ebaysearch",
                 "src": false,
-                "multiple": false,
+                "multiple": true,
                 "min_width": 1,
                 "min_height": 1,
                 "w": 2,
@@ -123,8 +111,8 @@
                 "extensionid": "amazonsearch",
                 "src": false,
                 "multiple": false,
-                "min_width": 2,
-                "min_height": 2,
+                "min_width": 1,
+                "min_height": 1,
                 "w": 2,
                 "h": 2,
                 "color": "#008641"
@@ -141,7 +129,7 @@
         ],
         [
             {
-                "w": 1,
+                "w": 2,
                 "h": 1,
                 "color": "#95009d",
                 "icon": "wikipedia",
@@ -186,6 +174,16 @@
                 "color": "#95009d"
             }
         ],
+          [
+              {
+                  "w": 2,
+                  "h": 1,
+                  "color": "#500095",
+                  "icon": "yahoo",
+                  "link": "https://yahoo.com",
+                  "label": "yahoo"
+              }
+          ],
         [
             {
                 "w": 2,
@@ -323,12 +321,35 @@
         ],
         [
             {
-                "w": 4,
-                "h": 2,
-                "color": "#481bc4",
-                "icon": "ebay",
-                "link": "http://ebay.com",
-                "label": "ebay"
+                "name": "ebay search",
+                "description": "Search ebay directly from the tile",
+                "iswidget": true,
+                "issearch": true,
+                "config": {
+                    "tld": ["com", "de", "ch", "it", "cn", "ca", "co.uk", "nl", "at", "in", "com.hk"],
+                    "tag": {
+                        "com": "istarte-20",
+                        "de": "istart-21"
+                    },
+                    "viglink":true,
+                    "domain": "http://www.ebay",
+                    "domainSearch": "rover.ebay.com",
+                    "url": "/sch/{{search}}",
+                    "icon": "ebay",
+                    "label": "ebay",
+                    "color": "rgb(218, 83, 44)",
+                    "useredit": ["tld", "color"],
+                    "defaultld": "com",
+                    "link": "http://rover.ebay.com/rover/1/711-53200-19255-0/1?icep_ff3=1&pub=5575038039&toolid=10001&campid=5337372289&customid=&ipn=psmain&icep_vectorid=229466&kwid=902099&mtid=824&kw=lg.com?tag=istarte-20"
+                },
+                "extensionid": "ebaysearch",
+                "src": false,
+                "multiple": true,
+                "min_width": 1,
+                "min_height": 1,
+                "w": 2,
+                "h": 1,
+                "color": "rgb(218, 83, 44)"
             }
         ],
         [
@@ -347,6 +368,7 @@
                 "w": 2,
                 "h": 1,
                 "color": "orange",
+                "icon": "reddit",
                 "link": "http://reddit.com",
                 "label": "reddit"
             }

@@ -139,6 +139,9 @@
     },
     "error": {
         "message": "Error"
+    },
+    "origin_tab": {
+        "message": "chrome new tab"
     }
 
 }

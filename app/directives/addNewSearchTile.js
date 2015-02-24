@@ -22,7 +22,7 @@ app.directive('addNewSearchTile', function() {
                             })
                             .error(function(data, status, headers, config) {
                                 console.error(data, status, headers, config, 'ERROR');
-                                alert('CANT LOAD THE DEFAULT TILES :( defaultTiles.json  ');
+                                alert('CANT LOAD THE DEFAULT TILES :( searchTiles.json  ');
                                 deferred.reject('error');
                             });
                         return deferred.promise;
@@ -39,9 +39,10 @@ app.directive('addNewSearchTile', function() {
                         $scope.tldEdit=false;
                         $scope.activeItem = index;
                         $scope.tile=$scope.searchTiles[index];
+                        console.log($scope.tile, $scope.tile.config.useredit.indexOf('tld'));
                         if($scope.tile.config.useredit.indexOf('tld') != -1) {
-                            $scope.buildTldDropDownData();
                             $scope.tldEdit=true;
+                            $scope.buildTldDropDownData();
                         }
                     };
 
@@ -58,6 +59,7 @@ app.directive('addNewSearchTile', function() {
                         }
                         $scope.dropDownTld=config;
                         $scope.tldcheck =   $scope.dropDownTld[$scope.getDefaultSelectedValue($scope.tile.config.tld, $scope.tile.defaultld)];
+                        console.log($scope.tldcheck);
                     };
 
                     $scope.getDefaultSelectedValue=function(originalSource, selectedItemVal) {

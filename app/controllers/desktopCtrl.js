@@ -23,6 +23,9 @@ app.controller('desktopCtrl',
          * store the new matrix to chrome local storage
          */
     });
+    $scope.loadOriginNewTab=function() {
+        internalUrlLoader.ntp();
+    };
     $scope.loadBookmarks = function() {
         internalUrlLoader.bookmarks();
     };

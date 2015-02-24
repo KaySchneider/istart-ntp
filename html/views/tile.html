@@ -7,9 +7,12 @@
                  'editBorder': editTile==true}"
       background-config
       ng-right-edit
-       >
 
-<span style="margin:0">
+       >
+<span style="margin: 0" ng-if="tileInfo.smartwidget">
+    <load-smart-directive tile="tileInfo"></load-smart-directive>
+</span>
+<span style="margin:0" ng-if="!tileInfo.smartwidget">
     <span title="delete item"  ng-click="removeItem($event, tileInfo)" class="trashiconme" ng-show="editMode==true"></span>
     <span title="edit item"
           mode="edit"
