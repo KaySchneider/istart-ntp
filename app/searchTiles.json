@@ -122,14 +122,15 @@
         "issearch": true,
         "config": {
             "tld": ["com"],
-            "domain": "https://twitter.com",
-            "url": "https://twitter.com/search?q={{search}}&src=typd",
+            "domain": "twitter.com",
+            "url": "/search?q={{search}}&src=typd",
             "defaultld": ["com"],
             "color": "rgb(64, 67, 204)",
-            "label": "facebook",
+            "label": "twitter",
             "useredit": ["color"],
             "link": "https://twitter.com"
         },
+        "icon": "twitter",
         "extensionid": "twittersearch",
         "src": false,
         "multiple": false,

@@ -3,11 +3,7 @@
 **/
 @font-face {
 	font-family: 'IcoMoon';
-	src: url('../font/IcoMoon.eot');
-	src: url('../font/IcoMoon.eot?#iefix') format('embedded-opentype'),
-		url('../font/IcoMoon.svg#IcoMoon') format('svg'),
-		url('../font/IcoMoon.woff') format('woff'),
-		url('../font/IcoMoon.ttf') format('truetype');
+	src:url('../fonts/iconFont.ttf') format('truetype');
 	font-weight: normal;
 	font-style: normal;
 }

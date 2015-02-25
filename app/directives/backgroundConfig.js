@@ -40,6 +40,7 @@ app.directive('backgroundConfig', function() {
                     $scope.element = element;
                     element.css({'background':$scope.tileInfo.color,
                                  "border-color":$scope.tileInfo.borderColor,
+                                 "outline-color":$scope.tileInfo.borderColor,
                                  "border-width": '1px',
                                  "border-style": 'solid'});
                     ///element.css('border', $scope.border);
@@ -60,8 +61,8 @@ app.directive('backgroundConfig', function() {
 .directive('istartBackdopTester', function() {
     return {
         restrict: 'A',
-        controller: ['$scope', '$rootScope', 'appLauncher','loadpage', '$location',
-        function($scope, $rootScope, appLauncher, loadpage, $location) {
+        controller: ['$scope', '$rootScope', 'appLauncher','loadpage', '$location', 'liveTileApi',
+        function($scope, $rootScope, appLauncher, loadpage, $location, liveTileApi) {
             $scope.addBackDropIstartBackdropTesterApp = function() {
                 $scope.removeHandlerIstartBackdropTester = $scope.element.on('click', function() {
                   if($scope.editMode !== true) {
@@ -87,9 +88,22 @@ app.directive('backgroundConfig', function() {
             $scope.addBackDropIstartFullScreenWidget = function() {
                 $scope.removeHandlerIstartBackdropTester =
                $scope.element.on('click', function($event) {
-
                     $location.url('/fullscreen/'+$scope.tileInfo.extensionid);
                 });
+                $scope.$on('$destroy', function() {
+                    $scope.element.off('click');//remove the handler
+                });
+            };
+
+            $scope.addBackDropIstartWidgetInternal = function() {
+                $scope.removeHandlerIstartBackdropTester =
+                    $scope.element.on('click', function($event) {
+                        $event.preventDefault();
+                        $event.stopPropagation();
+                        var url = $scope.element.parent().prev().attr('src');
+                        liveTileApi.sendClick(url, $scope.element.parent().prev());
+
+                    });
                 $scope.$on('$destroy', function() {
                     $scope.element.off('click');//remove the handler
                 });
@@ -125,6 +139,10 @@ app.directive('backgroundConfig', function() {
                 if( typeof scope.tileInfo.fullscreen != "undefined") {
                     scope.element = element;
                     scope.addBackDropIstartFullScreenWidget();
+                } else {
+                    //send the click event to the widget
+                    //scope.element = element;
+                    //scope.addBackDropIstartWidgetInternal();
                 }
             } else if(scope.tileInfo.issearch == true) {
                 scope.element = element;

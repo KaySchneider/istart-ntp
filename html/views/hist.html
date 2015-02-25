@@ -48,14 +48,20 @@
         <h1 class="md-toolbar-tools">istart V2 Options</h1>
     </md-toolbar>
     <md-content  class="md-padding">
-        <md-button ng-click="closeMenu()" class="md-primary">
-            <i18n>close menu</i18n>
-        </md-button>
+        <md-list>
+            <md-item >
+                <md-item-content>
+                    <md-button ng-click="closeMenu()" class="md-primary">
+                        <i18n>close_menu</i18n>
+                    </md-button>
+                </md-item-content>
+            </md-item>
+         </md-list>
         <istart-options-menu></istart-options-menu>
     </md-content>
 </md-sidenav>
 
-<div class="container" id="wrap" style="position:absolute;top:0;left:0">
+<div class="container" id="wrap" style="position:absolute;top:0;left:0" right-scroll>
 
         <!--
             restore the old tiles and try to make the loop much faster

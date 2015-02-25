@@ -3,9 +3,9 @@
 var app = angular.module('istart');
 app.controller('desktopCtrl',
            ['$scope','matrix','$window','$location','internalUrlLoader','$mdSidenav', '$rootScope',
-               'searchExternalPlugins','$compile',
+               'searchExternalPlugins','$compile','chromeApp',
     function($scope, matrix, $window, $location, internalUrlLoader, $mdSidenav,
-             $rootScope, searchExternalPlugins, $compile) {
+             $rootScope, searchExternalPlugins, $compile, chromeApp) {
         console.log('inside the desktop controller, never reached this stage inside the karma/jasmine tests');
 
     $window.appControllerStart = Date.now();
@@ -15,7 +15,15 @@ app.controller('desktopCtrl',
     $scope.maTemp = [];
     $scope.hiddenMatrix = $scope.items;
     $scope.editMode= false;
+    $scope.paintStarted=false;
+    $scope.apps=null;
     $scope.mostRecentPages=false;
+        chromeApp.active().then(function(allApps) {
+            //build tile from app?
+            var apper = [allApps];
+
+
+        });
     $scope.$watch('items', function() {
         $scope.hiddenMatrix = $scope.items;
         /**
@@ -95,6 +103,7 @@ app.controller('desktopCtrl',
         $window.items = $scope.items;
         resizeScreen();
         window.setTimeout(addDnD, 400);
+
     };
 
     /**
@@ -194,15 +203,18 @@ app.controller('desktopCtrl',
         }
     };
 
+
     $scope.toggleMenu = function() {
         $mdSidenav('right').toggle()
             .then(function(){
+                console.log("OPEN");
             });
     };
 
     $scope.closeMenu = function() {
         $mdSidenav('right').close()
             .then(function(){
+                console.log("CLOSE");
             });
     };
 
@@ -270,7 +282,7 @@ app.controller('desktopCtrl',
         } else {
             if(typeof data[0][0][0].uuid == "undefined") {
                 console.debug('NO UUID -  CREATE ONE AND REFRESH THE LIST');
-                console.log(data[0][0][0]);
+                console.log(data[0][0]);
                 $scope.ma.portMatrixUUID(data);
 
             } else {
@@ -280,6 +292,10 @@ app.controller('desktopCtrl',
                 searchExternalPlugins.plugins.init().then(function() {
                     console.log('ready');
                 });
+                $scope.paintStarted = true;
+                if( $scope.apps !== null ) {
+                    $scope.items.push($scope.apps);
+                }
                 showItems($scope.items);
                 if(!$scope.$$phase) {
                     $scope.$apply();
@@ -320,13 +336,15 @@ function addDnD() {
 function resizeScreen() {
     var items= window.items;
     var startW;
+    var allW;
     var container = $('#interpolateed');
         var ceil = Math.ceil( ($(window.top).height()-140)/140);
         var height = ceil * 130;
+        var wrap = document.getElementById('wrapp');
         $('.pagerTest').each(function(item){
             if(item==0){
                 startW=0;
-
+                allW=0;
             }
             /**
              * all used vars to calculate the new width of the
@@ -413,7 +431,10 @@ function resizeScreen() {
             } catch(e) {
 
             }
+            //'border-color': 'red', 'border-width': '10px', 'border-style': 'solid'
+            angular.element('#wrap').css({'width': startW + 'px'});
         });
+
 }
 
 function calcNewWidth( countChilds) {

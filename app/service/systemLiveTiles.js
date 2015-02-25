@@ -26,7 +26,32 @@ app.factory('systemLiveTiles', ['$window',function ($window) {
                 "color": "rgb(64, 67, 204)",
                 "extensionid":"facebookInfoWidget"
             }
-        ]
+        ],
+        [
+            {
+                "name": 'Basic RSS FEED READER',
+                "description": 'adds an basic rss feed reader to iStart',
+                "smartwidget": true,
+                "w": 2,
+                "h": 1,
+                "link": "https://facebook.com",
+                "directive":  "basic-rss-feed",
+                "label": "facebook",
+                "color": "rgb(64, 67, 204)",
+                "extensionid":"basic-rss-feed"
+            }
+        ],
+        [{
+            'name':'rss feed reader',
+            'description':'Adds an rss feed to iStart desktop',
+            'iswidget':true,
+            'src': chrome.extension.getURL( widgetPath + "basicRssFeed/html/instaWidget.html" ),
+            'multiple':true, //can be added more than one time into the browser
+            'min_width':2,
+            'min_height':1,
+            "color": "rgb(64, 67, 204)",
+            'extensionid':'rssFeedReader'
+        }]
         /**[{
             'name':'Welcome Tile',
             'description':'Helps you save time during your first steps',

@@ -99,6 +99,9 @@
     },
     "origin_tab": {
         "message": "chrome new tab"
+    },
+    "close_menu":{
+        "message": "Menü schließen"
     }
 
 

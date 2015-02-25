@@ -37,11 +37,11 @@ app.directive('ngRightEdit', function() {
                         $rootScope.editTileInfo=$scope.tileInfo;
                         break;
                 }
-                try {
+                /*try {
                     $scope.$apply();
                 } catch(e) {
                     console.error(e);
-                }
+                }*/
             };
         }],
         link: function(scope, element, attrs) {

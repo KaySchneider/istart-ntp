@@ -138,7 +138,7 @@ ul {
 }
 
 .tile.editBorder {
-    outline-color: #069;
+    outline-color: #069 !important;
     outline-style: solid;
     outline-width: 5px;
     outline-offset: -4px;
@@ -161,7 +161,7 @@ ul {
     speak: none;
     background-image: none;
     background-position: inherit;
-    content: "\e03c";
+    content: "\2713";
 }
 .tile.editBorder::before {
     content: '';
@@ -173,7 +173,7 @@ ul {
     height: 0;
     border-width: 2.5em 0 0 2.5em;
     border-style: solid;
-    border-color: transparent;
+    border-color: #069 transparent;
     display: block;
 
 }
@@ -422,6 +422,13 @@ li {
     text-decoration: none;
     background-color: #00899e;
 }
+
+.metro .tile:hover {
+    outline-width: 2px;
+    outline-style: solid;
+}
+
+
 /*.metro >  a:link,.metro > a:visited,.metro>a:active,.metro>a,.metro>a:hover {
     color:white !important;
     font-family: 'Open Sans',Arial, Helvetica, sans-serif;
@@ -458,6 +465,8 @@ li {
 .tile {
     -webkit-transition: all .3s ease-out;
 }
+
+
 /**
 * classes for icon and more
 */
@@ -736,7 +745,6 @@ iframe.wide.xxl {
 
 .container {
     min-width: 150% !important;
-    width:auto !important;
     min-height: 100%;
     margin-top: 10px !important;
 }

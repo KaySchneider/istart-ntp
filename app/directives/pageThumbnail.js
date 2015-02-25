@@ -8,7 +8,7 @@
 var app = angular.module('istartMetroDirective');
 app.directive('pageThumbnail', function() {
     return {
-        template: '<img src="{{dataUrl}}" width="100px"/>',
+        template: '<img src="{{dataUrl}}" height="100px"/>',
         restrict: 'E',
         replace: true,
         scope: {
@@ -23,6 +23,7 @@ app.directive('pageThumbnail', function() {
                         $scope.msg.message.getMessageSkeleton('getThumbnail', {hostname:url})
                     ).then(function(data) {
                             $scope.dataUrl=data.thumbnail;
+                            console.log(data, 'THUMBNAIL');
                         })
                 };
                 $scope.loadtest($scope.url);

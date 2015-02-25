@@ -115,6 +115,13 @@ istartBackOffice.prototype.getMatrix = function() {
     return false;
 };
 
+/**
+ * connect with the istart frontend script!
+ */
+istartBackOffice.prototype.connectWithBackend = function() {
+
+};
+
 istartBackOffice.prototype.addMessageListener = function() {
     var that = this;
     chrome.runtime.onConnect.addListener(function(port) {
@@ -125,6 +132,9 @@ istartBackOffice.prototype.addMessageListener = function() {
                 that.saveMatrix(msg.message.matrix, port, msg.uid);
             } else if(msg.message.call == 'getThumbnail') {
                 that.getThumbnail(port, msg.message.hostname, msg.uid)
+            } else if(msg.message.call == 'connectIframe') {
+                //connect an iframe with the frontend script
+                that.connectWithBackend();
             }
 
         });

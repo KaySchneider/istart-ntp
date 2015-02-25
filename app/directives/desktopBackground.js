@@ -8,7 +8,6 @@
  */
 
 var app = angular.module('istartMetroDirective');
-
 app.directive('desktopBackground', function() {
     return {
         restrict: 'A',

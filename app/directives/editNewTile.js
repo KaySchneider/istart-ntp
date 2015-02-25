@@ -156,7 +156,15 @@ app.directive('editTileBottom', function() {
                     $scope.editBottom=false;
                     var event = new Event('resort');
                     window.dispatchEvent(event);
+                    $scope.catchReject();
+                }).catch(function(rejectInfo) {
+                    console.log('REJEEcTED PROMISE');
+                    $scope.catchReject();
                 });
+            };
+
+            $scope.catchReject = function() {
+                $rootScope.$broadcast('changeEditTile', { tileId: 'notileid'});
             };
         }],
         link: function(scope, element, attrs) {

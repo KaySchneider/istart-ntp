@@ -8,6 +8,7 @@ function ($q, analytics, loadpage, $location, $rootScope, $compile, getUrlThumbn
     var close = false;
     var activePluginConfig={};
     var isactive = false;
+    var pluginsRegistered=[];
 
     var setVarsToClose = function () {
         close = true;
@@ -45,6 +46,7 @@ function ($q, analytics, loadpage, $location, $rootScope, $compile, getUrlThumbn
             //appMaster.appSuccessStart();
             //clickAbleExtensions.push(request.url);
             //send in the response the mastertabid!
+            pluginsRegistered.push(request.url);
             sendResponse({response: "ok", cmd: "register", url: request.url});
         }
         /**
@@ -74,7 +76,7 @@ function ($q, analytics, loadpage, $location, $rootScope, $compile, getUrlThumbn
         if (request.cmd == 'launchlink') {
             loadpage.loadPage(request.launchlink);
             sendResponse({response: "ok", cmd: "launchlink", url: request.url});
-            analytics.track('outclick','extension', {value:request.launchlink});
+            analytics.track('loadPage','extension', {value:request.launchlink});
         }
 
         if(request.cmd == 'getthumbnail') {
@@ -97,6 +99,11 @@ function ($q, analytics, loadpage, $location, $rootScope, $compile, getUrlThumbn
         // }
     };
 
+    var sendClick = function(url, iframe) {
+
+        var port = iframe[0].contentWindow.postMessage({cmd: "click", url:url}, chrome.extension.getURL('/'));
+    };
+
     var initReg = function() {
         console.log("INIT");
         chrome.runtime.onMessage.addListener(
@@ -114,7 +121,8 @@ function ($q, analytics, loadpage, $location, $rootScope, $compile, getUrlThumbn
     }
 
     return {
-        item:item
+        item:item,
+        sendClick:sendClick
     };
 }]);
 
