@@ -143,8 +143,11 @@
     "origin_tab": {
         "message": "chrome new tab"
     },
-    "close_menu":{
+    "close_menu": {
         "message": "close menu"
+    },
+    "edit_icon": {
+        "message": "change icon"
     }
 
 }

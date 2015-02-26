@@ -36,7 +36,10 @@ app.directive('editTileBottom', function() {
                             $rootScope.editTileInfo = angular.copy($scope.configCopy, $rootScope.editTileInfo);
                             $mdBottomSheet.cancel();
                         };
-
+                        $scope.setEditIcon = function() {
+                            $scope.editIcon = true;
+                        };
+                        $scope.editIcon=false;
                         $scope.tldconf=false;
                         $scope.tldcheck = null;
                         $scope.sizeCheck = null;

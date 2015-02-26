@@ -151,5 +151,8 @@
     },
     "close_menu":{
         "message": "close menu"
+    },
+    "edit_icon": {
+        "message": "change icon"
     }
 }

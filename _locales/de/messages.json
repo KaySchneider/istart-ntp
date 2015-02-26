@@ -102,6 +102,9 @@
     },
     "close_menu":{
         "message": "Menü schließen"
+    },
+    "edit_icon": {
+        "message": "Icon editieren"
     }
 
 

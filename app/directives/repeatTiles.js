@@ -1,5 +1,4 @@
 'use strict';
-'use strict';
 /**
  * this part of the app holds the simple metro item
  * template and behaviour

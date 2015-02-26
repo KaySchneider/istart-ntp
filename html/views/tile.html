@@ -40,7 +40,7 @@
     <!-- add video directive if tile contains youtube... -->
     <span ng-if="tileInfo.name" ng-class="{'labelIcon':tileInfo.config.icon||tileInfo.icon}">{{tileInfo.name}}</span>
     <span ng-if="tileInfo.label" ng-class="{'labelIcon':tileInfo.config.icon||tileInfo.icon}">{{tileInfo.label}}</span>
-    <span ng-if="tileInfo.config.icon" class="{{tileInfo.config.icon}} iconImage"></span>
+    <span ng-if="tileInfo.config.icon&&!tileInfo.icon" class="{{tileInfo.config.icon}} iconImage"></span>
     <span ng-if="tileInfo.icon" class="{{tileInfo.icon}} iconImage"></span>
 </span>
 </li>

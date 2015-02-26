@@ -1,5 +1,18 @@
 <md-bottom-sheet class="md-grid " style="position:fixed">
+    <md-list ng-show="editIcon===true">
+        <md-item style="width:100%;height:220px">
+            <select-icon></select-icon>
+        </md-item>
+     </md-list>
     <md-list>
+        <md-button class="md-grid-item-content" aria-label="HALLO" ng-click="setEditIcon($event)">
+            <div class="md-icon-container">
+                <md-inline-grid-icon  >
+                    <md-icon md-svg-src="/img/icons/ic_edit_24px.svg" style="width: 24px; height: 24px;"></md-icon>
+                </md-inline-grid-icon>
+            </div>
+            <p class="md-grid-text"><i18n>edit_icon</i18n></p>
+        </md-button>
         <md-item >
             <md-content class="md-padding" layout="row" layout-sm="column" style="font-size:1.2em">
                 <md-input-container>

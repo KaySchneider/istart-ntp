@@ -183,3 +183,11 @@ div.rssFeedWrapper {
 .rssFeedWrapper * span {
     position: relative !important;
 }
+
+.selectInputScrollBox {
+    padding-left:30px;
+
+    width:250px;
+    height: 200px;
+    overflow: scroll;
+}
