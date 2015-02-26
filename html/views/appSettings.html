@@ -13,10 +13,11 @@
                 <md-input-container>
 
                 </md-input-container>
-                <md-input-container ng-if="tldconf != false">
-                    <label>Domain</label>
-                    <select ng-options="item for item in  tile.config.tld track by $index" ng-model="tile.config.defaultld">
-                    </select>
+                <md-input-container>
+                    <label>Mouse Wheel Support</label>
+                    <md-switch ng-model="mouseWheelActive" class="md-primary" md-no-ink aria-label="Turn non/off mousewheel support">
+                        mousewheel support {{mouseWheelActive}}
+                    </md-switch>
                 </md-input-container>
             </md-content>
         </div>

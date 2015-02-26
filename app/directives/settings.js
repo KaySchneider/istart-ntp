@@ -19,8 +19,6 @@ app.directive('appSettings', function() {
                  * request the file system to store an image from DataURL
                  * @type {*[]}
                  */
-
-
                 $scope.DialogController = ['$scope', '$mdDialog', '$window','fileSystem','appSettings','$http',
                     '$rootScope',
                     function($scope, $mdDialog, $window, fileSystem, appSettings, $http, $rootScope) {
@@ -36,6 +34,16 @@ app.directive('appSettings', function() {
                         $http.get('../app/defaultBgImages.json').success(function(data) {
                             console.log(data);
                         });
+
+                        $scope.mouseWheelActive=false;
+                        $scope.$watch('mouseWheelActive', function() {
+                           appSettings.settings.setmouseWheelActive($scope.mouseWheelActive);
+                        });
+
+                        appSettings.settings.mouseWheel().then(
+                            function(settings) {
+                                $scope.mouseWheelActive = settings.active;
+                            });
 
                         $scope.fileNameChanged = function(data) {
                             console.log(data);

@@ -4,14 +4,12 @@
  * stores the custom user settings and shares it app wide
  */
 var app  = angular.module('istart');
-app.factory('appSettings', ['$q',function ($q) {
+app.factory('appSettings', ['$q', '$rootScope',function ($q, $rootScope) {
     /**
      * migrate the old settings from istart 1.x to the
      * istartV2!
      * @type {{loaded: null, settingsDefault: {background: {imageadd: boolean, cssadd: boolean, css: string, image: string}}, config: null, save: save, loadOptions: loadOptions, background: background}}
      */
-
-
 
     //if(localStorage.istartbackground)
     var settings =  {
@@ -23,6 +21,9 @@ app.factory('appSettings', ['$q',function ($q) {
                 css: '',
                 image:'',
                 options:null
+            },
+            mouseWheel: {
+                active:true
             }
         },
         config:null,
@@ -64,6 +65,51 @@ app.factory('appSettings', ['$q',function ($q) {
             settings.config.background.image=bgImage;
             settings.save();
         },
+        setmouseWheelActive: function(activeState) {
+            if(typeof settings.config.mouseWheel !== "undefined") {
+                settings.config.mouseWheel.active=activeState;
+            } else {
+                settings.config.mouseWheel = {
+                    active: activeState
+                };
+            }
+            settings.save();
+            $rootScope.$broadcast('mouseWheelSettingsChanged', {});
+        },
+        checkSettingsLoaded: function() {
+            var defer = $q.defer();
+            if(settings.loaded==null) {
+                //console.log(localStorage.istartbackground, 'BACKGROUND SETTINGS', localStorage.istartbackground!="null", localStorage.istartbackground!==null);
+                if(localStorage.istartbackground!="null") {
+                    settings.loadV1BackgroundSettings();
+                }
+                //nothing loaded load the settings
+                settings.loadOptions()
+                    .then(function() {
+                        defer.resolve(true);
+                    })
+            } else {
+               defer.resolve(true);
+            }
+            return defer.promise;
+        },
+        mouseWheel: function() {
+            var defer = $q.defer();
+            this.checkSettingsLoaded().then(
+                function() {
+                    if(typeof settings.config.mouseWheel !== "undefined") {
+                        defer.resolve(settings.config.mouseWheel);
+                    } else {
+                        /**
+                         * if the settings are not present than this version didnt has the
+                         * updated settings object! So we add simply true to this object
+                         * and resolve it
+                         */
+                        defer.resolve(settings.settingsDefault.mouseWheel);
+                    }
+                });
+            return defer.promise;
+        },
         background : function() {
 
             var deferr = $q.defer();
@@ -77,7 +123,7 @@ app.factory('appSettings', ['$q',function ($q) {
             };
 
             if(settings.loaded==null) {
-                console.log(localStorage.istartbackground, 'BACKGROUND SETTINGS', localStorage.istartbackground!="null", localStorage.istartbackground!==null);
+                //console.log(localStorage.istartbackground, 'BACKGROUND SETTINGS', localStorage.istartbackground!="null", localStorage.istartbackground!==null);
                 if(localStorage.istartbackground!="null") {
                     settings.loadV1BackgroundSettings();
                 }

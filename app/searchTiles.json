@@ -139,5 +139,55 @@
         "w": 2,
         "h": 1,
         "color": "rgb(64, 67, 204)"
+    },
+        {
+            "name": "Google search",
+            "description": "Search on Google :)",
+            "iswidget": true,
+            "issearch": true,
+            "config": {
+                "tld": ["com", "de", "it", "co.uk", "fr"],
+                "domain": "www.google",
+                "url": "/search?q={{search}}",
+                "defaultld": ["com"],
+                "color": "#95009d",
+                "label": "Google",
+                "icon": "google",
+                "useredit": ["color", "tld"],
+                "link": "http://www.google.com?tag="
+            },
+            "extensionid": "googlesearch",
+            "src": false,
+            "multiple": false,
+            "min_width": 2,
+            "min_height": 1,
+            "w": 2,
+            "h": 1,
+            "color": "#95009d"
+        },
+    {
+        "name": "Google image search",
+        "description": "Search images on Google :)",
+        "iswidget": true,
+        "issearch": true,
+        "config": {
+            "tld": ["com", "de", "it", "co.uk", "fr", "ca", "com.hk", "cn", "nl", "es", "ru", ""],
+            "domain": "www.google",
+            "url": "/search?q={{search}}&tbm=isch",
+            "defaultld": ["com"],
+            "color": "#95009d",
+            "label": "Google image",
+            "icon": "google",
+            "useredit": ["color", "tld"],
+            "link": "http://www.google.com?tag="
+        },
+        "extensionid": "googlesearchimage",
+        "src": false,
+        "multiple": false,
+        "min_width": 2,
+        "min_height": 1,
+        "w": 2,
+        "h": 1,
+        "color": "#95009d"
     }
 ]

@@ -38,15 +38,17 @@ app.directive('facebookInfo', function() {
                             if(typeof data == 'object') {
                                 $scope.messagesCount = data.inbox.unread;
                                 $scope.infoCount = data.notifications.num_unread;
+                                $timeout($scope.loadDataFB, 60000);
                             }
                         } catch(e) {
                             //user is not logged in
+                            //$timeout($scope.loadDataFB, 900000);
                         }
                     })
                     .error(function(e) {
                         console.log(e);
                     });
-            }
+            };
             if(navigator.onLine===true) {
                 $timeout($scope.loadDataFB, 1000);
             }
