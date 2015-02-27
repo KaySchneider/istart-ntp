@@ -11,10 +11,9 @@
                     </form>
                 </md-input-container>
                 <md-input-container>
-
+                    <md-button ng-click="uploadfile()">set file as background and save</md-button>
                 </md-input-container>
                 <md-input-container>
-                    <label>Mouse Wheel Support</label>
                     <md-switch ng-model="mouseWheelActive" class="md-primary" md-no-ink aria-label="Turn non/off mousewheel support">
                         mousewheel support {{mouseWheelActive}}
                     </md-switch>
@@ -24,7 +23,7 @@
 
     </div>
     <div class="md-actions" layout="row">
-        <md-button ng-click="uploadfile()">set file as background and save</md-button>
+
         <span flex></span>
         <md-button ng-click="cancel()">
             cancel

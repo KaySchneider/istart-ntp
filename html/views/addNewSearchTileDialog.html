@@ -1,40 +1,39 @@
-<md-dialog aria-label="Mango (Fruit)">
-    <div layout="row" layout-wrap>
-        <div flex >
-            <md-content style="overflow:scroll">
-                <md-list>
-                    <md-item ng-repeat="item in searchTiles">
-                        <md-item-content class="hovermenu" ng-class="{active:activeItem===$index}" ng-click="setItemActive($index)">
-                            <div class="md-tile-left">
-                                <img ng-src="{{item.face}}" class="face" alt="{{item.who}}">
-                            </div>
-                            <div class="md-tile-content">
-                                <h3>{{item.name}}</h3>
-                                <p>
-                                    {{item.description}}
-                                </p>
-                            </div>
-                        </md-item-content>
-                    </md-item>
-                </md-list>
-            </md-content>
-        </div>
-        <div flex ng-show="activeItem!=null&&tldEdit===true">
-            <md-content >
-                <h2>select domain</h2>
-                <label>Domain</label>
-                <md-select  placeholder="Domain"
-                            ng-change="checkCurr(tldcheck)"
-                            ng-model="tldcheck">
-                    <md-option
-                            ng-value="item.label"
-                            ng-repeat="item in dropDownTld">{{item.label}}
-                    </md-option>
-                </md-select>
+<md-dialog aria-label="add new search tile dialog" style="min-width: 600px" >
+        <md-content layout="row">
+                <md-content  layout="column" style="max-width: 400px">
+                    <md-subheader class="md-sticky-no-effect">Add new search tile</md-subheader>
+                    <div flex >
+                        <md-list>
+                            <md-item ng-repeat="item in searchTiles">
+                                <md-item-content class="hovermenu" ng-class="{active:activeItem===$index}" ng-click="setItemActive($index)">
+                                    <div class="md-tile-left">
+                                        <img ng-src="{{item.face}}" class="face" alt="{{item.who}}">
+                                    </div>
+                                    <div class="md-tile-content">
+                                        <h3>{{item.name}}</h3>
+                                        <p>
+                                            {{item.description}}
+                                        </p>
+                                    </div>
+                                </md-item-content>
+                            </md-item>
+                        </md-list>
+                    </div>
+                </md-content>
+                <md-content layout="column" ng-show="activeItem!=null&&tldEdit===true">
+                    <h2>select domain</h2>
+                    <label>Domain</label>
+                    <md-select  placeholder="Domain"
+                                ng-change="checkCurr(tldcheck)"
+                                ng-model="tldcheck">
+                        <md-option
+                                ng-value="item.label"
+                                ng-repeat="item in dropDownTld">{{item.label}}
+                        </md-option>
+                    </md-select>
 
-            </md-content>
-        </div>
-    </div>
+                </md-content>
+        </md-content>
     <div class="md-actions" layout="row">
         <span flex></span>
         <md-button ng-click="cancel()">

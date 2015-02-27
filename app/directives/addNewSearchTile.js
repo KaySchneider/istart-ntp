@@ -122,7 +122,7 @@ app.directive('addNewSearchTile', function() {
                         console.log('ADD TILE TO THE DATABASE', tileConfig.uuid);
                             $rootScope.addUUIDTOList(tileConfig.uuid);
                             $rootScope.$broadcast('addNewTile', tileConfig);
-                            analytics.track('addNewSearchTile', 'addTile', {value:tileConfig.link});
+                            analytics.track('addNewSearchTile', tileConfig.link);
                     }, function () {
                         //do nothing when cancel
                     });

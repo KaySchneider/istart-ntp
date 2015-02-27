@@ -221,6 +221,7 @@ app.controller('desktopCtrl',
     $rootScope.$on('addNewTile', function(event, tileConfig) {
         $scope.items[0].unshift([tileConfig]);
         $scope.ma.saveMatrix($scope.items);
+        showItems($scope.items);
         addDnD();
     });
     $scope.lGrid=[];

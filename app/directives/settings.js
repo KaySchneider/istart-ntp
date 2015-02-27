@@ -71,6 +71,9 @@ app.directive('appSettings', function() {
                         $scope.cancel = function() {
                             $mdDialog.cancel();
                         };
+                        $scope.close =function( ) {
+                            $mdDialog.hide();
+                        };
                         $scope.answer = function(answer) {
                             console.log('CLOSE');
                             $mdDialog.hide(answer);

@@ -1,9 +1,10 @@
 <h2 class="pheader" >iStart</h2>
-<div style="position: fixed;height:80px;top:0;left:0;width: 100%;z-index:1;border:0px solid red" is-on-hover></div>
+<div style="position: fixed;height:80px;top:0;left:0;width: 100%;z-index:1;border:0px solid red" is-on-hover></div><!--ng-show="hover==true||editMode==true"-->
 <md-toolbar md-scroll-shrink class="md-whiteframe-z2 " is-on-hover ng-show="hover==true||editMode==true" style="position:fixed;" >
     <div class="md-toolbar-tools">
         <md-button ng-click="toggleMenu()">
             <md-icon md-svg-src="/img/icons/ic_menu_24px.svg" style="width: 24px; height: 24px"></md-icon>
+             menu
         </md-button>
         <md-button class="md-hue-1 " ng-click="go('/apps')">
             <md-icon md-svg-src="/img/icons/ic_apps_48px.svg" style="width: 24px; height: 24px;"></md-icon>
@@ -23,12 +24,7 @@
             <i18n>downloads</i18n>
         </md-button>
         <md-button class="md-hue-1" ng-click="loadBookmarks()">
-            <md-icon
-                    md-font-icon="icon-home"
-                    ng-style="{color: 'red', 'font-size': '24px', 'height': '24px'}"
-                    alt="icon-home"
-                    class="step">
-            </md-icon>
+
             <i18n>bookmarks</i18n>
         </md-button>
         <md-input-container>
@@ -43,6 +39,11 @@
         </md-switch>
     </div>
 </md-toolbar>
+<div style="position: fixed;top:0px;left:10px" ng-show="hover==false||editMode==false">
+    <md-button ng-click="toggleMenu()">
+        <md-icon md-svg-src="/img/icons/ic_menu_24px.svg" style="width: 24px; height: 24px"></md-icon>
+    </md-button>
+</div>
 <md-sidenav class="md-sidenav-left md-whiteframe-z2 istartsidemen" md-component-id="right">
     <md-toolbar class="md-theme-light">
         <h1 class="md-toolbar-tools">istart V2 Options</h1>
@@ -60,14 +61,11 @@
         <istart-options-menu></istart-options-menu>
     </md-content>
 </md-sidenav>
-
 <div class="container" id="wrap" style="position:absolute;top:0;left:0" right-scroll>
-
         <!--
             restore the old tiles and try to make the loop much faster
             maybe switch to native javascript loop and mustache rendering engine??
         -->
-
     <div class="pagerContainer" style="position: absolute;" id="interpolateed">
         {{interpolatedHtml}}
          <!--
