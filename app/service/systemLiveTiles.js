@@ -26,8 +26,8 @@ app.factory('systemLiveTiles', ['$window',function ($window) {
                 "color": "rgb(64, 67, 204)",
                 "extensionid":"facebookInfoWidget"
             }
-        ],
-        [
+        ]
+      /**  [
             {
                 "name": 'Basic RSS FEED READER',
                 "description": 'adds an basic rss feed reader to iStart',

@@ -3,6 +3,14 @@
 
         [
             {
+                "h":1,
+                "w":2,
+                "link":"http://youtu.be/mr07qfk9g9g",
+                "label":"First steps with iStart Video"
+            }
+        ],
+        [
+            {
                 "smartwidget": true,
                 "w": 2,
                 "h": 1,

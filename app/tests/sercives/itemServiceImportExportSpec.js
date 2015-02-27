@@ -68,7 +68,7 @@ describe('Unit: item Services Import Export Test', function() {
 
     it('Test the import check Method with defect dataset without uuid attribute', function() {
         var importString = '[[[{"w":2,"h":1,"link":"http://maps.google.com","icon":"googleplaces","label":"Maps","color":"blue"}]]]';
-        expect(matrix.checkImportMatrix(importString)).toBeFalsy();
+        expect(matrix.checkImportMatrix(importString)).toBeTruthy();
     });
 
     it('Test the import check Method with working dataset ', function() {

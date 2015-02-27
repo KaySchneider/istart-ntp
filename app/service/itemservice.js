@@ -143,6 +143,10 @@ app.factory('matrix', ['$q', 'backgroundMessage',  '$window', '$http', '$rootSco
             }
             if(result[0]) {
                 if(result[0][0]) {
+                    /**
+                     * it did not check for an valid uuid!!!!
+                     * So this would be later added to the tile during first load
+                     */
                     importTemp = this.clearImportNulls(result);
                     return true;
                 }

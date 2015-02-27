@@ -18,12 +18,12 @@ app.controller('desktopCtrl',
     $scope.paintStarted=false;
     $scope.apps=null;
     $scope.mostRecentPages=false;
-        chromeApp.active().then(function(allApps) {
+        /**chromeApp.active().then(function(allApps) {
             //build tile from app?
             var apper = [allApps];
 
 
-        });
+        });**/
     $scope.$watch('items', function() {
         $scope.hiddenMatrix = $scope.items;
         /**
@@ -354,7 +354,7 @@ function resizeScreen() {
              * the rows and cells
              * @type {number}
              */
-            var oneWidth = 277.3333335;
+            var oneWidth = 260.3333335;
             var staticItemsOnRow=ceil;
             var currentLine=0;
             var currentRowHeight=0;
@@ -371,11 +371,23 @@ function resizeScreen() {
                if(items[item][info][0] == null){
                    continue;
                }
-              if(currentLine==2)
-                currentLine = 0;
+              if(currentLine==2) {
+                 currentLine = 0;
+              }
+                console.log(currentRowHeight,countCells, currentLine, info, staticItemsOnRow);
 
               if(currentRowHeight>=staticItemsOnRow) {
-                  currentRowHeight=0;
+                  /**
+                   * Fehler, Überhang wird nicht in die nächste Spalte mit Übernommen
+                   * @type {number}
+                   */
+                  if(currentRowHeight>staticItemsOnRow) {
+                      var take = currentRowHeight-staticItemsOnRow;
+                      currentRowHeight=take;
+                      console.log("ÜBERTRAG: " , take);
+                  } else {
+                      currentRowHeight=0;
+                  }
                   countCells++;
               }
 
@@ -412,10 +424,11 @@ function resizeScreen() {
                }
 
             }
+            console.log(countCells, 'CWLLS');
             /**
              * calculate the correct width
              */
-            allContainerWidth = (oneWidth * countCells)+8;
+            allContainerWidth = (oneWidth * countCells)+40;
             /**
              * maybe some users has null inside some items!
              */

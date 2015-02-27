@@ -43,6 +43,10 @@
 }
 * {
     font-family: RobotoDraft, Roboto, 'Helvetica Neue', sans-serif;
+    box-sizing: border-box;
+}
+*:before, *:after {
+    box-sizing: border-box;
 }
 md-card * img {
     -webkit-order: 0;

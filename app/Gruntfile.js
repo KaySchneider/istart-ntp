@@ -128,6 +128,17 @@ module.exports = function(grunt) {
                 src: ['../build/*']
             }
         },
+        cssmin: {
+          options: {
+              shorthandCompacting: false,
+              aggressiveMerging: false,
+              keepBreaks: true,
+              restructuring: false,
+              advanced:false,
+              debug: true,
+              mediaMerging:false
+          }
+        },
         useminPrepare: {
             js: {
                 src: ['../html/metro.html', '../html/popup.html'],
@@ -141,6 +152,13 @@ module.exports = function(grunt) {
             css: {
                 src: ['../html/metro.html', '../html/popup.html'],
                 options: {
+                    shorthandCompacting: false,
+                    aggressiveMerging: false,
+                    keepBreaks: true,
+                    restructuring: false,
+                    advanced:false,
+                    debug: true,
+                    mediaMerging:false,
                     dest: '../'
                 }
             }
@@ -149,7 +167,7 @@ module.exports = function(grunt) {
             options: {
                 blockReplacements: {
                     css: function (block) {
-                        return '<link rel="stylesheet" href="' + block.dest.replace('/build', '') + '"/>';
+                        return '<link rel="stylesheet" href="' + block.dest.replace('/build', '') + '" >';
                     },
                     js: function(block) {
                         return '<script src="'+ block.dest.replace('/build', '') +'"></script>';
