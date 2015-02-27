@@ -1,6 +1,6 @@
 <h2 class="pheader" >iStart</h2>
 <div style="position: fixed;height:80px;top:0;left:0;width: 100%;z-index:1;border:0px solid red" is-on-hover></div><!--ng-show="hover==true||editMode==true"-->
-<md-toolbar md-scroll-shrink class="md-whiteframe-z2 " is-on-hover ng-show="hover==true||editMode==true" style="position:fixed;" >
+<!--<md-toolbar md-scroll-shrink class="md-whiteframe-z2 " is-on-hover ng-show="hover==true||editMode==true" style="position:fixed;" >
     <div class="md-toolbar-tools">
         <md-button ng-click="toggleMenu()">
             <md-icon md-svg-src="/img/icons/ic_menu_24px.svg" style="width: 24px; height: 24px"></md-icon>
@@ -38,12 +38,14 @@
             edit mode: {{editMode}}
         </md-switch>
     </div>
-</md-toolbar>
-<div style="position: fixed;top:0px;left:10px" ng-show="hover==false||editMode==false">
+</md-toolbar>-->
+<div style="position: fixed;top:0px;left:10px;z-index:2" >
     <md-button ng-click="toggleMenu()">
         <md-icon md-svg-src="/img/icons/ic_menu_24px.svg" style="width: 24px; height: 24px"></md-icon>
+        menu
     </md-button>
 </div>
+<global-search-directive></global-search-directive>
 <md-sidenav class="md-sidenav-left md-whiteframe-z2 istartsidemen" md-component-id="right">
     <md-toolbar class="md-theme-light">
         <h1 class="md-toolbar-tools">istart V2 Options</h1>

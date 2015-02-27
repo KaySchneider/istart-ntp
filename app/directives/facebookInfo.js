@@ -33,7 +33,6 @@ app.directive('facebookInfo', function() {
                 var url = 'https://www.facebook.com/desktop_notifications/counts.php?latest=0&latest_read=0';
                 $http.get(url)
                     .success(function(data) {
-                        console.log(data);
                         try {
                             if(typeof data == 'object') {
                                 $scope.messagesCount = data.inbox.unread;

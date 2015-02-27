@@ -9,7 +9,7 @@
     "permissions": [
         "history","management","storage",
         "unlimitedStorage","<all_urls>",
-        "webNavigation", "tabs", "alarms"
+        "webNavigation", "tabs", "alarms", "bookmarks"
     ],
     "icons": {
         "128": "istartIcon.png",
