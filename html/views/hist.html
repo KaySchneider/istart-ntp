@@ -1,6 +1,6 @@
 <h2 class="pheader" >iStart</h2>
 <div style="position: fixed;height:80px;top:0;left:0;width: 100%;z-index:1;border:0px solid red" is-on-hover></div><!--ng-show="hover==true||editMode==true"-->
-<!--<md-toolbar md-scroll-shrink class="md-whiteframe-z2 " is-on-hover ng-show="hover==true||editMode==true" style="position:fixed;" >
+<md-toolbar md-scroll-shrink class="md-whiteframe-z2 " is-on-hover ng-show="hover==true||editMode==true" style="position:fixed;" >
     <div class="md-toolbar-tools">
         <md-button ng-click="toggleMenu()">
             <md-icon md-svg-src="/img/icons/ic_menu_24px.svg" style="width: 24px; height: 24px"></md-icon>
@@ -27,10 +27,7 @@
 
             <i18n>bookmarks</i18n>
         </md-button>
-        <md-input-container>
-            <label><i18n>search</i18n></label>
-            <input ng-model="filterTiles" >
-        </md-input-container>
+        <span style="width:250px"></span>
 
         </md-content>
         <md-switch class="md-warn" ng-model="editMode">
@@ -38,8 +35,8 @@
             edit mode: {{editMode}}
         </md-switch>
     </div>
-</md-toolbar>-->
-<div style="position: fixed;top:0px;left:10px;z-index:2" >
+</md-toolbar>
+<div style="position: fixed;top:0px;left:10px;z-index:2" ng-show="hover==false">
     <md-button ng-click="toggleMenu()">
         <md-icon md-svg-src="/img/icons/ic_menu_24px.svg" style="width: 24px; height: 24px"></md-icon>
         menu

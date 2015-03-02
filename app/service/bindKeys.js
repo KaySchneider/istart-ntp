@@ -27,7 +27,8 @@ app.factory('bindKeys', ['$q', '$window', '$rootScope' ,function ($q, $window, $
         left:false,
         right:false,
         enter:false,
-        return:true
+        return:true,
+        esc:false
     };
 
     var allNull = function() {
@@ -36,6 +37,7 @@ app.factory('bindKeys', ['$q', '$window', '$rootScope' ,function ($q, $window, $
         states.left=false;
         states.enter=false;
         states.right = false;
+        states.esc=false;
     };
 
     if(bind === false) {
@@ -79,6 +81,11 @@ app.factory('bindKeys', ['$q', '$window', '$rootScope' ,function ($q, $window, $
                     break;
                 case 13:
                     states.enter=true;
+                    $rootScope.$broadcast('states', states);
+                    return states.return;
+                    break;
+                case 27: //esc
+                    states.esc=true;
                     $rootScope.$broadcast('states', states);
                     return states.return;
                     break;

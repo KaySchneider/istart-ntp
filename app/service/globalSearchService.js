@@ -1,6 +1,7 @@
 'use strict';
 var app  = angular.module('istart');
-app.factory('globalSearchService',['chromeApp','matrix', '$q',function(chromeApp, matrix, $q, $timeout) {
+app.factory('globalSearchService',['chromeApp','matrix', '$q','appSettings','$rootScope',
+    function(chromeApp, matrix, $q, appSettings, $rootScope) {
     /**
      * this methods must add the data from different sources
      * to one search model!
@@ -124,7 +125,22 @@ app.factory('globalSearchService',['chromeApp','matrix', '$q',function(chromeApp
             });
         return defer.promise;
     };
-    warmUp();//start loading the data!
+       appSettings.settings.globalSearch()
+           .then(function(settings) {
+            if(settings.active===true) {
+                warmUp();
+            }
+           });
+       $rootScope.$on('globalsearchSettingsChanged', function() {
+           appSettings.settings.globalSearch().then(
+               function(settings) {
+                   if(settings.active===true) {
+                       warmUp();
+                   }
+               }
+           );
+       });
+
     return {
         'getall': getAll,
         'query' :  query

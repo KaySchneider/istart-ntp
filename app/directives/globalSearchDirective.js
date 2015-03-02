@@ -9,9 +9,11 @@ app.directive('globalSearchDirective', function() {
         scope: true,
         templateUrl: '../html/templates/globalSearch.html',
         controller: ['$scope','globalSearchService', 'appLauncher', 'loadpage',
-                    '$compile', 'bindKeys', '$rootScope', 'analytics',
-        function( $scope, globalSearchService, appLauncher, loadpage, $compile, bindKeys, $rootScope, analytics ) {
+                    '$compile', 'bindKeys', '$rootScope', 'analytics', 'appSettings',
+        function( $scope, globalSearchService, appLauncher, loadpage,
+                  $compile, bindKeys, $rootScope, analytics, appSettings ) {
             $scope.searchActive=false;
+            $scope.searchInject=false;
             $scope.gsearchQuery="";
             $scope.resultArea=angular.element('#globalSearchResults');
             $scope.indexActive = 0;
@@ -158,6 +160,11 @@ app.directive('globalSearchDirective', function() {
                 }
             };
 
+            $scope.close = function() {
+                $scope.gsearchQuery="";
+
+            };
+
             $scope.removeListenerRootScope = $rootScope.$on('states', function(states, newal) {
                 if(newal.up === true) {
                     if($scope.indexActive>0) {
@@ -169,7 +176,16 @@ app.directive('globalSearchDirective', function() {
                         $scope.removeOldIndex();
                         $scope.indexActive++;
                     }
-                } else if(newal.enter === true) {
+                }
+                else if(newal.esc === true) {
+                    $scope.gsearchQuery="";
+                    try {
+                        $scope.$apply();
+                    } catch(e) {
+                        console.debug(e);
+                    }
+                }
+                else if(newal.enter === true) {
                     /**
                      * now we mus evaluate what is to do with
                      * the current ITEM inside the searc
@@ -217,6 +233,27 @@ app.directive('globalSearchDirective', function() {
                     });
                 analytics.track('globalsearch', 'search', {value:$scope.gsearchQuery});
             });
+
+            $scope.loadSettings=function() {
+                appSettings.settings.globalSearch()
+                    .then(function(settings) {
+                        if(settings.active===true) {
+                            $scope.searchInject=true;
+                        } else {
+                            $scope.searchInject=false;
+                        }
+                    });
+            };
+
+            $scope.loadSettings();
+
+            $rootScope.$on('globalsearchSettingsChanged', function() {
+                appSettings.settings.globalSearch()
+                    .then(function() {
+                        $scope.loadSettings();
+                    });
+            });
+
         }],
         link: function(scope, element, attrs) {
 

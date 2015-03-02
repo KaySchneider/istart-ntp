@@ -40,10 +40,25 @@ app.directive('appSettings', function() {
                            appSettings.settings.setmouseWheelActive($scope.mouseWheelActive);
                         });
 
+                        $scope.globalSearchActive=false;
+                        $scope.$watch('globalSearchActive', function() {
+                            appSettings.settings.setGlobalSearch($scope.globalSearchActive);
+                        });
+
+                        appSettings.settings.globalSearch().then(
+                            function(settings) {
+                                $scope.globalSearchActive=settings.active;
+                            });
+
                         appSettings.settings.mouseWheel().then(
                             function(settings) {
                                 $scope.mouseWheelActive = settings.active;
                             });
+
+
+
+
+
 
                         $scope.fileNameChanged = function(data) {
                             console.log(data);

@@ -24,6 +24,9 @@ app.factory('appSettings', ['$q', '$rootScope',function ($q, $rootScope) {
             },
             mouseWheel: {
                 active:true
+            },
+            globalsearch: {
+                active:false
             }
         },
         config:null,
@@ -91,6 +94,34 @@ app.factory('appSettings', ['$q', '$rootScope',function ($q, $rootScope) {
             } else {
                defer.resolve(true);
             }
+            return defer.promise;
+        },
+        setGlobalSearch: function(activeState) {
+            if(typeof settings.config.globalsearch !== "undefined") {
+                settings.config.globalsearch.active=activeState;
+            } else {
+                settings.config.globalsearch = {
+                    active: activeState
+                };
+            }
+            settings.save();
+            $rootScope.$broadcast('globalsearchSettingsChanged', {});
+        },
+        globalSearch: function() {
+            var defer = $q.defer();
+            this.checkSettingsLoaded().then(
+                function() {
+                    if(typeof settings.config.globalsearch !== "undefined") {
+                        defer.resolve(settings.config.globalsearch);
+                    } else {
+                        /**
+                         * if the settings are not present than this version didnt has the
+                         * updated settings object! So we add simply true to this object
+                         * and resolve it
+                         */
+                        defer.resolve(settings.settingsDefault.globalsearch);
+                    }
+                });
             return defer.promise;
         },
         mouseWheel: function() {
