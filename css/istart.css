@@ -213,3 +213,23 @@ div.rssFeedWrapper {
     opacity: 0.9;
     overflow: scroll;
 }
+
+/**
+UPDATE INFORMATION CENTRE OVERLAY SHOW ONLY ON LARGE CHANGES
+**/
+.updateinfo {
+    width:100%;
+    height: 400px;
+    position: fixed;
+    background-color:white;
+    top:14%;
+    margin-bottom:200px;
+    z-index:99999;
+}
+
+.updateinfo > .inner {
+
+    /**
+    move this container into the center;
+    **/
+}

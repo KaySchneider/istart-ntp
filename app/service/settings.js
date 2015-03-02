@@ -27,6 +27,10 @@ app.factory('appSettings', ['$q', '$rootScope',function ($q, $rootScope) {
             },
             globalsearch: {
                 active:false
+            },
+            updateCenter: {
+                show:false,
+                version:"2.0.1.60"
             }
         },
         config:null,
@@ -95,6 +99,36 @@ app.factory('appSettings', ['$q', '$rootScope',function ($q, $rootScope) {
                defer.resolve(true);
             }
             return defer.promise;
+        },
+        updateCenter: function() {
+            var defer = $q.defer();
+            this.checkSettingsLoaded().then(
+                function() {
+                    if(typeof settings.config.updateCenter !== "undefined") {
+                        defer.resolve(settings.config.updateCenter);
+                    } else {
+                        /**
+                         * if the settings are not present than this version didnt has the
+                         * updated settings object! So we add simply true to this object
+                         * and resolve it
+                         */
+                        defer.resolve(settings.settingsDefault.updateCenter);
+                    }
+                });
+            return defer.promise;
+        },
+        setUpdateCenter: function(show, versionString) {
+            if(typeof settings.config.updateCenter !== "undefined") {
+                settings.config.updateCenter.show=show;
+                settings.config.updateCenter.version=versionString;
+            } else {
+                settings.config.updateCenter = {
+                    show: show,
+                    version: versionString
+                };
+            }
+            settings.save();
+            //$rootScope.$broadcast('globalsearchSettingsChanged', {});
         },
         setGlobalSearch: function(activeState) {
             if(typeof settings.config.globalsearch !== "undefined") {

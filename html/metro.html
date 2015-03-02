@@ -30,12 +30,14 @@
 </head>
 
 <body id="mbg" class="win-ui-dark metro" style="overflow-x: scroll"><!--win-ui-dark-->
+<update-central></update-central>
 <!-- start here with the new apps content... and at first we create some performance test -->
 <div style="position:absolute;left:0px;top:0px; width: 100%;height: 100%;position: fixed" desktop-background></div>
 <div ui-view  class="">
 
 </div>
 <edit-tile-bottom tileInfo="editTileInfo" ></edit-tile-bottom>
+
 <!-- build:js  ../build/app/istart-V2-material-new-tab-0.0.1.js -->
 <script src="../bower_components/jquery/dist/jquery.js"></script>
 <script src="../bower_components/jquery-ui/jquery-ui.js"></script>
@@ -112,6 +114,7 @@
 <script src="../app/directives/selectIcon.js"></script>
 <script src="../app/directives/globalSearchDirective.js"></script>
 <script src="../app/service/globalSearchService.js"></script>
+<script src="../app/directives/updateCentral.js"></script>
 <!-- endbuild -->
 </body>
 </html>
