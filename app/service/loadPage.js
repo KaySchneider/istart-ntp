@@ -2,6 +2,7 @@
 var app  = angular.module('istart');
 app.factory('loadpage', ['$q','analytics',function ($q, analytics) {
     var loadPage = function (url) {
+        console.log(url);
         /**
          * TODO: use here the config object to check if
          * the new pages should load inside a new page
@@ -22,14 +23,15 @@ app.factory('loadpage', ['$q','analytics',function ($q, analytics) {
      * check if the url to load is valid and complete url
      */
     var checkUrlCompleted = function(url) {
-        var test = new RegExp('^(https?:)?(http?:)', 'i');
+        var test = new RegExp('^(http|https)://', 'i');
         return test.test(url);
     };
+
     return {
         loadPage: function(url) {
             return loadPage(url);
         },
-        checkUrl: function(url) {
+            checkUrl: function(url) {
             return checkUrlCompleted(url);
         }
     };

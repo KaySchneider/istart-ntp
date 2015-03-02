@@ -191,3 +191,25 @@ div.rssFeedWrapper {
     height: 200px;
     overflow: scroll;
 }
+.searchresultwrapp {
+    overflow: scroll;
+}
+.searchResultBox {
+    height: 100%;
+    width: 100%;
+}
+
+.searchResultBox > li {
+    height: 50px;
+    overflow:hidden;
+    border:1px solid white;
+}
+
+.red {
+    border:2px solid red !important;
+}
+
+.searchResultList {
+    opacity: 0.9;
+    overflow: scroll;
+}

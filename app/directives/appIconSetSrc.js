@@ -1,10 +1,6 @@
 /**
  * Created by ikay on 12.01.15.
  */
-/**
-
- */
-
 var app = angular.module('istartMetroDirective');
 app.directive('appIconSetSrc', function() {
     return {

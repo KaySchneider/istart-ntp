@@ -25,7 +25,6 @@ app.factory('globalSearchService',['chromeApp','matrix', '$q',function(chromeApp
         apps.apps()
             .then(function(apps) {
                 appsList = apps;
-                console.log(apps);
             });
         matrix.getLocalData()
             .then(function(tilesArray) {
@@ -91,7 +90,19 @@ app.factory('globalSearchService',['chromeApp','matrix', '$q',function(chromeApp
         var defer = $q.defer();
         if(chrome.bookmarks) {
             chrome.bookmarks.search(query, function(bmt){
-                defer.resolve(bmt);
+                var regTestJS = new RegExp('javascript','i');
+                var rs =[];
+                for(var index in bmt) {
+                    var item =bmt[index];
+                    if(!item.url)
+                        continue;
+                    if(regTestJS.test(item.url)) {
+                      continue;
+                   } else {
+                     rs.push(item);
+                   }
+                }
+                defer.resolve(rs);
             });
         }
         return defer.promise;
