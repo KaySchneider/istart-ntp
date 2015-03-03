@@ -196,7 +196,7 @@ app.directive('globalSearchDirective', function() {
                         var info = getIstartItemLabelUrl(item);
                         $scope.loadPage(info[1]);
                     }
-                    if(item.dateAdded || (item.w && item.link)) {
+                    else if(item.dateAdded || (item.w && item.link)) {
                         //item is link
                         if(item.url)
                             $scope.loadPage(item.url);
@@ -204,6 +204,8 @@ app.directive('globalSearchDirective', function() {
                             $scope.loadPage(item.link);
                             console.log(item.link);
                         }
+                    } else if (item.isApp == true) {
+                        $scope.launchApp(item.id);
                     }
                 }
                 try {
