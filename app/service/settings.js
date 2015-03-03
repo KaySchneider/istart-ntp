@@ -76,11 +76,15 @@ app.factory('appSettings', ['$q', '$rootScope',function ($q, $rootScope) {
             settings.config.background.image=bgImage;
             settings.save();
         },
-        setBackgroundptions: function(backgroundSize) {
+        setBackgroundSize: function(backgroundSize) {
             settings.config.background.backgroundSize = backgroundSize;
+            settings.save();
+            $rootScope.$broadcast('changeBackground');
         },
         setBackgroundRepeat: function(backgroundRepeat) {
-            settings.config.background.backgroundSize = backgroundRepeat;
+            settings.config.background.backgroundRepeat = backgroundRepeat;
+            settings.save();
+            $rootScope.$broadcast('changeBackground');
         },
         setmouseWheelActive: function(activeState) {
             if(typeof settings.config.mouseWheel !== "undefined") {

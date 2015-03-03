@@ -9,8 +9,8 @@ app.directive('appSettings', function() {
     return {
         restrict: 'A',//set your own click handler
         scope: true, //use own scope
-        controller: ['$scope', '$mdDialog', '$rootScope', '$window', '$q', '$http',
-            function ($scope, $mdDialog, $rootScope, $window, $q, $http, fileSystem) {
+        controller: ['$scope', '$mdDialog', '$rootScope', '$window', '$q', '$http', 'permissionCheck',
+            function ($scope, $mdDialog, $rootScope, $window, $q, $http, fileSystem, permissionCheck) {
                 var ps = $scope;
                 $scope.edit=false;
 
@@ -20,8 +20,8 @@ app.directive('appSettings', function() {
                  * @type {*[]}
                  */
                 $scope.DialogController = ['$scope', '$mdDialog', '$window','fileSystem','appSettings','$http',
-                    '$rootScope',
-                    function($scope, $mdDialog, $window, fileSystem, appSettings, $http, $rootScope) {
+                    '$rootScope', 'permissionCheck',
+                    function($scope, $mdDialog, $window, fileSystem, appSettings, $http, $rootScope, permissionCheck) {
                         $scope.bgImageForm = "";
                         $scope.fs =  fileSystem;
                         $scope.appSettings= appSettings;
@@ -43,7 +43,24 @@ app.directive('appSettings', function() {
 
                         $scope.globalSearchActive=false;
                         $scope.$watch('globalSearchActive', function() {
+                            permissionCheck.checkPerm('bookmarks')
+                                .then(function(has) {
+                                    if(has === false) {
+                                        //we need this permissions!
+                                        chrome.permissions.request({
+                                            permissions: ['bookmarks']
+                                        }, function(granted) {
+                                            // The callback argument will be true if the user granted the permissions.
+                                            if (granted) {
+                                                console.log("OKAY LETS DO IT!");
+                                            } else {
+                                                console.log("WARGH");
+                                            }
+                                    });
+                                 }
+                                });
                             appSettings.settings.setGlobalSearch($scope.globalSearchActive);
+
                         });
 
                         appSettings.settings.background().then(function(settings) {
@@ -60,6 +77,15 @@ app.directive('appSettings', function() {
                          * TODO: add here the background Options and sizing options with an
                          * watcher and setter inside the settings service model!"! START TOMORROW
                          */
+                        $scope.$watch('backgroundOptions.backgroundSize', function() {
+                            console.log('changed');
+                            appSettings.settings.setBackgroundSize($scope.backgroundOptions.backgroundSize);
+                        });
+
+                        $scope.$watch('backgroundOptions.backgroundRepeat', function() {
+                            console.log('changed');
+                            appSettings.settings.setBackgroundRepeat($scope.backgroundOptions.backgroundRepeat);
+                        });
 
                         appSettings.settings.globalSearch().then(
                             function(settings) {

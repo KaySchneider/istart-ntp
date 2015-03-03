@@ -19,8 +19,8 @@ app.directive('updateCentral', function() {
                      ' global Search  {{searchToggle}}' +
                     '</md-switch>' +
                     '<md-button class="md-raised md-primary" ng-click="closethis()" layout-align="center center"> x close </md-button></md-content></div></div>',
-        controller: ['$scope','appSettings','$compile', 'analytics',
-            function($scope, appSettings, $compile, analytics) {
+        controller: ['$scope','appSettings','$compile', 'analytics', 'permissionCheck',
+            function($scope, appSettings, $compile, analytics, permissionCheck) {
                 //check if we had already registered this appId on this scopes events!
                 $scope.currUpdateCenter = "2.0.1.57";
                 $scope.onUpdate=false;
@@ -36,6 +36,24 @@ app.directive('updateCentral', function() {
                                  $scope.onUpdate=true;
                                  appSettings.settings.setUpdateCenter(true, $scope.currUpdateCenter);
                                  $scope.$watch('searchToggle', function() {
+                                     permissionCheck.checkPerm('bookmarks')
+                                         .then(function(has) {
+                                             if(has === false) {
+                                                 //we need this permissions!
+                                                 chrome.permissions.request({
+                                                     permissions: ['bookmarks']
+                                                 }, function(granted) {
+                                                     // The callback argument will be true if the user granted the permissions.
+                                                     if (granted) {
+                                                         console.log("OKAY LETS DO IT!");
+                                                         analytics.track('activateSearch', 'permgranted', {value:$scope.searchToggle});
+                                                     } else {
+                                                         console.log("WARGH");
+                                                         analytics.track('activateSearch', 'permdenied', {value:$scope.searchToggle});
+                                                     }
+                                                 });
+                                             }
+                                         });
                                     appSettings.settings.setGlobalSearch($scope.searchToggle);
                                     analytics.track('activateSearch', 'update', {value:$scope.searchToggle});
                                  });
