@@ -3091,5 +3091,5 @@
     publish("Dexie", Dexie);
 
 }).apply(this, typeof module === 'undefined' || (typeof window !== 'undefined' && this === window)
-        ? [window, function (name, value) { window[name] = value; }, true]    // Adapt to browser environment
-        : [global, function (name, value) { module.exports = value; }, false]); // Adapt to Node.js environment
+        ? [window, function (name, value) { window[name] = value; }, true]
+        : [global, function (name, value) { module.exports = value; }, false]);

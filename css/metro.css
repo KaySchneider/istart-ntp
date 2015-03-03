@@ -407,14 +407,14 @@ li {
 
 
 .pheader {
-    position:fixed;
+    position: fixed;
     text-align: left;
-    color:white;
+    color: white;
     font-weight: 100;
     font-size: 40px;
-    top:5px;
-    left:25px;
-    margin:0;
+    top: 25px;
+    left: 47px;
+    margin: 0;
 }
 
 .editPanel {

@@ -19,6 +19,10 @@ app.directive('desktopBackground', function() {
                     //set bg image
                     $scope.element.css('background-image', '');
                     $scope.element.css('background-image', bgoptions.image);
+                    if(bgoptions.backgroundSize)
+                        $scope.element.css('background-size', bgoptions.backgroundSize);
+                    if(bgoptions.backgroundRepeat)
+                        $scope.element.css('background-repeat', bgoptions.backgroundRepeat);
                 }
                 if(bgoptions.cssadd == true) {
                     //set css for background

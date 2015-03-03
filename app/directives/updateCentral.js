@@ -10,7 +10,7 @@ app.directive('updateCentral', function() {
     return {
         restrict: 'E',
         scope: true,
-        template: '<div class="updateinfo" ng-show="onUpdate==true" layout="row" layout-align="center center"><div class="inner"  flex="55"><md-content ><md-button ng-click="closethis()">close</md-button>' +
+        template:  '<div class="updateinfo" ng-show="onUpdate==true" layout="row" layout-align="center center"><div class="inner"  flex="55"><md-content ><md-button ng-click="closethis()">close</md-button>' +
                     '<h2>Update information</h2><p>Hey, thanks for using iStart. This is the new update center Where i want inform you about new features like today.' +
                     ' Now you can activate the Global Search. Search Bookmarks, apps or tiles' +
                     ' direct on the iStart new tab page :). You can activate this new <b>experimental</b> feature on the settings section of iStart. Or just toggle this' +
@@ -24,7 +24,6 @@ app.directive('updateCentral', function() {
                 //check if we had already registered this appId on this scopes events!
                 $scope.currUpdateCenter = "2.0.1.57";
                 $scope.onUpdate=false;
-
                 $scope.messages =$compile()($scope);
                 $scope.message = $scope.messages.html();
                 $scope.searchToggle=false;
@@ -36,7 +35,7 @@ app.directive('updateCentral', function() {
                         if(settings.version != $scope.currUpdateCenter) {
                                  $scope.onUpdate=true;
                                  appSettings.settings.setUpdateCenter(true, $scope.currUpdateCenter);
-                                 $scope.$watch('searchToggle', function(settings) {
+                                 $scope.$watch('searchToggle', function() {
                                     appSettings.settings.setGlobalSearch($scope.searchToggle);
                                     analytics.track('activateSearch', 'update', {value:$scope.searchToggle});
                                  });

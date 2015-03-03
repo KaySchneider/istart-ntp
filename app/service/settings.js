@@ -14,13 +14,17 @@ app.factory('appSettings', ['$q', '$rootScope',function ($q, $rootScope) {
     //if(localStorage.istartbackground)
     var settings =  {
         loaded:null,
+        backgroundSizeOptions: ['cover', 'initial'],
+        backgroundRepeatOptions: ['no-repeat', 'repeat'],
         settingsDefault : {
             background: {
                 imageadd:false,
                 cssadd:false,
                 css: '',
                 image:'',
-                options:null
+                options:null,
+                backgroundSize: 'cover',
+                backgroundRepeat: 'no-repeat'
             },
             mouseWheel: {
                 active:true
@@ -71,6 +75,12 @@ app.factory('appSettings', ['$q', '$rootScope',function ($q, $rootScope) {
             settings.config.background.imageadd=true;
             settings.config.background.image=bgImage;
             settings.save();
+        },
+        setBackgroundptions: function(backgroundSize) {
+            settings.config.background.backgroundSize = backgroundSize;
+        },
+        setBackgroundRepeat: function(backgroundRepeat) {
+            settings.config.background.backgroundSize = backgroundRepeat;
         },
         setmouseWheelActive: function(activeState) {
             if(typeof settings.config.mouseWheel !== "undefined") {

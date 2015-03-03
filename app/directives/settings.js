@@ -25,6 +25,7 @@ app.directive('appSettings', function() {
                         $scope.bgImageForm = "";
                         $scope.fs =  fileSystem;
                         $scope.appSettings= appSettings;
+                        $scope.backgroundOptions;
                         /**
                          * add small gallery for background images!
                          * Maybe we didnt habe enough place inside our form
@@ -45,6 +46,21 @@ app.directive('appSettings', function() {
                             appSettings.settings.setGlobalSearch($scope.globalSearchActive);
                         });
 
+                        appSettings.settings.background().then(function(settings) {
+                            $scope.backgroundOptions=settings;
+                            if(!settings.backgroundSize) {
+                                $scope.backgroundOptions.backgroundSize="";
+                            }
+                            if(!settings.backgroundRepeat) {
+                                $scope.backgroundOptions.backgroundRepeat="";
+                            }
+                        });
+
+                        /**
+                         * TODO: add here the background Options and sizing options with an
+                         * watcher and setter inside the settings service model!"! START TOMORROW
+                         */
+
                         appSettings.settings.globalSearch().then(
                             function(settings) {
                                 $scope.globalSearchActive=settings.active;
@@ -55,14 +71,15 @@ app.directive('appSettings', function() {
                                 $scope.mouseWheelActive = settings.active;
                             });
 
-
-
-
-
-
                         $scope.fileNameChanged = function(data) {
                             console.log(data);
                         };
+
+                        $scope.backgroundSizeOptions = appSettings.settings.backgroundSizeOptions;
+                        $scope.backgroundRepeatOptions = appSettings.settings.backgroundRepeatOptions;
+
+
+
 
                         $scope.uploadfile =function() {
                             console.log('UPLOAD FILE');
