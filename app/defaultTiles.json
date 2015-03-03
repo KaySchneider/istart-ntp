@@ -113,7 +113,7 @@
                     "label": "amazon",
                     "color": "#008641",
                     "useredit": ["tld", "color"],
-                    "defaultld": "de",
+                    "defaultld": "com",
                     "link": "http://www.amazon.de?tag=istart-21"
                 },
                 "extensionid": "amazonsearch",
