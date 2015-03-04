@@ -17,7 +17,8 @@ app.directive('appHeader', function() {
             function($scope, $rootScope, $mdSidenav, appSettings) {
                 $scope.alternate=false;
                 $scope.hover=false;
-
+                $scope.menuIconColor='black';
+                $scope.menuIconStyle="";
                 $scope.toggleMenu = function() {
                     $mdSidenav('right').toggle()
                         .then(function(){
@@ -49,7 +50,12 @@ app.directive('appHeader', function() {
                 $scope.loadSettings=function() {
                     appSettings.settings.header().
                         then(function(headerconfig) {
+                            console.log(headerconfig, "HEADER CONFIG");
                             $scope.alternate = headerconfig.alternative;
+                            $scope.menuIconColor = headerconfig.menuIconColor;
+                            $scope.menuIconStyle = {color:'"'+$scope.menuIconColor+'"',
+                                                    width: headerconfig.menuDimension.w + 'px',
+                                                    height:headerconfig.menuDimension.h +'px'};
                         });
                 };
                 $scope.$watch('editMode', function() {

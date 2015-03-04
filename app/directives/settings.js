@@ -43,10 +43,12 @@ app.directive('appSettings', function() {
 
                         $scope.alternativeHeader=false;
                         $scope.$watch('alternativeHeader', function() {
-                            var tmp = {
-                                alternative: $scope.alternativeHeader
-                            };
-                            appSettings.settings.setHeader(tmp);
+                            appSettings.settings.setHeaderAlternative($scope.alternativeHeader);
+                        });
+
+                        $scope.menuIconColor='';
+                        $scope.$watch('menuIconColor', function() {
+                           appSettings.settings.setMenuIconColor($scope.menuIconColor);
                         });
 
                         $scope.globalSearchActive=false;
@@ -106,7 +108,9 @@ app.directive('appSettings', function() {
                             });
                         appSettings.settings.header().then(function(headerSettings) {
                              $scope.alternativeHeader=headerSettings.alternative;
+                             $scope.menuIconColor=headerSettings.menuIconColor;
                         });
+
 
                         $scope.fileNameChanged = function(data) {
                             console.log(data);

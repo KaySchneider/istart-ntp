@@ -180,6 +180,28 @@ app.factory('appSettings', ['$q', '$rootScope',function ($q, $rootScope) {
                 });
             return defer.promise;
         },
+        ensureHeaderConfigExists: function() {
+            if(typeof settings.config.header == "undefined") {
+                settings.config.header = settings.settingsDefault.header;
+            }
+        },
+        setHeaderAlternative: function(alternativeState) {
+            settings.ensureHeaderConfigExists();
+            settings.config.header.alternative = alternativeState;
+            settings.save();
+            $rootScope.$broadcast('globalHeaderChanged');
+        },
+        setMenuIconColor: function(color) {
+            settings.ensureHeaderConfigExists();
+            settings.config.header.menuIconColor=color;
+            settings.config.header.menuDimension
+            settings.save();
+            $rootScope.$broadcast('globalHeaderChanged');
+        },
+        setMenuDimension: function(dimsObject) {
+            settings.ensureHeaderConfigExists();
+            settings.config.header.menuDimension=dimsObject;
+        },
         setHeader: function(headerConfigObject) {
             settings.config.header = headerConfigObject;
             settings.save();
