@@ -13,13 +13,14 @@ app.directive('appHeader', function() {
         restrict: 'E',
         templateUrl:'../html/templates/appHeader.html',
         scope:true,
-        controller: ['$scope', '$rootScope','$mdSidenav', 'appSettings',
-            function($scope, $rootScope, $mdSidenav, appSettings) {
+        controller: ['$scope', '$rootScope','$mdSidenav', 'appSettings','analytics', 'internalUrlLoader','$location',
+            function($scope, $rootScope, $mdSidenav, appSettings, analytics, internalUrlLoader, $location) {
                 $scope.alternate=false;
                 $scope.hover=false;
                 $scope.menuIconColor='black';
                 $scope.menuIconStyle="";
                 $scope.toggleMenu = function() {
+                    analytics.track('toggleMenu', 'state');
                     $mdSidenav('right').toggle()
                         .then(function(){
                             console.log("OPEN");
@@ -45,6 +46,7 @@ app.directive('appHeader', function() {
                     internalUrlLoader.extensions();
                 };
                 $scope.go = function(path) {
+                    analytics.track('showapps', 'appcenter');
                     $location.path(path);
                 };
                 $scope.loadSettings=function() {

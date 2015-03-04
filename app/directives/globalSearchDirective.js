@@ -18,6 +18,7 @@ app.directive('globalSearchDirective', function() {
             $scope.resultArea=angular.element('#globalSearchResults');
             $scope.indexActive = 0;
             $scope.resList=[];
+            $scope.bindKeys=bindKeys;
             $scope.activeAppClass = 'md-accent red';
             $scope.listItemIdPrefix="globalsearchdiritemfound";
             $scope.checkSize = function(images, needleSizeInt, minSize) {
@@ -148,8 +149,12 @@ app.directive('globalSearchDirective', function() {
             };
 
             $scope.$on('$destroy', function() {
-                $scope.bindKeys.removecontroller();
-                $scope.removeListenerRootScope();
+                try {
+                    $scope.bindKeys.removecontroller();
+                    $scope.removeListenerRootScope();
+                } catch(e) {
+
+                }
             });
 
             $scope.removeOldIndex = function() {

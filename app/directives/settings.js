@@ -20,12 +20,14 @@ app.directive('appSettings', function() {
                  * @type {*[]}
                  */
                 $scope.DialogController = ['$scope', '$mdDialog', '$window','fileSystem','appSettings','$http',
-                    '$rootScope', 'permissionCheck',
-                    function($scope, $mdDialog, $window, fileSystem, appSettings, $http, $rootScope, permissionCheck) {
+                    '$rootScope', 'permissionCheck', 'analytics',
+                    function($scope, $mdDialog, $window, fileSystem, appSettings, $http, $rootScope, permissionCheck , analytics) {
                         $scope.bgImageForm = "";
                         $scope.fs =  fileSystem;
                         $scope.appSettings= appSettings;
                         $scope.backgroundOptions;
+                        $scope.menuIconPreviewStyle="";
+                        $scope.menuIconDimension={w:30,h:30};
                         /**
                          * add small gallery for background images!
                          * Maybe we didnt habe enough place inside our form
@@ -36,19 +38,40 @@ app.directive('appSettings', function() {
                             console.log(data);
                         });
 
+                        $scope.setPreviewMenuIcon = function() {
+                            $scope.menuIconPreviewStyle = {
+                                'width':$scope.dimensionMenuIcon+'px',
+                                'height':$scope.dimensionMenuIcon+'px',
+                                'color':$scope.menuIconColor
+                            }
+                        };
+
+                        $scope.$watch('dimensionMenuIcon', function() {
+                            $scope.menuIconDimension.w=$scope.dimensionMenuIcon;
+                            $scope.menuIconDimension.h=$scope.dimensionMenuIcon;
+
+                            appSettings.settings.setMenuDimension($scope.menuIconDimension);
+                            $scope.setPreviewMenuIcon();
+                            analytics.track('settings','dimensionMenuIcon',{value:$scope.dimensionMenuIcon});
+                        });
+
                         $scope.mouseWheelActive=false;
                         $scope.$watch('mouseWheelActive', function() {
                            appSettings.settings.setmouseWheelActive($scope.mouseWheelActive);
+                            analytics.track('settings','mouseWheelActive',{value:'\''+$scope.mouseWheelActive+'\''});
                         });
 
                         $scope.alternativeHeader=false;
                         $scope.$watch('alternativeHeader', function() {
                             appSettings.settings.setHeaderAlternative($scope.alternativeHeader);
+                            analytics.track('settings','alternativeHeader',{value:'\''+$scope.alternativeHeader+'\''});
                         });
 
                         $scope.menuIconColor='';
                         $scope.$watch('menuIconColor', function() {
                            appSettings.settings.setMenuIconColor($scope.menuIconColor);
+                            $scope.setPreviewMenuIcon();
+                            analytics.track('settings','menuIconColor',{value:$scope.menuIconColor});
                         });
 
                         $scope.globalSearchActive=false;
@@ -70,6 +93,7 @@ app.directive('appSettings', function() {
                                  }
                                 });
                             appSettings.settings.setGlobalSearch($scope.globalSearchActive);
+                            analytics.track('settings','globalSearch',{value: '\''+$scope.globalSearchActive+'\''});
 
                         });
 
@@ -90,11 +114,13 @@ app.directive('appSettings', function() {
                         $scope.$watch('backgroundOptions.backgroundSize', function() {
                             console.log('changed');
                             appSettings.settings.setBackgroundSize($scope.backgroundOptions.backgroundSize);
+                            analytics.track('settings','backgroundSize',{value:$scope.backgroundOptions.backgroundSize});
                         });
 
                         $scope.$watch('backgroundOptions.backgroundRepeat', function() {
                             console.log('changed');
                             appSettings.settings.setBackgroundRepeat($scope.backgroundOptions.backgroundRepeat);
+                            analytics.track('settings','backgroundRepeat',{value:$scope.backgroundOptions.backgroundRepeat});
                         });
 
                         appSettings.settings.globalSearch().then(
@@ -109,6 +135,9 @@ app.directive('appSettings', function() {
                         appSettings.settings.header().then(function(headerSettings) {
                              $scope.alternativeHeader=headerSettings.alternative;
                              $scope.menuIconColor=headerSettings.menuIconColor;
+                             $scope.menuIconDimension=headerSettings.menuDimension;
+                             $scope.dimensionMenuIcon=headerSettings.menuDimension.w;
+                            $scope.setPreviewMenuIcon();
                         });
 
 

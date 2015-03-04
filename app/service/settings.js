@@ -194,13 +194,14 @@ app.factory('appSettings', ['$q', '$rootScope',function ($q, $rootScope) {
         setMenuIconColor: function(color) {
             settings.ensureHeaderConfigExists();
             settings.config.header.menuIconColor=color;
-            settings.config.header.menuDimension
             settings.save();
             $rootScope.$broadcast('globalHeaderChanged');
         },
         setMenuDimension: function(dimsObject) {
             settings.ensureHeaderConfigExists();
             settings.config.header.menuDimension=dimsObject;
+            settings.save();
+            $rootScope.$broadcast('globalHeaderChanged');
         },
         setHeader: function(headerConfigObject) {
             settings.config.header = headerConfigObject;

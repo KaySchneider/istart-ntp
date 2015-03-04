@@ -5,7 +5,8 @@ app.directive('istartOptionsMenu', function() {
     return {
         restrict: 'E',
         templateUrl: '../html/views/optionsMenuItem.html',
-        controller: ['$scope', '$window','i18n', function($scope, $window, i18n) {
+        controller: ['$scope', '$window','i18n', 'loadpage', 'analytics',
+        function($scope, $window, i18n, loadpage, analytics) {
             $scope.translate = function(msg) {
                 return i18n.chrome.getMessage(msg);
             };
@@ -17,6 +18,10 @@ app.directive('istartOptionsMenu', function() {
 
             $scope.addNewSearchTile = function() {
                 //opens a gallery where the user can choose from different live tiles
+            };
+
+            $scope.loadUrl=function(url) {
+                loadpage.loadPage(url);
             };
 
             $scope.menuEntrys = [

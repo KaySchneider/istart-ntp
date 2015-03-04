@@ -32,7 +32,12 @@ app.controller('desktopCtrl',
          * store the new matrix to chrome local storage
          */
     });
-
+        $scope.closeMenu = function() {
+            $mdSidenav('right').close()
+                .then(function(){
+                    console.log("CLOSE");
+                });
+        };
     $rootScope.$on('globalHeaderChanged', function() {
         $scope.loadHeaderSettings();
     });

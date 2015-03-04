@@ -8,18 +8,20 @@
  * So können wir auch die Ladezeiten beschleunigen!!
  **/
 var app  = angular.module('istart');
-app.factory('internalUrlLoader', ['$window',function ($window) {
+app.factory('internalUrlLoader', ['$window','analytics',function ($window, analytics) {
 
     var loadDownloadPage = function() {
         chrome.tabs.create({
             url:'chrome://downloads'
         });
+        analytics.track('internalUrlLoader', 'state', {value:'downloads'});
     };
 
     var loadBookmarks = function() {
         chrome.tabs.create({
             url:'chrome://bookmarks'
         });
+        analytics.track('internalUrlLoader', 'state', {value:'bookmarks'});
     };
 
     var originalNewTab = function() {
@@ -29,6 +31,7 @@ app.factory('internalUrlLoader', ['$window',function ($window) {
         chrome.tabs.create({
             url: 'chrome-search://local-ntp/local-ntp.html'
         });
+        analytics.track('internalUrlLoader', 'state', {value:'newtabchrome'});
     };
 
     var loadExtensionPage = function() {
@@ -39,6 +42,7 @@ app.factory('internalUrlLoader', ['$window',function ($window) {
         chrome.tabs.create({
             url:'chrome://extensions'
         });
+        analytics.track('internalUrlLoader', 'state', {value:'extensions'});
     };
     /**
      * returns the current apps list!
