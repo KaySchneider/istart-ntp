@@ -60,6 +60,21 @@ angular.module('istart', [
             return true;
         };
 
+        $rootScope.load_guestbook_lib = function() {
+            var ROOT = 'https://istartapi.appspot.com/_ah/api';
+            // var ROOT = 'http://localhost:8080/_ah/api';
+              gapi.client.load('istart', 'v1', function() {
+                  $rootScope.is_backend_ready = true;
+                  console.log('LOADED');
+                  $rootScope.$broadcast('backendReady');
+              }, ROOT);
+        };
+        $window.init= function() {
+            console.log("INIT THIS FUUU");
+            $rootScope.$apply($rootScope.load_guestbook_lib);
+            $rootScope.load_guestbook_lib();
+        };
+
         $rootScope.getUniqueUUID = function() {
             var uuid;
             while(true==true) {
@@ -147,4 +162,9 @@ window.trackStart = function() {
         var s = document.getElementsByTagName('script')[0];
         s.parentNode.insertBefore(ga, s);
     })();
+};
+
+function init() {
+    console.log("CALLED INIT");
+    window.init();
 };

@@ -24,6 +24,21 @@ app.controller('desktopCtrl',
 
 
         });**/
+    $rootScope.$on('backendReady', function() {
+        /**
+         * checks if the backend is ready
+         */
+
+        $scope.fetchListRemote();
+    });
+
+
+    $scope.fetchListRemote = function() {
+      gapi.client.istart.tiles.list().execute(function(resp) {
+            console.log(resp);
+      });
+    };
+
     $scope.$watch('items', function() {
         $scope.hiddenMatrix = $scope.items;
         /**
