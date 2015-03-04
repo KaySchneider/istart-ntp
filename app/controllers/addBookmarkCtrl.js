@@ -25,6 +25,17 @@ app.controller('addBookmarkCtrl', [ '$scope','matrix', '$rootScope',
             config.uuid = $rootScope.getUniqueUUID();
             $scope.items[0].unshift([config]);
             $scope.ma.saveMatrix($scope.items);
+            chrome.storage.local.get('istartpop', function(data) {
+                console.log(data, "DATA");
+                var count =0;
+                if(data.istartpop) {
+                    count = data.istartpop;
+                }
+                count++;
+                chrome.storage.local.set({'istartpop':count}, function() {
+
+                });
+            });
             $scope.added=true;
         };
 

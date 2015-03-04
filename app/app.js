@@ -43,12 +43,28 @@ angular.module('istart', [
             'ngMaterial',
             'ngAnimate'
     ]
-).run(['$rootScope','$window' ,'analytics','liveTileApi',
-  function($rootScope, $window, analytics, liveTileApi) {
+).run(['$rootScope','$window' ,'analytics','liveTileApi','$timeout',
+  function($rootScope, $window, analytics, liveTileApi, $timeout) {
         $rootScope.api = liveTileApi;
         $rootScope.uuidList = [];
         $window.trackStart();
-        analytics.track('startapp', 'V2.001.56');
+
+
+        $rootScope.sendTrackingData = function() {
+            //send the static tracking data from the popup.js
+            chrome.storage.local.get('istartpop', function(data) {
+                try {
+                    if (data.istartpop) {
+                        var count = data.istartpop;
+                        analytics.track('addUrlPopup', 'openCount', {value:"'" + count + "'"});
+                    }
+                } catch (e) {
+                    console.log(e);
+                }
+            });
+        };
+        $timeout($rootScope.sendTrackingData, 10000); //we do not need every time the tabs opens this data
+        analytics.track('startapp', 'V2.001.61');
         $rootScope.getUUIDListInUse = function() {
             return $rootScope.uuidList;
         };
