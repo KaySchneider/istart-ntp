@@ -35,6 +35,14 @@ app.factory('appSettings', ['$q', '$rootScope',function ($q, $rootScope) {
             updateCenter: {
                 show:false,
                 version:"2.0.1.60"
+            },
+            header: {
+                alternative:false,
+                menuIconColor:'rgba(0, 0, 0, 0.87)',
+                menuDimension: {
+                    w:30,
+                    h:30
+                }
             }
         },
         config:null,
@@ -168,6 +176,28 @@ app.factory('appSettings', ['$q', '$rootScope',function ($q, $rootScope) {
                          * and resolve it
                          */
                         defer.resolve(settings.settingsDefault.globalsearch);
+                    }
+                });
+            return defer.promise;
+        },
+        setHeader: function(headerConfigObject) {
+            settings.config.header = headerConfigObject;
+            settings.save();
+            $rootScope.$broadcast('globalHeaderChanged'); //we need an relaod, this works with an ng-if!
+        },
+        header: function() {
+          var defer = $q.defer();
+            this.checkSettingsLoaded().then(
+                function() {
+                    if(typeof settings.config.header !== "undefined") {
+                        defer.resolve(settings.config.header);
+                    } else {
+                        /**
+                         * if the settings are not present than this version didnt has the
+                         * updated settings object! So we add simply true to this object
+                         * and resolve it
+                         */
+                        defer.resolve(settings.settingsDefault.header);
                     }
                 });
             return defer.promise;

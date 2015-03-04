@@ -41,6 +41,14 @@ app.directive('appSettings', function() {
                            appSettings.settings.setmouseWheelActive($scope.mouseWheelActive);
                         });
 
+                        $scope.alternativeHeader=false;
+                        $scope.$watch('alternativeHeader', function() {
+                            var tmp = {
+                                alternative: $scope.alternativeHeader
+                            };
+                            appSettings.settings.setHeader(tmp);
+                        });
+
                         $scope.globalSearchActive=false;
                         $scope.$watch('globalSearchActive', function() {
                             permissionCheck.checkPerm('bookmarks')
@@ -96,6 +104,9 @@ app.directive('appSettings', function() {
                             function(settings) {
                                 $scope.mouseWheelActive = settings.active;
                             });
+                        appSettings.settings.header().then(function(headerSettings) {
+                             $scope.alternativeHeader=headerSettings.alternative;
+                        });
 
                         $scope.fileNameChanged = function(data) {
                             console.log(data);

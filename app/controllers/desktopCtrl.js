@@ -3,9 +3,9 @@
 var app = angular.module('istart');
 app.controller('desktopCtrl',
            ['$scope','matrix','$window','$location','internalUrlLoader','$mdSidenav', '$rootScope',
-               'searchExternalPlugins','$compile','chromeApp',
+               'searchExternalPlugins','$compile','chromeApp', 'appSettings',
     function($scope, matrix, $window, $location, internalUrlLoader, $mdSidenav,
-             $rootScope, searchExternalPlugins, $compile, chromeApp) {
+             $rootScope, searchExternalPlugins, $compile, chromeApp, appSettings) {
         console.log('inside the desktop controller, never reached this stage inside the karma/jasmine tests');
 
     $window.appControllerStart = Date.now();
@@ -18,6 +18,7 @@ app.controller('desktopCtrl',
     $scope.paintStarted=false;
     $scope.apps=null;
     $scope.mostRecentPages=false;
+    $scope.alternativeHeader=false;
         /**chromeApp.active().then(function(allApps) {
             //build tile from app?
             var apper = [allApps];
@@ -31,22 +32,10 @@ app.controller('desktopCtrl',
          * store the new matrix to chrome local storage
          */
     });
-    $scope.loadOriginNewTab=function() {
-        internalUrlLoader.ntp();
-    };
-    $scope.loadBookmarks = function() {
-        internalUrlLoader.bookmarks();
-    };
-    $scope.loadDownloads = function() {
-        internalUrlLoader.downloads();
-    };
-    $scope.loadExtensions = function() {
-        //service wich loads interal pages service/interalUrlLoader
-        internalUrlLoader.extensions();
-    };
-    $scope.go = function(path) {
-        $location.path(path);
-    };
+
+    $rootScope.$on('globalHeaderChanged', function() {
+        $scope.loadHeaderSettings();
+    });
 
     $rootScope.$on('removeTile', function(ev,tileInfo) {
         var found=false;
@@ -204,19 +193,9 @@ app.controller('desktopCtrl',
     };
 
 
-    $scope.toggleMenu = function() {
-        $mdSidenav('right').toggle()
-            .then(function(){
-                console.log("OPEN");
-            });
-    };
 
-    $scope.closeMenu = function() {
-        $mdSidenav('right').close()
-            .then(function(){
-                console.log("CLOSE");
-            });
-    };
+
+
 
     $rootScope.$on('addNewTile', function(event, tileConfig) {
         $scope.items[0].unshift([tileConfig]);
@@ -304,6 +283,13 @@ app.controller('desktopCtrl',
             }
         }
     });
+      $scope.loadHeaderSettings =function() {
+          appSettings.settings.header().
+              then(function(headerconfig) {
+                  $scope.alternativeHeader = headerconfig.alternative;
+              });
+      };
+     $scope.loadHeaderSettings();
     $window.appControllerEndFile = Date.now();
     console.debug('TIME TO THIS DESKTOPCONTROLLER:' , ($window.appControllerEndFile - $window.startTime)/1000);
 }]);

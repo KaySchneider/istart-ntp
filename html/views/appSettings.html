@@ -1,8 +1,9 @@
 <md-dialog aria-label="settings">
     <div layout="row" layout-wrap>
-        <div flex >
+
             <md-content>
                 <md-subheader class="md-sticky-no-effect">istart Configuration</md-subheader>
+                <md-subheader class="md-sticky-no-effect">background settings</md-subheader>
                 <md-input-container>
                     <form name="fake" >
                     <label>Background-Image</label>
@@ -19,6 +20,7 @@
                 <md-input-container>
                     <md-button ng-click="uploadfile()">set file as background and save</md-button>
                 </md-input-container>
+                <md-subheader class="md-sticky-no-effect">Input settings</md-subheader>
                 <md-input-container>
                     <md-switch ng-model="mouseWheelActive" class="md-primary" md-no-ink aria-label="Turn non/off mousewheel support">
                         mousewheel support {{mouseWheelActive}}
@@ -30,8 +32,14 @@
                         global Search  {{globalSearchActive}}
                     </md-switch>
                 </md-input-container>
+                <md-subheader class="md-sticky-no-effect">Header configuration</md-subheader>
+                <md-input-container>
+                    <md-switch ng-model="alternativeHeader" class="md-primary" md-no-ink aria-label="turn on/off iStart V1 header :) ">
+                        iStart V1 Header  {{alternativeHeader}}
+                    </md-switch>
+                </md-input-container>
             </md-content>
-        </div>
+
 
     </div>
     <div class="md-actions" layout="row">

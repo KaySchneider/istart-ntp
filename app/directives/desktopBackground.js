@@ -35,6 +35,8 @@ app.directive('desktopBackground', function() {
                     var path = chrome.extension.getURL('/img/materialBG.jpg');
                     $scope.element.css('background-image', '');
                     $scope.element.css('background-image', 'url('+path+')');
+                    $scope.element.css('background-size', 'cover');
+                    $scope.element.css('background-repeat', 'no-repeat');
                 }
             };
 

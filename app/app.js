@@ -49,7 +49,6 @@ angular.module('istart', [
         $rootScope.uuidList = [];
         $window.trackStart();
         analytics.track('startapp', 'V2.001.56');
-
         $rootScope.getUUIDListInUse = function() {
             return $rootScope.uuidList;
         };
@@ -59,7 +58,6 @@ angular.module('istart', [
             }
             return true;
         };
-
         $rootScope.getUniqueUUID = function() {
             var uuid;
             while(true==true) {
@@ -73,7 +71,6 @@ angular.module('istart', [
             }
             return uuid;
         };
-
         $rootScope.addUUIDTOList = function(uuid) {
             $rootScope.uuidList.push(uuid);
         };
