@@ -19,6 +19,7 @@ app.directive('appHeader', function() {
                 $scope.hover=false;
                 $scope.menuIconColor='black';
                 $scope.menuIconStyle="";
+                $scope.menuColor="";
                 $scope.toggleMenu = function() {
                     analytics.track('toggleMenu', 'state');
                     $mdSidenav('right').toggle()
@@ -58,6 +59,7 @@ app.directive('appHeader', function() {
                             $scope.menuIconStyle = {color:'"'+$scope.menuIconColor+'"',
                                                     width: headerconfig.menuDimension.w + 'px',
                                                     height:headerconfig.menuDimension.h +'px'};
+                            $scope.menuColor = {color:'"'+$scope.menuIconColor+'"'};
                         });
                 };
                 $scope.$watch('editMode', function() {

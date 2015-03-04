@@ -43,8 +43,31 @@
             </md-button>
         </div>
     </span>
-    <span ng-if="alternate===true" class="headerReplace">
-        <div >
+    <span ng-if="alternate===true">
+        <div class="fastAccessBar">
+            <md-button class="md-hue-1 " ng-click="go('/apps')" ng-style="menuColor">
+                <md-icon md-svg-src="/img/icons/ic_apps_48px.svg" style="width: 24px; height: 24px;"></md-icon>
+                <i18n>all_apps</i18n>
+            </md-button>
+            <md-button class="md-hue-1 " ng-click="loadOriginNewTab()" ng-style="menuColor">
+                <md-icon md-svg-src="/img/icons/ic_apps_48px.svg" style="width: 24px; height: 24px;"></md-icon>
+                <i18n>origin_tab</i18n>
+            </md-button>
+
+            <md-button class="md-hue-1" ng-click="loadExtensions()" ng-style="menuColor">
+                <md-icon md-svg-src="/img/icons/ic_extension_48px.svg" style="width: 24px; height: 24px;"></md-icon>
+                <i18n>extensions</i18n>
+            </md-button>
+            <md-button class="md-hue-1" ng-click="loadDownloads()" ng-style="menuColor">
+                <md-icon md-svg-src="/img/icons/ic_file_download_48px.svg" style="width: 24px; height: 24px;"></md-icon>
+                <i18n>downloads</i18n>
+            </md-button>
+            <md-button class="md-hue-1" ng-click="loadBookmarks()" ng-style="menuColor">
+
+                <i18n>bookmarks</i18n>
+            </md-button>
+        </div>
+        <div  class="headerReplace">
             <md-button ng-click="toggleMenu()" >
                 <md-icon md-svg-src="/img/icons/ic_menu_24px.svg" style="width: 24px; height: 24px" ng-style="menuIconStyle"></md-icon>
             </md-button>

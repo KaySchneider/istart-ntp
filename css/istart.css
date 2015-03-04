@@ -256,3 +256,10 @@ UPDATE INFORMATION CENTRE OVERLAY SHOW ONLY ON LARGE CHANGES
     position: fixed !important;
 }
 
+.fastAccessBar {
+    position: fixed;
+    height: 80px;
+    background: transparent;
+    left:10px;
+    z-index:20;
+}

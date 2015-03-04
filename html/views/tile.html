@@ -30,7 +30,7 @@
                     <youtube-player video="{{tileInfo.config.video}}"></youtube-player>
                 </span>
                 <span ng-if="!tileInfo.issearch&&!tileInfo.isyoutube" >
-                    <iframe scrolling="no" src="{{tileInfo.src}}"
+                    <iframe scrolling="no" ng-src="{{tileInfo.src}}"
                             ></iframe>
                     <ul class="metrohelper" >
                         <li istart-backdop-tester class="metrohelpersub"  ></li>

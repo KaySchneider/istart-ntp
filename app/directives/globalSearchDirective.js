@@ -35,7 +35,6 @@ app.directive('globalSearchDirective', function() {
                     } else if(min===true &&   images[obj].size >= minSize ) {
                         return images[obj].url;
                     }
-
                 }
                 return "";
             };

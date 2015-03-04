@@ -69,36 +69,34 @@ app.controller('desktopCtrl',
         angular.element('#interpolateed').html('');
     };
 
-    var showItems = function(items) {
-       var dom="";
-       for(var outerIndex in items) {
-           dom += ' <ul class="pagerTest itemholders"' +
-                ' istart-calc-screen-size' +
-                ' id="p'+outerIndex+'">';
+        var showItems = function (items) {
+            var ph = angular.element('#interpolateed');
+            var dom = "";
+            for (var outerIndex in items) {
+                dom += ' <ul class="pagerTest itemholders"' +
+                    ' istart-calc-screen-size' +
+                    ' id="p' + outerIndex + '">';
 
-           for(var innerIndex in items[outerIndex]) {
-                   if(items[outerIndex][innerIndex] !== null) {
-                       dom += '<metro-item  ' +
-                              ' my-repeat-directive'+
-                              ' outer-index="'+outerIndex+'" ' +
-                              ' inner-index="'+innerIndex+'" ' +
-                              ' tile-info="items['+outerIndex+']['+innerIndex+'][0]"' +
-                              ' edit-mode="editMode"' +
-                              ' ></metro-item>';
-                   }
-               }
-           dom += "</ul>";
-       }
-        /**
-         * add new item
-         */
-        var html = $compile(dom)($scope);
-        angular.element('#interpolateed').html(html);
-        $window.items = $scope.items;
-        resizeScreen();
-        window.setTimeout(addDnD, 400);
+                for (var innerIndex in items[outerIndex]) {
+                    if (items[outerIndex][innerIndex] !== null) {
 
-    };
+                        dom += '<metro-item  ' +
+                            ' my-repeat-directive' +
+                            ' outer-index="' + outerIndex + '" ' +
+                            ' inner-index="' + innerIndex + '" ' +
+                            ' tile-info="items[' + outerIndex + '][' + innerIndex + '][0]"' +
+                            ' edit-mode="editMode"' +
+                            ' ></metro-item>';
+                    }
+                }
+                dom += "</ul>";
+            }
+            var html = $compile(dom)($scope);
+            ph.html(html);
+            $window.items = $scope.items;
+            resizeScreen();
+            window.setTimeout(addDnD, 400);
+        };
 
     /**
      * resort the matrix
@@ -281,6 +279,7 @@ app.controller('desktopCtrl',
                 if( $scope.apps !== null ) {
                     $scope.items.push($scope.apps);
                 }
+                console.debug('TIME TO CALL showItems:' , (Date.now() - $window.startTime)/1000);
                 showItems($scope.items);
                 if(!$scope.$$phase) {
                     $scope.$apply();
@@ -365,7 +364,7 @@ function resizeScreen() {
               if(currentLine==2) {
                  currentLine = 0;
               }
-                console.log(currentRowHeight,countCells, currentLine, info, staticItemsOnRow);
+                //console.log(currentRowHeight,countCells, currentLine, info, staticItemsOnRow);
 
               if(currentRowHeight>=staticItemsOnRow) {
                   /**
@@ -375,7 +374,7 @@ function resizeScreen() {
                   if(currentRowHeight>staticItemsOnRow) {
                       var take = currentRowHeight-staticItemsOnRow;
                       currentRowHeight=take;
-                      console.log("ÜBERTRAG: " , take);
+//                      console.log("ÜBERTRAG: " , take);
                   } else {
                       currentRowHeight=0;
                   }
@@ -415,7 +414,7 @@ function resizeScreen() {
                }
 
             }
-            console.log(countCells, 'CWLLS');
+  //          console.log(countCells, 'CWLLS');
             /**
              * calculate the correct width
              */

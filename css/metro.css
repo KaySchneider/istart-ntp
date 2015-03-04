@@ -367,9 +367,9 @@ div.activebartools > a:hover {
     -o-transition: width 0.2s; /* Opera */
 }
 
-li {
+/*li {
     transition: display 1ms;
-}
+}*/
 
 
 
