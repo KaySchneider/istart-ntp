@@ -1,0 +1,14 @@
+<span >
+    <span ng-show="loggedIn==true">
+        <md-button ng-mouseover="menuOpen=true"  ng-click="menuOpen=false">{{username}}</md-button>
+        <ul ng-show="menuOpen===true"  ng-mouseover="menuOpen=true" ng-mouseleave="menuOpen=false"  style="position:fixed;padding:10px;top:20px;background-color: white;width:200px;z-index:999">
+            <li edit-user-profile>Edit Profile</li>
+            <li>View cloud Feed</li>
+            <li>Invite Friend</li>
+            <li>logout!?!</li>
+        </ul>
+    </span>
+    <span ng-show="loggedIn==false">
+        <md-button ng-mouseover="menuOpen=true"  ng-click="menuOpen=false">sign in [beta]</md-button>
+    </span>
+</span>

@@ -1,8 +1,8 @@
 'use strict';
 (function() {
     var app  = angular.module('istart');
-    app.factory('istartApi', ['$q', '$rootScope', '$timeout',
-     function ($q, $rootScope, $timeout ) {
+    app.factory('istartApi', ['$q', '$rootScope', '$timeout','$http',
+     function ($q, $rootScope, $timeout , $http) {
          var gapiReady=false;
          var loopCount=0;
          var token = "";
@@ -17,6 +17,83 @@
         var setToken = function(token) {
             token =token;
             gapi.auth.setToken(createTokenObject(token));
+        };
+
+
+
+
+        var loadSilent = function() {
+            /*chrome.identity.getAuthToken({ 'interactive': false }, function(token) {
+                // Use the token.
+                console.log(token, 'CHROME AUTH');
+                setToken(token);
+            });*/
+
+            var token = window.localStorage.getItem('token');
+            console.log(token);
+        };
+
+         /**
+          *
+          * @param loginData
+          * var loginData = {
+                 'username':""
+                 'password': ""
+             };
+          */
+         var login = function(loginData) {
+             var defer = $q.defer();
+             $http.post($window.AuthEndpoints + '/api/login', loginData)
+                 .success(function(data) {
+                     gapi.auth.setToken(createTokenObject(data.id + '||' + data.token));
+                     gapi.client.locamat.users.get({id:'me'}).
+                         execute(function(res,err) {
+                             defer.resolve(res);
+                         });
+                 })
+                 .error(function(err) {
+                     $scope.loading = false;
+                     $scope.loginload=false;
+                     $scope.loginerror = 'wrong credentials';
+                     console.log('login Error', err);
+                     defer.reject(err);
+                 });
+             return defer.promise;
+         };
+
+         /**
+          * register new iStart user!
+          */
+        var registerNewUser = function(userRegisterObject) {
+             var defer = $q.defer();
+
+             gapi.client.locamat.users.register({
+                 username: userRegisterObject.username,
+                 password: userRegisterObject.password,
+                 email: userRegisterObject.email
+             }).execute(function(res,err) {
+                 console.log(res, 'RESULT');
+                 console.log(res.id);
+                 console.log(err, 'ERR');
+                 if(res.error) {
+                     $scope.mailerror = res.message;
+                     defer.reject(res);
+                 }
+                 if(res.id) {
+                     defer.resolve(res);
+                 }
+             });
+
+             return defer.promise;
+        };
+
+        var patchUserName = function(patchObject) {
+            var defer = $q.defer();
+            gapi.client.istart.users.patch(patchObject).execute(function(resp) {
+                defer.resolve(resp);
+                $rootScope.$broadcast('usernamechanged', {username:patchObject.username});
+            });
+            return defer.promise;
         };
 
         var fetchListRemote = function() {
@@ -72,17 +149,20 @@
              loadData();
              return defer.promise;
          };
-
+        loadSilent();
         return {
             getFeed: fetchListRemote,
             getMe: fetchMeRemote,
-            setToken:setToken
+            setToken:setToken,
+            patchUser:patchUserName,
+            register:registerNewUser,
+            login:login
         };
     }]);
     function createTokenObject(tokenString) {
         var token= {
             "access_token": tokenString,
-            "token_type": "Bearer"
+            "token_type": "Sharer"
         };
         try {
             window.localStorage.setItem('token', JSON.stringify(token));

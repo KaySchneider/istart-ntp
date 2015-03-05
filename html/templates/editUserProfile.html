@@ -1,0 +1,23 @@
+<md-dialog aria-label="edit user profile">
+    <div layout="row" layout-wrap>
+        <md-content ng-show="load==false">
+            <md-subheader class="md-sticky-no-effect">iStart user</md-subheader>
+            <md-input-container>
+                <label>username</label>
+                <input ng-model="user.username">
+            </md-input-container>
+        </md-content>
+        <md-content ng-show="load==true">
+            <md-progress-circular class="md-accent md-hue-1" md-mode="indeterminate"></md-progress-circular>
+        </md-content>
+    </div>
+    <div class="md-actions" layout="row">
+        <span flex></span>
+        <md-button ng-click="cancel()">
+            close
+        </md-button>
+        <md-button ng-click="close()" class="md-primary">
+            <span>save</span>
+        </md-button>
+    </div>
+</md-dialog>
