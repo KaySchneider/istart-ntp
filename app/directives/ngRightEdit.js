@@ -8,16 +8,27 @@ app.directive('ngRightEdit', function() {
     return {
         restrict: 'A',
         controller:['$rootScope','$scope',function($rootScope, $scope) {
+            console.log('start controller ngRightEdit!');
             $rootScope.editBottom=false;
+            $scope.destroyed=false;
+            $scope.remove=function(){};
+            $scope.uuid=null;
             /**
              * remove all other active borders on the desktop
              */
-            $rootScope.$on('changeEditTile', function(ev,tileId) {
-                if(tileId.tileId!=$scope.tileInfo.uuid && $scope.editTile==true) {
-                    console.log("change change");
-                    $scope.changeEditMode();
-                }
+            $scope.remove = $rootScope.$on('changeEditTile', function(ev,tileId) {
+
+                try {
+                    if(tileId.tileId!=$scope.tileInfo.uuid && $scope.editTile==true ) {
+                        console.log("change change");
+                        $scope.changeEditMode();
+                    }
+                    } catch(e) {
+                        console.debug(e, $scope.uuid);
+                        console.debug($scope);
+                    }
             });
+
             /**
              * change the editBorder and the toggle args
              */
@@ -47,7 +58,7 @@ app.directive('ngRightEdit', function() {
         link: function(scope, element, attrs) {
             scope.editTile=false;
             scope.ngEditElement=element;
-
+            scope.uuid=scope.tileInfo.uuid;
             if('editicon' in attrs.$attr) {
                 element.on('click', function(ev) {
                     ev.preventDefault();
@@ -55,6 +66,10 @@ app.directive('ngRightEdit', function() {
                     scope.changeEditMode();
                 });
             }
+            element.on('$destroy', function() {
+               console.debug('Destroy element');
+                scope.remove();
+            });
             element.on('contextmenu', function(ev) {
                 ev.preventDefault();
                 scope.changeEditMode();

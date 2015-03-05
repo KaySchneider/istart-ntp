@@ -250,7 +250,9 @@ UPDATE INFORMATION CENTRE OVERLAY SHOW ONLY ON LARGE CHANGES
 .istartsidemen.md-sidenav-left {
     position:fixed;
 }
-
+.md-select-menu-container {
+    position: fixed !important;
+}
 
 .md-dialog-container {
     position: fixed !important;
@@ -263,3 +265,4 @@ UPDATE INFORMATION CENTRE OVERLAY SHOW ONLY ON LARGE CHANGES
     left:10px;
     z-index:20;
 }
+

@@ -48,9 +48,9 @@ angular.module('istart', [
         $rootScope.api = liveTileApi;
         $rootScope.uuidList = [];
 
-
+        $window.trackStart();
         $rootScope.sendTrackingData = function() {
-            $window.trackStart();
+
             //send the static tracking data from the popup.js
             chrome.storage.local.get('istartpop', function(data) {
                 try {
