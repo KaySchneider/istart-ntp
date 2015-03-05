@@ -74,15 +74,21 @@ angular.module('istart', [
             }
             return true;
         };
-
+        var apisToLoad=2;
         $rootScope.load_guestbook_lib = function() {
             var ROOT = 'https://istartapi.appspot.com/_ah/api';
             // var ROOT = 'http://localhost:8080/_ah/api';
+
               gapi.client.load('istart', 'v1', function() {
                   $rootScope.is_backend_ready = true;
                   console.log('LOADED');
                   $rootScope.$broadcast('backendReady');
               }, ROOT);
+            gapi.client.load('oauth2', 'v2',  function() {
+                $rootScope.is_backend_ready = true;
+                console.log('LOADED');
+                $rootScope.$broadcast('backendReady');
+            });
         };
         $window.init= function() {
             console.log("INIT THIS FUUU");
@@ -139,6 +145,11 @@ angular.module('istart', [
                 url: '/apps',
                 controller: 'allAppsCtrl',
                 templateUrl: 'views/apps.html'
+            })
+            .state('cloudfeed', {
+                url:'/cloudfeed',
+                controller: 'cloudTilesFeedCtrl',
+                templateUrl: 'views/cloudTilesFeed.html'
             });
     }]);
 window.startTime = Date.now();

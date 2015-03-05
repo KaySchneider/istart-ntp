@@ -9,8 +9,14 @@
     "permissions": [
         "history","management","storage",
         "unlimitedStorage","<all_urls>",
-        "webNavigation", "tabs", "alarms"
+        "webNavigation", "tabs", "alarms", "identity"
     ],
+    "oauth2": {
+        "client_id": "216889081608-0g9gng6kt0m1jh07af1aa0j74u1ta6o7.apps.googleusercontent.com",
+        "scopes": [
+            "https://www.googleapis.com/auth/userinfo.email"
+        ]
+    },
     "icons": {
         "128": "istartIcon.png",
         "16":"istartIcon16.png"
@@ -33,5 +39,5 @@
         "default_title": "__MSG_addNewTileForThisPage__",
         "default_popup": "html/popup.html"
     },
-    "content_security_policy": "script-src 'self' https://ssl.google-analytics.com https://apis.google.com  https://pagead2.googlesyndication.com ; object-src 'self'"
+    "content_security_policy": "script-src 'self' https://ssl.google-analytics.com https://apis.google.com/ https://accounts.google.com/  https://pagead2.googlesyndication.com ; object-src 'self'"
 }
