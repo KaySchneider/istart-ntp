@@ -235,3 +235,34 @@ UPDATE INFORMATION CENTRE OVERLAY SHOW ONLY ON LARGE CHANGES
     move this container into the center;
     **/
 }
+
+.headerReplace {
+    position:fixed;
+    top:7px;
+    right: 100px;
+    z-index:5;
+    font-size:17px;
+}
+
+.istartsidemen.md-sidenav-right {
+    position:fixed;
+}
+.istartsidemen.md-sidenav-left {
+    position:fixed;
+}
+.md-select-menu-container {
+    position: fixed !important;
+}
+
+.md-dialog-container {
+    position: fixed !important;
+}
+
+.fastAccessBar {
+    position: fixed;
+    height: 80px;
+    background: transparent;
+    left:10px;
+    z-index:20;
+}
+

@@ -111,6 +111,11 @@ module.exports = function(grunt) {
                       dest: '../build/app/defaultIcons.json',
                       filter:'isFile'
                   },
+                  {   nonull:true,
+                      src: '../app/defaultBgImages.json',
+                      dest: '../build/app/defaultBgImages.json',
+                      filter:'isFile'
+                  },
                   {
                       expand: true,
                       src:  ['../manifest.json', '../icon.png', '../istartIcon.png', '../istartIcon16.png' ],

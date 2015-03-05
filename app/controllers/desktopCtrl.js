@@ -3,9 +3,9 @@
 var app = angular.module('istart');
 app.controller('desktopCtrl',
            ['$scope','matrix','$window','$location','internalUrlLoader','$mdSidenav', '$rootScope',
-               'searchExternalPlugins','$compile','chromeApp',
+               'searchExternalPlugins','$compile','chromeApp', 'appSettings',
     function($scope, matrix, $window, $location, internalUrlLoader, $mdSidenav,
-             $rootScope, searchExternalPlugins, $compile, chromeApp) {
+             $rootScope, searchExternalPlugins, $compile, chromeApp, appSettings) {
         console.log('inside the desktop controller, never reached this stage inside the karma/jasmine tests');
 
     $window.appControllerStart = Date.now();
@@ -18,6 +18,7 @@ app.controller('desktopCtrl',
     $scope.paintStarted=false;
     $scope.apps=null;
     $scope.mostRecentPages=false;
+    $scope.alternativeHeader=false;
         /**chromeApp.active().then(function(allApps) {
             //build tile from app?
             var apper = [allApps];
@@ -46,22 +47,15 @@ app.controller('desktopCtrl',
          * store the new matrix to chrome local storage
          */
     });
-    $scope.loadOriginNewTab=function() {
-        internalUrlLoader.ntp();
-    };
-    $scope.loadBookmarks = function() {
-        internalUrlLoader.bookmarks();
-    };
-    $scope.loadDownloads = function() {
-        internalUrlLoader.downloads();
-    };
-    $scope.loadExtensions = function() {
-        //service wich loads interal pages service/interalUrlLoader
-        internalUrlLoader.extensions();
-    };
-    $scope.go = function(path) {
-        $location.path(path);
-    };
+        $scope.closeMenu = function() {
+            $mdSidenav('right').close()
+                .then(function(){
+                    console.log("CLOSE");
+                });
+        };
+    $rootScope.$on('globalHeaderChanged', function() {
+        $scope.loadHeaderSettings();
+    });
 
     $rootScope.$on('removeTile', function(ev,tileInfo) {
         var found=false;
@@ -90,36 +84,34 @@ app.controller('desktopCtrl',
         angular.element('#interpolateed').html('');
     };
 
-    var showItems = function(items) {
-       var dom="";
-       for(var outerIndex in items) {
-           dom += ' <ul class="pagerTest itemholders"' +
-                ' istart-calc-screen-size' +
-                ' id="p'+outerIndex+'">';
+        var showItems = function (items) {
+            var ph = angular.element('#interpolateed');
+            var dom = "";
+            for (var outerIndex in items) {
+                dom += ' <ul class="pagerTest itemholders"' +
+                    ' istart-calc-screen-size' +
+                    ' id="p' + outerIndex + '">';
 
-           for(var innerIndex in items[outerIndex]) {
-                   if(items[outerIndex][innerIndex] !== null) {
-                       dom += '<metro-item  ' +
-                              ' my-repeat-directive'+
-                              ' outer-index="'+outerIndex+'" ' +
-                              ' inner-index="'+innerIndex+'" ' +
-                              ' tile-info="items['+outerIndex+']['+innerIndex+'][0]"' +
-                              ' edit-mode="editMode"' +
-                              ' ></metro-item>';
-                   }
-               }
-           dom += "</ul>";
-       }
-        /**
-         * add new item
-         */
-        var html = $compile(dom)($scope);
-        angular.element('#interpolateed').html(html);
-        $window.items = $scope.items;
-        resizeScreen();
-        window.setTimeout(addDnD, 400);
+                for (var innerIndex in items[outerIndex]) {
+                    if (items[outerIndex][innerIndex] !== null) {
 
-    };
+                        dom += '<metro-item  ' +
+                            ' my-repeat-directive' +
+                            ' outer-index="' + outerIndex + '" ' +
+                            ' inner-index="' + innerIndex + '" ' +
+                            ' tile-info="items[' + outerIndex + '][' + innerIndex + '][0]"' +
+                            ' edit-mode="editMode"' +
+                            ' ></metro-item>';
+                    }
+                }
+                dom += "</ul>";
+            }
+            var html = $compile(dom)($scope);
+            ph.html(html);
+            $window.items = $scope.items;
+            resizeScreen();
+            window.setTimeout(addDnD, 400);
+        };
 
     /**
      * resort the matrix
@@ -219,19 +211,9 @@ app.controller('desktopCtrl',
     };
 
 
-    $scope.toggleMenu = function() {
-        $mdSidenav('right').toggle()
-            .then(function(){
-                console.log("OPEN");
-            });
-    };
 
-    $scope.closeMenu = function() {
-        $mdSidenav('right').close()
-            .then(function(){
-                console.log("CLOSE");
-            });
-    };
+
+
 
     $rootScope.$on('addNewTile', function(event, tileConfig) {
         $scope.items[0].unshift([tileConfig]);
@@ -312,6 +294,7 @@ app.controller('desktopCtrl',
                 if( $scope.apps !== null ) {
                     $scope.items.push($scope.apps);
                 }
+                console.debug('TIME TO CALL showItems:' , (Date.now() - $window.startTime)/1000);
                 showItems($scope.items);
                 if(!$scope.$$phase) {
                     $scope.$apply();
@@ -319,6 +302,13 @@ app.controller('desktopCtrl',
             }
         }
     });
+      $scope.loadHeaderSettings =function() {
+          appSettings.settings.header().
+              then(function(headerconfig) {
+                  $scope.alternativeHeader = headerconfig.alternative;
+              });
+      };
+     $scope.loadHeaderSettings();
     $window.appControllerEndFile = Date.now();
     console.debug('TIME TO THIS DESKTOPCONTROLLER:' , ($window.appControllerEndFile - $window.startTime)/1000);
 }]);
@@ -389,7 +379,7 @@ function resizeScreen() {
               if(currentLine==2) {
                  currentLine = 0;
               }
-                console.log(currentRowHeight,countCells, currentLine, info, staticItemsOnRow);
+                //console.log(currentRowHeight,countCells, currentLine, info, staticItemsOnRow);
 
               if(currentRowHeight>=staticItemsOnRow) {
                   /**
@@ -399,7 +389,7 @@ function resizeScreen() {
                   if(currentRowHeight>staticItemsOnRow) {
                       var take = currentRowHeight-staticItemsOnRow;
                       currentRowHeight=take;
-                      console.log("ÜBERTRAG: " , take);
+//                      console.log("ÜBERTRAG: " , take);
                   } else {
                       currentRowHeight=0;
                   }
@@ -439,7 +429,7 @@ function resizeScreen() {
                }
 
             }
-            console.log(countCells, 'CWLLS');
+  //          console.log(countCells, 'CWLLS');
             /**
              * calculate the correct width
              */
