@@ -1,11 +1,12 @@
 'use strict';
 (function() {
     var app  = angular.module('istart');
-    app.factory('istartApi', ['$q', '$rootScope', '$timeout','$http',
-     function ($q, $rootScope, $timeout , $http) {
+    app.factory('istartApi', ['$q', '$rootScope', '$timeout','$http', 'userStorage',
+     function ($q, $rootScope, $timeout , $http, userStorage) {
          var gapiReady=false;
          var loopCount=0;
          var token = "";
+         var timeToCacheUser= 1000000; //time in ms to cache the user data locally without checking it again from the server! 1000sec
 
          $rootScope.$on('backendReady', function() {
             /**
@@ -20,6 +21,15 @@
             gapi.auth.setToken(createTokenObject(token));
         };
 
+         var setLocalToken =function() {
+             if(token != "") {
+                 try {
+                     gapi.auth.setToken(JSON.parse(token));
+                 } catch(e) {
+
+                 }
+             }
+         };
 
 
 
@@ -47,9 +57,13 @@
              $http.post($rootScope.authEndpoints + '/api/login',{username:loginData.mail, password:loginData.password} )
                  .success(function(data) {
                      gapi.auth.setToken(createTokenObject(data.id + '||' + data.token));
-                     gapi.client.istart.users.get({id:'me'}).
-                         execute(function(res,err) {
-                             defer.resolve(res);
+                     token=JSON.stringify(createTokenObject(data.id + '||' + data.token));
+                     fetchMeRemote()
+                         .then(function(data) {
+                             defer.resolve(data);
+                             $rootScope.$broadcast('userLoggedIn');
+                         }, function(reject) {
+                             defer.reject(reject);
                          });
                  })
                  .error(function(err) {
@@ -63,12 +77,14 @@
              /**
               * TODO: destroy here the local scope and log the user out!
                */
+             var defer = $q.defer();
+             setLocalToken();
              $http.post( $rootScope.authEndpoints + '/api/logout', {'t':gapi.auth.getToken()})
                  .success(function(data) {
                      console.log(data);
                      gapi.auth.setToken(null);
                      if(localStorage) {
-                         localStorage.setItem('token', null);
+                         localStorage.removeItem('token');
                      }
                      $rootScope.$broadcast('userLogout');
                      defer.resolve(data);
@@ -76,6 +92,7 @@
                  .error(function(err) {
                      defer.reject(err);
                  });
+             return defer.promise;
          };
 
          /**
@@ -83,7 +100,6 @@
           */
         var registerNewUser = function(userRegisterObject) {
              var defer = $q.defer();
-
              gapi.client.istart.users.register({
                  username: userRegisterObject.username,
                  password: userRegisterObject.password,
@@ -105,9 +121,13 @@
 
         var patchUserName = function(patchObject) {
             var defer = $q.defer();
+            setLocalToken();
             gapi.client.istart.users.patch(patchObject).execute(function(resp) {
                 defer.resolve(resp);
+                userStorage.setMe(resp);
                 $rootScope.$broadcast('usernamechanged', {username:patchObject.username});
+            }, function(err) {
+                $rootScope.$broadcast('userLogout');
             });
             return defer.promise;
         };
@@ -140,8 +160,8 @@
         };
 
          var fetchMeRemote = function() {
-             var defer = $q.defer();
 
+             var defer = $q.defer();
              var loadData = function() {
                  console.log('LOAD LOAD');
                  if(gapiReady==false) {
@@ -157,20 +177,37 @@
                      return;
                  }
                  console.log('load Data inside loader');
-                 if(token != "") {
-                     try {
-                        gapi.auth.setToken(JSON.parse(token));
-                     } catch(e) {
+                 setLocalToken();
+                 gapi.client.istart.users.get({id:'me'}).execute(function(resp) {
+                     console.log(resp, "USER DATA");
+                     if(resp.code==401||resp.error) {
+                         defer.reject(false);
+                     } else {
+                        userStorage.setMe(resp);//set the local user
+                         /**
+                          * broadcast login?
+                          */
+                         defer.resolve(resp);
 
                      }
-                 }
-                 gapi.client.istart.users.get({id:'me'}).execute(function(resp) {
-                     console.log(resp);
-                     defer.resolve(resp);
                  });
              };
-             loadData();
+
+             /**
+              * fetch the local user! use this instead of the remote User..
+              */
+             userStorage.getMe()
+                 .then(function(user) {
+                     if(user.username) {
+                            defer.resolve(user);
+                     } else {
+                         loadData();
+                     }
+                 }, function() {
+                     loadData();
+                 });
              return defer.promise;
+
          };
         loadSilent();
         return {

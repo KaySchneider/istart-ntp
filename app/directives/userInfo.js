@@ -20,25 +20,45 @@
                     );
                     istartApi.logout()
                         .then(function() {
-                            toast.hide();
+                            $mdToast.hide();
                         });
                 };
-                istartApi.getMe().then(function(userDta) {
-                   console.log(userDta);
-                    if(userDta.code == 401) {
-                        //not logged in, maybe we make this different to reduce the server last
-                        $scope.loggedIn= false;
-                    } else {
-                        $scope.loggedIn= true;
-                        $scope.username=userDta.username;
-                    }
-                });
+                $scope.loadUserInfo = function() {
+                    istartApi.getMe().then(function(userDta) {
+                       console.log(userDta);
+                        if(userDta.code == 401) {
+                            //not logged in, maybe we make this different to reduce the server last
+                            $scope.loggedIn= false;
+                            console.log('NOT LOGGED IN');
+                        } else {
+                            $scope.loggedIn= true;
+                            $scope.username=userDta.username;
+                            console.log('LOGGED IN');
+                            if(!$scope.$digest) {
+                                $scope.$apply();
+                            }
+                        }
+                    });
+                };
+
                 var removeList = $rootScope.$on('usernamechanged', function(ev,patchObject) {
                     $scope.username=patchObject.username;
                 });
+                var removeLogoutList = $rootScope.$on('userLogout', function(ev) {
+                    $scope.username="";
+                    $scope.loggedIn=false;
+                });
+                var removeLoginList = $rootScope.$on('userLoggedIn', function(ev) {
+                    console.log('WHAaAAT');
+                    $scope.loadUserInfo();
+                });
+
                 $scope.$on('$destroy', function() {
                     removeList();
+                    removeLogoutList();
+                    removeLoginList();
                 });
+                $scope.loadUserInfo();
             }]
         }
     });
