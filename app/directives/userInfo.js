@@ -6,10 +6,23 @@
             restrict: 'E',
             scope: true,
             templateUrl:'../html/templates/userInfo.html',
-            controller:['$scope','istartApi', '$rootScope',
-            function($scope, istartApi , $rootScope) {
+            controller:['$scope','istartApi', '$rootScope', '$mdToast',
+            function($scope, istartApi , $rootScope, $mdToast) {
                 $scope.loggedIn=false;
                 $scope.usernamae="";
+
+                $scope.logout = function() {
+                    var toast = $mdToast.show(
+                        $mdToast.simple()
+                            .content('logout in progress ')
+                            .position('top left right')
+
+                    );
+                    istartApi.logout()
+                        .then(function() {
+                            toast.hide();
+                        });
+                };
                 istartApi.getMe().then(function(userDta) {
                    console.log(userDta);
                     if(userDta.code == 401) {

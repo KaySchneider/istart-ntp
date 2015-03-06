@@ -47,7 +47,8 @@ angular.module('istart', [
   function($rootScope, $window, analytics, liveTileApi, $timeout) {
         $rootScope.api = liveTileApi;
         $rootScope.uuidList = [];
-
+        //$rootScope.authEndpoints = 'https://istartapi.appspot.com';
+        $rootScope.authEndpoints = 'http://localhost:8080';
         $window.trackStart();
         $rootScope.sendTrackingData = function() {
 
@@ -74,21 +75,23 @@ angular.module('istart', [
             }
             return true;
         };
-        var apisToLoad=2;
+        var apisToLoad=1;
         $rootScope.load_guestbook_lib = function() {
-            var ROOT = 'https://istartapi.appspot.com/_ah/api';
-            // var ROOT = 'http://localhost:8080/_ah/api';
 
+               var ROOT = $rootScope.authEndpoints  +'/_ah/api';
+
+              // var ROOT = 'http://localhost:8080/_ah/api';
               gapi.client.load('istart', 'v1', function() {
                   $rootScope.is_backend_ready = true;
                   console.log('LOADED');
                   $rootScope.$broadcast('backendReady');
               }, ROOT);
-            gapi.client.load('oauth2', 'v2',  function() {
+
+            /*gapi.client.load('oauth2', 'v2',  function() {
                 $rootScope.is_backend_ready = true;
                 console.log('LOADED');
                 $rootScope.$broadcast('backendReady');
-            });
+            });*/
         };
         $window.init= function() {
             console.log("INIT THIS FUUU");
@@ -114,8 +117,9 @@ angular.module('istart', [
             $rootScope.uuidList.push(uuid);
         };
 
-    }]).config(['$stateProvider', '$urlRouterProvider', '$compileProvider', '$sceDelegateProvider',
-        function($stateProvider, $urlRouterProvider, $compileProvider, $sceDelegateProvider) {
+    }]).config(['$stateProvider', '$urlRouterProvider', '$compileProvider', '$sceDelegateProvider', '$mdThemingProvider',
+        function($stateProvider, $urlRouterProvider, $compileProvider, $sceDelegateProvider, $mdThemingProvider) {
+
         $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension|chrome|chrome-search):/);
         $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|chrome|chrome-extension|chrome-search|data)/);
             $sceDelegateProvider.resourceUrlWhitelist([
@@ -151,6 +155,10 @@ angular.module('istart', [
                 controller: 'cloudTilesFeedCtrl',
                 templateUrl: 'views/cloudTilesFeed.html'
             });
+            $mdThemingProvider.theme('docs-dark', 'default')
+                .primaryPalette('deep-orange')
+                .backgroundPalette('brown');
+
     }]);
 window.startTime = Date.now();
 /**
@@ -187,10 +195,17 @@ window.trackStart = function() {
         ga.src = 'https://ssl' + '.google-analytics.com/ga.js';
         var s = document.getElementsByTagName('script')[0];
         s.parentNode.insertBefore(ga, s);
+        //com.intellij.history.integration.ui.models.RevisionItem@6bdf75d4
+        //gapiScript<script src="https://apis.google.com/js/client.js?onload=initMe"></script>
+        var gapiScript = document.createElement('script');
+        gapiScript.type = 'text/javascript';
+        gapiScript.async=true;
+        gapiScript.src = 'https://apis.google.com/js/client.js?onload=initMe';
+        s.parentNode.insertBefore(gapiScript,s);
     })();
 };
 
-function init() {
+function initMe() {
     console.log("CALLED INIT");
     window.init();
 };

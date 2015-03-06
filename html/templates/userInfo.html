@@ -5,10 +5,10 @@
             <li edit-user-profile>Edit Profile</li>
             <li>View cloud Feed</li>
             <li>Invite Friend</li>
-            <li>logout!?!</li>
+            <li ng-click="logout()">logout!?!</li>
         </ul>
     </span>
     <span ng-show="loggedIn==false">
-        <md-button ng-mouseover="menuOpen=true"  ng-click="menuOpen=false">sign in [beta]</md-button>
+        <md-button sign-in>sign in [beta]</md-button>
     </span>
 </span>

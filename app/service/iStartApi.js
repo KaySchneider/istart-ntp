@@ -6,7 +6,8 @@
          var gapiReady=false;
          var loopCount=0;
          var token = "";
-        $rootScope.$on('backendReady', function() {
+
+         $rootScope.$on('backendReady', function() {
             /**
              * checks if the backend is ready
              */
@@ -29,7 +30,7 @@
                 setToken(token);
             });*/
 
-            var token = window.localStorage.getItem('token');
+            token = window.localStorage.getItem('token');
             console.log(token);
         };
 
@@ -43,22 +44,38 @@
           */
          var login = function(loginData) {
              var defer = $q.defer();
-             $http.post($window.AuthEndpoints + '/api/login', loginData)
+             $http.post($rootScope.authEndpoints + '/api/login',{username:loginData.mail, password:loginData.password} )
                  .success(function(data) {
                      gapi.auth.setToken(createTokenObject(data.id + '||' + data.token));
-                     gapi.client.locamat.users.get({id:'me'}).
+                     gapi.client.istart.users.get({id:'me'}).
                          execute(function(res,err) {
                              defer.resolve(res);
                          });
                  })
                  .error(function(err) {
-                     $scope.loading = false;
-                     $scope.loginload=false;
-                     $scope.loginerror = 'wrong credentials';
                      console.log('login Error', err);
                      defer.reject(err);
                  });
              return defer.promise;
+         };
+
+         var logout = function() {
+             /**
+              * TODO: destroy here the local scope and log the user out!
+               */
+             $http.post( $rootScope.authEndpoints + '/api/logout', {'t':gapi.auth.getToken()})
+                 .success(function(data) {
+                     console.log(data);
+                     gapi.auth.setToken(null);
+                     if(localStorage) {
+                         localStorage.setItem('token', null);
+                     }
+                     $rootScope.$broadcast('userLogout');
+                     defer.resolve(data);
+                 })
+                 .error(function(err) {
+                     defer.reject(err);
+                 });
          };
 
          /**
@@ -67,7 +84,7 @@
         var registerNewUser = function(userRegisterObject) {
              var defer = $q.defer();
 
-             gapi.client.locamat.users.register({
+             gapi.client.istart.users.register({
                  username: userRegisterObject.username,
                  password: userRegisterObject.password,
                  email: userRegisterObject.email
@@ -76,7 +93,6 @@
                  console.log(res.id);
                  console.log(err, 'ERR');
                  if(res.error) {
-                     $scope.mailerror = res.message;
                      defer.reject(res);
                  }
                  if(res.id) {
@@ -129,18 +145,25 @@
              var loadData = function() {
                  console.log('LOAD LOAD');
                  if(gapiReady==false) {
-                     if(loopCount==10) {
+                     if(loopCount==20) {
                          loopCount=0;
                          defer.reject();//reject when offline
                          return;
                      } else {
                          loopCount++;
                          console.log('timeout');
-                         $timeout(loadData, 500);
+                         $timeout(loadData, 800);
                      }
                      return;
                  }
                  console.log('load Data inside loader');
+                 if(token != "") {
+                     try {
+                        gapi.auth.setToken(JSON.parse(token));
+                     } catch(e) {
+
+                     }
+                 }
                  gapi.client.istart.users.get({id:'me'}).execute(function(resp) {
                      console.log(resp);
                      defer.resolve(resp);
@@ -156,7 +179,8 @@
             setToken:setToken,
             patchUser:patchUserName,
             register:registerNewUser,
-            login:login
+            login:login,
+            logout:logout
         };
     }]);
     function createTokenObject(tokenString) {

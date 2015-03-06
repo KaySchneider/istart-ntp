@@ -13,21 +13,22 @@ app.directive('signIn', function() {
             function ($scope, $mdDialog, $rootScope, $window, $q, $http, analytics ) {
                 var ps = $scope;
                 $scope.edit=false;
-                $scope.DialogController = ['$scope', '$mdDialog', '$window','analytics','istartApi', '$mdToast',
-                    function($scope, $mdDialog, $window, analytics, istartApi, $mdToast) {
+                $scope.DialogController = ['$scope', '$mdDialog', '$window','analytics','istartApi', '$mdToast', '$rootScope',
+                    function($scope, $mdDialog, $window, analytics, istartApi, $mdToast, $rootScope) {
                         analytics.track('showUserLogin', 'system');
                         $scope.user = {
                             username:'',
+                            email:'',
                             password:''
                         };
                         $scope.error="";
                         $scope.showError=false;
-                        $scope.load=true;
-                        istartApi.getMe().then(function(userdata) {
-                            $scope.load=false;
-                            $scope.user.username = userdata.username;
-                        });
-
+                        $scope.load=false;
+                        /**
+                         * TODO: create a global toast service???
+                         * For styling error and success toast ??
+                         * @param msg
+                         */
                         $scope.showErrorToast = function(msg) {
                             $mdToast.show(
                                 $mdToast.simple()
@@ -46,10 +47,21 @@ app.directive('signIn', function() {
                             );
                         };
 
+                        $scope.login = function () {
+                            istartApi.login($scope.user)
+                                .then(function(user) {
+                                    $scope.showSuccessToast('Welcome back ' + user.username);
+                                    console.log(user);
+                                    $mdDialog.hide();
+                                }, function(rejected) {
+                                    $scope.showErrorToast('error during login! Wrong credentials.... :/ ');
+                                });
+                        };
+
                         //create user
                         $scope.register =function() {
                             $scope.load=true;
-                            istartApi.patchUser($scope.user)
+                            istartApi.register($scope.user)
                                 .then(function(res) {
                                     if(res.error) {
                                         $scope.error=res.message || 'Unknown error please restart the app';
@@ -79,14 +91,11 @@ app.directive('signIn', function() {
                 $scope.showAdvanced = function (ev) {
                     $mdDialog.show({
                         controller: $scope.DialogController,
-                        templateUrl: '../html/templates/editUserProfile.html',
+                        templateUrl: '../html/templates/signIn.html',
                         targetEvent: ev
                     })
                         .then(function (tileConfig) {
-                            console.log('ADD TILE TO THE DATABASE', tileConfig.uuid);
-                            $rootScope.addUUIDTOList(tileConfig.uuid);
-                            $rootScope.$broadcast('addNewTile', tileConfig);
-                            analytics.track('addNewLiveTile', 'addTile', {value:tileConfig.link});
+
                         }, function () {
                             //do nothing when cancel
                         });

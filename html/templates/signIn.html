@@ -1,0 +1,46 @@
+<md-dialog aria-label="sign in or create Profile" md-theme="docs-dark">
+    <md-content layout="row">
+        <md-content  layout="column" style="max-width: 400px" ng-hide="load==true||success==true">
+            <md-subheader class="md-sticky-no-effect">create new iStart User!</md-subheader>
+            <md-input-container>
+                <label>username</label>
+                <input ng-model="user.username">
+            </md-input-container>
+            <md-input-container>
+                <label>E-mail</label>
+                <input ng-model="user.email">
+            </md-input-container>
+            <md-input-container>
+                <label>Password</label>
+                <input type="password" ng-model="user.password">
+            </md-input-container>
+            <md-input-container>
+                <label>Password repeat :)</label>
+                <input type="password" ng-model="passwordcheck">
+            </md-input-container>
+            <md-button ng-click="register()">
+                create New User
+            </md-button>
+        </md-content>
+        <md-content layout="column" ng-hide="load==true||success==true">
+           <md-subheader class="md-sticky-no-effect">login</md-subheader>
+            <md-input-container>
+                <label>Mail</label>
+                <input ng-model="user.mail">
+            </md-input-container>
+            <md-input-container>
+                <label>Password</label>
+                <input type="password" ng-model="user.password">
+            </md-input-container>
+            <md-button ng-click="login()">
+                login
+            </md-button>
+        </md-content>
+    </md-content>
+    <div class="md-actions" layout="row">
+        <span flex></span>
+        <md-button ng-click="cancel()">
+            close
+        </md-button>
+    </div>
+</md-dialog>

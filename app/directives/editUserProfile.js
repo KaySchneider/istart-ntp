@@ -81,10 +81,7 @@ app.directive('editUserProfile', function() {
                         targetEvent: ev
                     })
                         .then(function (tileConfig) {
-                            console.log('ADD TILE TO THE DATABASE', tileConfig.uuid);
-                            $rootScope.addUUIDTOList(tileConfig.uuid);
-                            $rootScope.$broadcast('addNewTile', tileConfig);
-                            analytics.track('addNewLiveTile', 'addTile', {value:tileConfig.link});
+
                         }, function () {
                             //do nothing when cancel
                         });
