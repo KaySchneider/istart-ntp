@@ -72,6 +72,8 @@ app.directive('signIn', function() {
                                     }
                                     $scope.load=false;
 
+                                }, function(err){
+
                                 });
 
                         };

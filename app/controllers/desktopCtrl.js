@@ -208,6 +208,10 @@ app.controller('desktopCtrl',
         showItems($scope.items);
         addDnD();
     });
+    $rootScope.$on('syncCloudChanges', function(event) {
+        clearItems();
+        $scope.loadDefault();
+    });
     $scope.lGrid=[];
     $scope.LargeGridMaker = function() {
         $scope.lGrid = [];
@@ -259,7 +263,7 @@ app.controller('desktopCtrl',
              */
             return  Math.ceil(countChilds/4)*250  ;
     };
-
+    $scope.loadDefault=function() {
     $scope.ma.getLocalData().then(function(data) {
         if(data == false) {
             console.log('inside first run setting up the default tiles and load the first run');
@@ -289,6 +293,8 @@ app.controller('desktopCtrl',
             }
         }
     });
+    }
+        $scope.loadDefault();
       $scope.loadHeaderSettings =function() {
           appSettings.settings.header().
               then(function(headerconfig) {

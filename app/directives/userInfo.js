@@ -6,10 +6,38 @@
             restrict: 'E',
             scope: true,
             templateUrl:'../html/templates/userInfo.html',
-            controller:['$scope','istartApi', '$rootScope', '$mdToast',
-            function($scope, istartApi , $rootScope, $mdToast) {
+            controller:['$scope','istartApi', '$rootScope', '$mdToast', 'matrix',
+            function($scope, istartApi , $rootScope, $mdToast, matrix) {
                 $scope.loggedIn=false;
                 $scope.usernamae="";
+
+                $scope.getRemoteTiles = function() {
+                    istartApi.getRemoteTiles()
+                        .then(function(data) {
+
+                        });
+                };
+
+                $scope.insertTiles = function() {
+                    $mdToast.show(
+                        $mdToast.simple()
+                            .content('load the data')
+                            .position('top left right')
+
+                    );
+                    matrix.getLocalData()
+                        .then(function(items){
+                            console.log(items);
+                            $mdToast.show(
+                                $mdToast.simple()
+                                    .content('start upload data to the server :)')
+                                    .position('top left right')
+
+                            );
+                            istartApi.insertTiles(items);
+                        })
+
+                };
 
                 $scope.logout = function() {
                     var toast = $mdToast.show(
@@ -52,6 +80,7 @@
                     console.log('WHAaAAT');
                     $scope.loadUserInfo();
                 });
+                var removeBackendSyny = $rootScope.$on();
 
                 $scope.$on('$destroy', function() {
                     removeList();

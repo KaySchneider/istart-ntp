@@ -1,13 +1,15 @@
 'use strict';
 (function() {
     var app  = angular.module('istart');
-    app.factory('istartApi', ['$q', '$rootScope', '$timeout','$http', 'userStorage',
-     function ($q, $rootScope, $timeout , $http, userStorage) {
+    app.factory('istartApi', ['$q', '$rootScope', '$timeout','$http', 'userStorage', 'matrix',
+     function ($q, $rootScope, $timeout , $http, userStorage, matrix) {
          var gapiReady=false;
          var loopCount=0;
          var token = "";
          var timeToCacheUser= 1000000; //time in ms to cache the user data locally without checking it again from the server! 1000sec
-
+         var lastSync = null;
+         var lastLocalSetChanged=null;
+         var istartObject=null;
          $rootScope.$on('backendReady', function() {
             /**
              * checks if the backend is ready
@@ -15,7 +17,37 @@
             console.log('backendReady');
             gapiReady=true;
         });
+       $rootScope.$on('itemsChanged', function() {
 
+       });
+      /**
+      * wie oft soll die API nach einer neuen Version angefragt werden?
+      * Dadurch könnte meine Server time zu oft angefragt werden und extrme
+      * Kosten verursachen! Am besten einmal nach jedem Start pro Tag!
+      */
+     var istartApiMethods = function() {
+          function checkRemoteSync () {
+             var now = Date.now();
+              if(lastSync != null) {
+                  if(lastSync <= 3600) {
+                      console.log('sync');
+                  }
+              } else {
+                  console.log('sync');
+              }
+       };
+         /**
+          * timestamp with the latest sync time
+          */
+        var loadChangedData = function() {
+            chrome.storage.local.get('lastlocalchanged', function(ts) {
+                lastLocalSetChanged=ts;
+            });
+            chrome.storage.local.get('lastremotesync', function(ts) {
+                lastSync=ts;
+            });
+        };
+        loadChangedData();
         var setToken = function(token) {
             token =token;
             gapi.auth.setToken(createTokenObject(token));
@@ -94,6 +126,94 @@
                  });
              return defer.promise;
          };
+
+         /**
+          * TODO:check here the last sync time
+          */
+        var getRemoteTiles = function() {
+             setLocalToken();
+             gapi.client.istart.tiles.get.desktop()
+                 .execute(function(res) {
+                     console.log(res, "DATA");
+                     if(res.code===401)
+                        return;
+                     //build here the istart items array
+                     var itemsArr=[];
+                     for(var itemsIndex in res.tile_config) {
+                         var item =res.tile_config[itemsIndex];
+                         item.w=item.width;
+                         item.h=item.height;
+                         if(item.config) {
+                             try {
+                                 item.config=JSON.parse(atob(item.config));
+                             } catch(e) {
+                                 console.error(e);
+                             }
+                         }
+                         if(item.border_color) {
+                             item.borderColor=item.border_color;
+                             delete item.border_color;
+                         }
+                         var outerIndex =  parseInt(item.outer_pos);
+                         var innerIndex = parseInt(item.inner_pos);
+                         if(!itemsArr[outerIndex]) {
+                             itemsArr[outerIndex] = [];
+                         }
+                         if(!itemsArr[outerIndex][innerIndex]) {
+                             itemsArr[outerIndex][innerIndex]=[];
+                         }
+                         itemsArr[outerIndex][innerIndex][0] = item;
+                     }
+                     console.log(itemsArr);
+                     matrix.writeBackImport(itemsArr);
+                     $rootScope.$broadcast('syncCloudChanges');
+                 });
+        };
+
+        var insertTilesRemote = function(items) {
+            var transportArr=[];
+            for(var outerIndex in  items) {
+                for(var innerIndex in items[outerIndex]) {
+                    var transportTile={};
+                    if(items[outerIndex][innerIndex]==null)
+                        continue;
+                    var tile = items[outerIndex][innerIndex][0];//one item holds here
+                    transportTile=tile;
+                    if(transportTile.src===false)
+                        delete transportTile.src;
+                    if(transportTile.config) {
+                        var tmp = btoa(JSON.stringify( transportTile.config ))
+                        transportTile.config=tmp;
+                    }
+                    if(transportTile.h) {
+                        transportTile.height= transportTile.h;
+                        delete transportTile.h
+                    } else {
+                        transportTile.height= 1;
+                    }
+                    if(transportTile.w) {
+                        transportTile.width= transportTile.w;
+                        delete transportTile.w
+                    } else {
+                        transportTile.width= 1;
+                    }
+
+                    if(transportTile.borderColor) {
+                        transportTile.border_color = transportTile.borderColor;
+                        delete transportTile.borderColor;
+                    }
+
+                    transportTile.outer_pos = outerIndex;
+                    transportTile.inner_pos = innerIndex;
+                    transportArr.push(transportTile);
+                }
+            }
+            setLocalToken();
+            gapi.client.istart.tiles.insertd({'tile_config':transportArr})
+                .execute(function(res) {
+                    console.log(res);
+                });
+        };
 
          /**
           * register new iStart user!
@@ -210,14 +330,39 @@
 
          };
         loadSilent();
+
+          return {
+              getFeed: fetchListRemote,
+              getMe: fetchMeRemote,
+              setToken:setToken,
+              patchUser:patchUserName,
+              register:registerNewUser,
+              login:login,
+              logout:logout,
+              insertTiles:insertTilesRemote,
+              getRemoteTiles:getRemoteTiles
+          };
+      };
+         istartApiMethods.getInstance = function() {
+             /*
+             * super simple singleton... stuff like pattern
+              */
+           if($rootScope.istartApiInstace === null) {
+                $rootScope.istartApiInstace = new istartApiMethods();
+           }
+           return $rootScope.istartApiInstace;
+         };
+        istartObject = $rootScope.istartApiInstace;
         return {
-            getFeed: fetchListRemote,
-            getMe: fetchMeRemote,
-            setToken:setToken,
-            patchUser:patchUserName,
-            register:registerNewUser,
-            login:login,
-            logout:logout
+            getFeed: istartObject.getFeed,
+            getMe: istartObject.getMe,
+            setToken:istartObject.setToken,
+            patchUser:istartObject.patchUser,
+            register:istartObject.register,
+            login:istartObject.login,
+            logout:istartObject.logout,
+            insertTiles:istartObject.insertTiles,
+            getRemoteTiles:istartObject.getRemoteTiles
         };
     }]);
     function createTokenObject(tokenString) {

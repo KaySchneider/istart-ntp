@@ -50,6 +50,7 @@ angular.module('istart', [
         //$rootScope.authEndpoints = 'https://istartapi.appspot.com';
         $rootScope.authEndpoints = 'http://localhost:8080';
         $window.trackStart();
+       $rootScope.istartApiInstace = null;
         $rootScope.sendTrackingData = function() {
 
             //send the static tracking data from the popup.js

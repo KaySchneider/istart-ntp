@@ -165,6 +165,7 @@ app.factory('matrix', ['$q', 'backgroundMessage',  '$window', '$http', '$rootSco
                 backgroundMessage.message.getMessageSkeleton('saveMatrix', {matrix:matrix})
             ).then(function(data) {
                 deferred.resolve(data);
+                $rootScope.$broadcast('itemsChanged');
             });
             return deferred.promise;
         };
