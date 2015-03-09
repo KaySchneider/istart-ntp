@@ -24,6 +24,7 @@ app.directive('signIn', function() {
                         $scope.error="";
                         $scope.showError=false;
                         $scope.load=false;
+                        $scope.showEmaiError=false;
                         /**
                          * TODO: create a global toast service???
                          * For styling error and success toast ??
@@ -73,7 +74,13 @@ app.directive('signIn', function() {
                                     $scope.load=false;
 
                                 }, function(err){
-
+                                    console.log(err);
+                                    if(err.message=='email_exists') {
+                                        $scope.showEmaiError = true;
+                                        $scope.showErrorToast(err.message);
+                                    } else {
+                                        $scope.showErrorToast(err.message || 'Unkown error please retry.....');
+                                    }
                                 });
 
                         };

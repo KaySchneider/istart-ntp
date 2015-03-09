@@ -10,6 +10,7 @@
          var lastSync = null;
          var lastLocalSetChanged=null;
          var istartObject=null;
+         var lastUserResult=false; //boolean if true it indicates that the last call to the backend fetch the current user was success
          $rootScope.$on('backendReady', function() {
             /**
              * checks if the backend is ready
@@ -20,6 +21,8 @@
        $rootScope.$on('itemsChanged', function() {
 
        });
+
+
       /**
       * wie oft soll die API nach einer neuen Version angefragt werden?
       * Dadurch könnte meine Server time zu oft angefragt werden und extrme
@@ -54,7 +57,7 @@
         };
 
          var setLocalToken =function() {
-             if(token != "") {
+             if(token != "" && token != null) {
                  try {
                      gapi.auth.setToken(JSON.parse(token));
                  } catch(e) {
@@ -65,6 +68,19 @@
 
 
 
+          /**
+           * check if an user exists and the navigator is online
+           * @return boolean online & loggedin state
+           */
+          var getLoggedInAndBrowserStat = function() {
+              if(window.navigator.onLine===true) {
+                  if(lastUserResult===true) {
+                      return true;
+                  }
+              }
+              return false;
+          };
+
         var loadSilent = function() {
             /*chrome.identity.getAuthToken({ 'interactive': false }, function(token) {
                 // Use the token.
@@ -73,7 +89,7 @@
             });*/
 
             token = window.localStorage.getItem('token');
-            console.log(token);
+            console.log(token, 'SERVER TOKEN');
         };
 
          /**
@@ -93,8 +109,10 @@
                      fetchMeRemote()
                          .then(function(data) {
                              defer.resolve(data);
+                             lastUserResult=true;
                              $rootScope.$broadcast('userLoggedIn');
                          }, function(reject) {
+                             lastUserResult=false;
                              defer.reject(reject);
                          });
                  })
@@ -224,16 +242,17 @@
                  username: userRegisterObject.username,
                  password: userRegisterObject.password,
                  email: userRegisterObject.email
-             }).execute(function(res,err) {
-                 console.log(res, 'RESULT');
+             }).execute(function(res) {
+                 console.log(res,'RESULT');
                  console.log(res.id);
-                 console.log(err, 'ERR');
                  if(res.error) {
                      defer.reject(res);
                  }
                  if(res.id) {
                      defer.resolve(res);
                  }
+             }, function(e) {
+                 console.log(e);
              });
 
              return defer.promise;
@@ -279,11 +298,13 @@
             return defer.promise;
         };
 
+          /**
+           * gets the current loggin user
+           * @returns {defer.promise|*}
+           */
          var fetchMeRemote = function() {
-
              var defer = $q.defer();
              var loadData = function() {
-                 console.log('LOAD LOAD');
                  if(gapiReady==false) {
                      if(loopCount==20) {
                          loopCount=0;
@@ -298,6 +319,10 @@
                  }
                  console.log('load Data inside loader');
                  setLocalToken();
+                 if(token==null || token == "") {
+                     defer.reject(false);
+                     return;
+                 }
                  gapi.client.istart.users.get({id:'me'}).execute(function(resp) {
                      console.log(resp, "USER DATA");
                      if(resp.code==401||resp.error) {
@@ -329,8 +354,7 @@
              return defer.promise;
 
          };
-        loadSilent();
-
+          loadSilent();
           return {
               getFeed: fetchListRemote,
               getMe: fetchMeRemote,
@@ -351,7 +375,8 @@
                 $rootScope.istartApiInstace = new istartApiMethods();
            }
            return $rootScope.istartApiInstace;
-         };
+        };
+        istartApiMethods.getInstance();
         istartObject = $rootScope.istartApiInstace;
         return {
             getFeed: istartObject.getFeed,

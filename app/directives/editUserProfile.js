@@ -16,7 +16,8 @@ app.directive('editUserProfile', function() {
                     function($scope, $mdDialog, $window, analytics, istartApi, $mdToast) {
                         analytics.track('showEditUserProfile', 'system');
                         $scope.user = {
-                            username:''
+                            username:'',
+                            password:'' /*TODO: move edit password into an extra model*/
                         };
                         $scope.error="";
                         $scope.showError=false;

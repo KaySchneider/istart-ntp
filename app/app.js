@@ -43,12 +43,13 @@ angular.module('istart', [
             'ngMaterial',
             'ngAnimate'
     ]
-).run(['$rootScope','$window' ,'analytics','liveTileApi','$timeout',
-  function($rootScope, $window, analytics, liveTileApi, $timeout) {
+).run(['$rootScope','$window' ,'analytics','liveTileApi','$timeout', 'onlineState',
+  function($rootScope, $window, analytics, liveTileApi, $timeout, onlineState) {
         $rootScope.api = liveTileApi;
+        $rootScope.onLineState = onlineState;
         $rootScope.uuidList = [];
-        //$rootScope.authEndpoints = 'https://istartapi.appspot.com';
-        $rootScope.authEndpoints = 'http://localhost:8080';
+        $rootScope.authEndpoints = 'https://istartapi.appspot.com';
+        //$rootScope.authEndpoints = 'http://localhost:8080';
         $window.trackStart();
        $rootScope.istartApiInstace = null;
         $rootScope.sendTrackingData = function() {
@@ -87,7 +88,9 @@ angular.module('istart', [
                   console.log('LOADED');
                   $rootScope.$broadcast('backendReady');
               }, ROOT);
-
+            /**
+             * NEEDED ONLY FOR GAUTH PROVIDER LOGIN
+             */
             /*gapi.client.load('oauth2', 'v2',  function() {
                 $rootScope.is_backend_ready = true;
                 console.log('LOADED');
@@ -96,7 +99,6 @@ angular.module('istart', [
         };
         $window.init= function() {
             console.log("INIT THIS FUUU");
-            $rootScope.$apply($rootScope.load_guestbook_lib);
             $rootScope.load_guestbook_lib();
         };
 
@@ -134,7 +136,6 @@ angular.module('istart', [
             // Angular before v1.2 uses $compileProvider.urlSanitizationWhitelist(...)
             console.debug('TIME TO THE APP START in seconds:' , (Date.now() - window.startTime)/1000);
         $urlRouterProvider.otherwise('/desktop');
-            console.log('START ROUTING THE FUCKING APP');
         $stateProvider
             .state('desktop', {
                 url: '/desktop',
