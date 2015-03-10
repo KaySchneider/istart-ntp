@@ -6,21 +6,21 @@
          var gapiReady=false;
          var loopCount=0;
          var token = "";
-         var timeToCacheUser= 1000000; //time in ms to cache the user data locally without checking it again from the server! 1000sec
+         var timeToCacheUser= 1000000; //time in ms to cache the user data locally without checking it again from the server! 1000sec 1000000
          var lastSync = null;
          var lastLocalSetChanged=null;
          var istartObject=null;
          var lastUserResult=false; //boolean if true it indicates that the last call to the backend fetch the current user was success
          var upsyncTimeout = 2000;
          var lastUpSync=null;
-
-         $rootScope.$on('backendReady', function() {
+         var checkRemoteTimeOut=1800000; //set timeout to 30minutes! before syncing again
+       $rootScope.$on('backendReady', function() {
             /**
              * checks if the backend is ready
              */
             console.log('backendReady');
             gapiReady=true;
-        });
+       });
        $rootScope.$on('itemsChanged', function() {
            istartObject.upSync();
        });
@@ -51,12 +51,12 @@
               var now = Date.now();
               if (lastSync != null) {
                   console.log(lastSync, 'LAST SYNC');
-                  if (lastSync <= 3600) {
+                  if ( (Date.now() - lastSync) >= 1) {
                       console.log('start a sync time is over');
-                      fetchListRemote();
+                      getRemoteTiles();
                   }
               } else {
-                  fetchListRemote();
+                  getRemoteTiles();
                   console.log('sync is null, start a sync');
               }
           };
@@ -66,16 +66,16 @@
           var loadChangedData = function () {
               chrome.storage.local.get('lastlocalchanged', function (ts) {
                   if(ts.lastlocalchanged)
-                    lastLocalSetChanged = ts;
+                    lastLocalSetChanged = ts.lastlocalchanged;
               });
               chrome.storage.local.get('lastremotesync', function (ts) {
                   if(ts.lastremotesync)
-                    lastSync = ts;
+                    lastSync = ts.lastremotesync;
               });
           };
           var setLastSync = function() {
               //set local sync to now
-              chrome.storage.loca.set({'lastremotesync': date.now() }, function(ts) {
+              chrome.storage.local.set({'lastremotesync': Date.now() }, function(ts) {
 
               });
           };
@@ -178,44 +178,77 @@
            * TODO:check here the last sync time
            */
           var getRemoteTiles = function () {
+
               setLocalToken();
-              gapi.client.istart.tiles.get.desktop()
-                  .execute(function (res) {
-                      console.log(res, "DATA");
-                      if (res.code === 401 || res.code === 400)
-                          return;
-                      //build here the istart items array
-                      var itemsArr = [];
-                      for (var itemsIndex in res.tile_config) {
-                          var item = res.tile_config[itemsIndex];
-                          item.w = item.width;
-                          item.h = item.height;
-                          if (item.config) {
-                              try {
-                                  item.config = JSON.parse(atob(item.config));
-                              } catch (e) {
-                                  console.error(e);
+              var doCall = function() {
+                  gapi.client.istart.tiles.get.desktop()
+                      .execute(function (res) {
+                          console.log(res, "DATA");
+                          if (res.code === 401 || res.code === 400)
+                              return;
+                          //build here the istart items array
+                          var itemsArr = [];
+                          for (var itemsIndex in res.tile_config) {
+                              var item = res.tile_config[itemsIndex];
+                              item.w = item.width;
+                              item.h = item.height;
+                              if (item.config) {
+                                  try {
+                                      item.config = JSON.parse(atob(item.config));
+                                  } catch (e) {
+                                      console.error(e);
+                                  }
+                              }
+                              if (item.border_color) {
+                                  item.borderColor = item.border_color;
+                                  delete item.border_color;
+                              }
+                              var outerIndex = parseInt(item.outer_pos);
+                              var innerIndex = parseInt(item.inner_pos);
+                              if (!itemsArr[outerIndex]) {
+                                  itemsArr[outerIndex] = [];
+                              }
+                              if (!itemsArr[outerIndex][innerIndex]) {
+                                  itemsArr[outerIndex][innerIndex] = [];
+                              }
+                              itemsArr[outerIndex][innerIndex][0] = item;
+                          }
+                          console.log(itemsArr);
+                          /**
+                           * here we should chek if the tiles are different from the local ones!
+                           */
+                          matrix.getLocalData()
+                              .then(function(items) {
+                                    if(checkItems(items, itemsArr) === true) {
+                                        matrix.writeBackImport(itemsArr);
+                                        $rootScope.$broadcast('syncCloudChanges');
+                                    }
+                              });
+                          });
+                      setLastSync();// set the last sync to now!
+              };
+              var checkItems = function(items, itemsArr) {
+                  var diff=false;
+                  for(var itemO in items) {
+                      for(var itemI in items[itemO]) {
+                          if(items[itemO][itemI] == null) {
+                              if(items[itemO][itemI]!=itemsArr[itemO][itemI]) {
+                                  var diff=true;
+                                  return true;
+                              }
+                          } else {
+                              if(items[itemO][itemI][0].uuid != itemsArr[itemO][itemI][0].uuid){
+                                  var diff=true;
+                                  return true;
                               }
                           }
-                          if (item.border_color) {
-                              item.borderColor = item.border_color;
-                              delete item.border_color;
-                          }
-                          var outerIndex = parseInt(item.outer_pos);
-                          var innerIndex = parseInt(item.inner_pos);
-                          if (!itemsArr[outerIndex]) {
-                              itemsArr[outerIndex] = [];
-                          }
-                          if (!itemsArr[outerIndex][innerIndex]) {
-                              itemsArr[outerIndex][innerIndex] = [];
-                          }
-                          itemsArr[outerIndex][innerIndex][0] = item;
                       }
-                      console.log(itemsArr);
-                      matrix.writeBackImport(itemsArr);
-                      $rootScope.$broadcast('syncCloudChanges');
-                      setLastSync();// set the last sync to now!
-                  });
+                  }
+                  return false;
+              };
+              waitUntilGapiReady().then(function() {
+                 doCall();
+              });
           };
 
           var insertTilesRemote = function (items) {
@@ -304,7 +337,6 @@
 
           var fetchListRemote = function () {
               var defer = $q.defer();
-
               var loadData = function () {
                   console.log('LOAD LOAD');
                   if (gapiReady == false) {
@@ -327,6 +359,31 @@
               };
               loadData();
               return defer.promise;
+          };
+
+          var waitUntilGapiReady = function() {
+            var defer = $q.defer();
+              var loopi = 0;
+                var checkApi = function() {
+                    console.log('CHECK');
+                    if(gapiReady==false) {
+                        console.log(loopi);
+                        if(loopi==40) {
+                            loopi=0;
+                            console.log('REJEcT ME');
+                            defer.reject();//reject when offline
+                            return;
+                        } else {
+                            loopi++;
+                            $timeout(checkApi, 800);
+                        }
+                        return;
+                    }
+                    console.log("RESOLVE ME START");
+                    defer.resolve();
+                };
+              checkApi();
+            return defer.promise;
           };
           /**
            * gets the current loggin user
