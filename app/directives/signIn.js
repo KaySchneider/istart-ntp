@@ -59,13 +59,28 @@ app.directive('signIn', function() {
                                 });
                         };
 
+                        $scope.resendPW = function() {
+                            if($scope.user.mail != '') {
+                                $scope.load=true;
+                                istartApi.recoverPassword($scope.user.mail)
+                                    .then(function() {
+                                        $scope.load=false;
+                                        $scope.showSuccessToast('We send you an email with password recovery options, please look also on the spam folder :)');
+                                    }, function() {
+                                        $scope.load=false;
+                                    });
+                            } else {
+                                $scope.showSuccessToast('Uuuuuuuuups.... there is no email address :) ');
+                            }
+                        };
+
                         //create user
                         $scope.register =function() {
                             $scope.load=true;
                             istartApi.register($scope.user)
                                 .then(function(res) {
                                     if(res.error) {
-                                        $scope.error=res.message || 'Unknown error please restart the app';
+                                        $scope.error=res.message || 'Unkown error please retry..... maybe the email is already in use....';
                                         $scope.showError=true;
                                         $scope.showErrorToast($scope.error);
                                     } else {
@@ -79,8 +94,9 @@ app.directive('signIn', function() {
                                         $scope.showEmaiError = true;
                                         $scope.showErrorToast(err.message);
                                     } else {
-                                        $scope.showErrorToast(err.message || 'Unkown error please retry.....');
+                                        $scope.showErrorToast(err.message || 'Unkown error please retry..... maybe the email is already in use....');
                                     }
+                                    $scope.load=false;
                                 });
 
                         };
@@ -95,7 +111,6 @@ app.directive('signIn', function() {
                             console.log('CLOSE');
                             $mdDialog.hide(answer);
                         };
-
                     }];
                 $scope.showAdvanced = function (ev) {
                     $mdDialog.show({

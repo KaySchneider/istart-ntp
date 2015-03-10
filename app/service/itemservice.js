@@ -166,6 +166,7 @@ app.factory('matrix', ['$q', 'backgroundMessage',  '$window', '$http', '$rootSco
             ).then(function(data) {
                 deferred.resolve(data);
                 $rootScope.$broadcast('itemsChanged');
+                //the items are stored
             });
             return deferred.promise;
         };

@@ -26,7 +26,6 @@ app.directive('editUserProfile', function() {
                             $scope.load=false;
                             $scope.user.username = userdata.username;
                         });
-
                         $scope.showErrorToast = function(msg) {
                             $mdToast.show(
                                 $mdToast.simple()
@@ -35,7 +34,6 @@ app.directive('editUserProfile', function() {
                                     .hideDelay(3000)
                             );
                         };
-
                         $scope.showSuccessToast = function(msg) {
                             $mdToast.show(
                                 $mdToast.simple()

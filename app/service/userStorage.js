@@ -9,6 +9,7 @@ app.factory('userStorage',[ '$q', '$rootScope',
                 defer.resolve(user);//use the local cache! TODO:move this to angularCacheFactory!
             } else {
                 chrome.storage.local.get('cloudUser', function(data) {
+                    console.log(data, 'USER DATA');
                    if(data.cloudUser) {
                        try {
                            user = JSON.parse(data.cloudUser);

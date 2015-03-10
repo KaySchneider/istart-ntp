@@ -35,6 +35,12 @@
             <md-button ng-click="login()">
                 login
             </md-button>
+            <md-button ng-click="resendPW()">
+                forgot password ? - Send a recovery code to my email address!
+            </md-button>
+        </md-content>
+        <md-content ng-show="load==true" layout="center center">
+            <md-progress-circular class="md-accent" md-mode="indeterminate"></md-progress-circular>
         </md-content>
     </md-content>
     <div class="md-actions" layout="row">
