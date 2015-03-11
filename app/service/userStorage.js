@@ -32,6 +32,10 @@ app.factory('userStorage',[ '$q', '$rootScope',
             })
         };
 
+        var clearCache = function() {
+            chrome.storage.local.remove('cloudUser');
+        };
+
         /**
          * clears user object storage
          */
@@ -45,7 +49,8 @@ app.factory('userStorage',[ '$q', '$rootScope',
 
         return {
             getMe:getCurrentUser,
-            setMe:setCurrentUser
+            setMe:setCurrentUser,
+            clear:clearCache
         }
     }
 ]);

@@ -159,6 +159,14 @@
                */
               var defer = $q.defer();
               setLocalToken();
+              if(gapi.auth.getToken() == null) {
+                  if (localStorage) {
+                      localStorage.removeItem('token');
+                  }
+                  userStorage.clear();
+                  $rootScope.$broadcast('userLogout');
+                  defer.resolve();
+              } else {
               $http.post($rootScope.authEndpoints + '/api/logout', {'t': gapi.auth.getToken()})
                   .success(function (data) {
                       console.log(data);
@@ -166,12 +174,14 @@
                       if (localStorage) {
                           localStorage.removeItem('token');
                       }
+                          userStorage.clear();
                       $rootScope.$broadcast('userLogout');
                       defer.resolve(data);
                   })
                   .error(function (err) {
                       defer.reject(err);
                   });
+              }
               return defer.promise;
           };
 
@@ -225,7 +235,6 @@
                                         matrix.writeBackImport(itemsArr).then(function() {
                                             $rootScope.$broadcast('syncCloudChanges');
                                         });
-
                                     }
                               });
                           });
@@ -236,10 +245,24 @@
                   for(var itemO in items) {
                       for(var itemI in items[itemO]) {
                           if(items[itemO][itemI] == null) {
+                              if(!itemsArr[itemO]) {
+                                  diff = true;
+                                  continue;
+                              } else if (!itemsArr[itemO][itemI]) {
+                                  diff = true;
+                                  continue;
+                              }
                               if(items[itemO][itemI]!=itemsArr[itemO][itemI]) {
                                   diff=true;
                               }
                           } else {
+                                if(!itemsArr[itemO]) {
+                                      diff = true;
+                                      continue;
+                                  } else if (!itemsArr[itemO][itemI]) {
+                                      diff = true;
+                                      continue;
+                                  }
                               if(items[itemO][itemI][0].uuid != itemsArr[itemO][itemI][0].uuid){
                                   diff=true;
                               }
