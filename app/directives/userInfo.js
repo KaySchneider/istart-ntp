@@ -12,10 +12,7 @@
                 $scope.usernamae="";
 
                 $scope.getRemoteTiles = function() {
-                    istartApi.getRemoteTiles()
-                        .then(function(data) {
-
-                        });
+                    istartApi.getRemoteTiles();
                 };
 
                 $scope.insertTiles = function() {

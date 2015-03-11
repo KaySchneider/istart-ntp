@@ -46,10 +46,11 @@
               }
           };
 
-          var checkRemoteSync = function() {
-              console.log('NOW WE START WITH THE CHEcK RMOTE BLAH');
+          var checkRemoteSync = function(getnow) {
+
+              console.log('NOW WE START WITH THE CHEcK RMOTE BLAH', getnow);
               var now = Date.now();
-              if (lastSync != null) {
+              if (lastSync != null || getnow !== true) {
                   console.log(lastSync, 'LAST SYNC');
                   if ( (Date.now() - lastSync) >= 1) {
                       console.log('start a sync time is over');
@@ -138,7 +139,7 @@
                           .then(function (data) {
                               defer.resolve(data);
                               lastUserResult = true;
-                              checkRemoteSync();
+                              checkRemoteSync(true);
                               $rootScope.$broadcast('userLoggedIn');
                           }, function (reject) {
                               lastUserResult = false;
@@ -213,15 +214,18 @@
                               }
                               itemsArr[outerIndex][innerIndex][0] = item;
                           }
-                          console.log(itemsArr);
+                          console.log(itemsArr, 'REMOTE');
                           /**
                            * here we should chek if the tiles are different from the local ones!
                            */
                           matrix.getLocalData()
                               .then(function(items) {
                                     if(checkItems(items, itemsArr) === true) {
-                                        matrix.writeBackImport(itemsArr);
-                                        $rootScope.$broadcast('syncCloudChanges');
+                                        console.log('WRITE BACK TO LOCAL');
+                                        matrix.writeBackImport(itemsArr).then(function() {
+                                            $rootScope.$broadcast('syncCloudChanges');
+                                        });
+
                                     }
                               });
                           });
@@ -233,18 +237,23 @@
                       for(var itemI in items[itemO]) {
                           if(items[itemO][itemI] == null) {
                               if(items[itemO][itemI]!=itemsArr[itemO][itemI]) {
-                                  var diff=true;
-                                  return true;
+                                  diff=true;
                               }
                           } else {
                               if(items[itemO][itemI][0].uuid != itemsArr[itemO][itemI][0].uuid){
-                                  var diff=true;
-                                  return true;
+                                  diff=true;
                               }
                           }
                       }
+                      if(diff==true) {
+                          break;
+                      }
                   }
-                  return false;
+                  if(diff===true) {
+                      return true;
+                  } else {
+                      return false;
+                  }
               };
               waitUntilGapiReady().then(function() {
                  doCall();
@@ -418,7 +427,7 @@
                           defer.reject(false);
                       } else {
                           userStorage.setMe(resp);//set the local user
-                          checkRemoteSync();
+                          //checkRemoteSync();
                           /**
                            * broadcast login?
                            */
